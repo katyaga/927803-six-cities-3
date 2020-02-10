@@ -1,8 +1,10 @@
 import React from "react";
+import PropTypes from "prop-types";
+import {getRandomElement} from "../../utils";
+
 
 const Main = (props) => {
-  // eslint-disable-next-line react/prop-types
-  const {offersCount} = props;
+  const {offersCount, offersNames} = props;
 
   return (
     <main className="page__main page__main--index">
@@ -95,7 +97,7 @@ const Main = (props) => {
                     </div>
                   </div>
                   <h2 className="place-card__name">
-                    <a href="#">Beautiful &amp; luxurious apartment at great location</a>
+                    <a href="#">{getRandomElement(offersNames)}</a>
                   </h2>
                   <p className="place-card__type">Apartment</p>
                 </div>
@@ -130,7 +132,7 @@ const Main = (props) => {
                     </div>
                   </div>
                   <h2 className="place-card__name">
-                    <a href="#">Wood and stone place</a>
+                    <a href="#">{getRandomElement(offersNames)}</a>
                   </h2>
                   <p className="place-card__type">Private room</p>
                 </div>
@@ -163,7 +165,7 @@ const Main = (props) => {
                     </div>
                   </div>
                   <h2 className="place-card__name">
-                    <a href="#">Canal View Prinsengracht</a>
+                    <a href="#">{getRandomElement(offersNames)}</a>
                   </h2>
                   <p className="place-card__type">Apartment</p>
                 </div>
@@ -199,7 +201,7 @@ const Main = (props) => {
                     </div>
                   </div>
                   <h2 className="place-card__name">
-                    <a href="#">Nice, cozy, warm big bed apartment</a>
+                    <a href="#">{getRandomElement(offersNames)}</a>
                   </h2>
                   <p className="place-card__type">Apartment</p>
                 </div>
@@ -234,7 +236,7 @@ const Main = (props) => {
                     </div>
                   </div>
                   <h2 className="place-card__name">
-                    <a href="#">Wood and stone place</a>
+                    <a href="#">{getRandomElement(offersNames)}</a>
                   </h2>
                   <p className="place-card__type">Private room</p>
                 </div>
@@ -248,6 +250,11 @@ const Main = (props) => {
       </div>
     </main>
   );
+};
+
+Main.propTypes = {
+  offersCount: PropTypes.number.isRequired,
+  offersNames: PropTypes.arrayOf(PropTypes.string).isRequired
 };
 
 export default Main;
