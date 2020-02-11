@@ -275,6 +275,13 @@ exports[`Should WelcomeScreen render correctly 1`] = `
             className="cities__place-card place-card"
           >
             <div
+              className="place-card__mark"
+            >
+              <span>
+                Premium
+              </span>
+            </div>
+            <div
               className="cities__image-wrapper place-card__image-wrapper"
             >
               <a
@@ -284,7 +291,7 @@ exports[`Should WelcomeScreen render correctly 1`] = `
                   alt="Place image"
                   className="place-card__image"
                   height="200"
-                  src="img/room.jpg"
+                  src="img/apartment-01.jpg"
                   width="260"
                 />
               </a>
@@ -301,7 +308,7 @@ exports[`Should WelcomeScreen render correctly 1`] = `
                   <b
                     className="place-card__price-value"
                   >
-                    €80
+                    €120
                   </b>
                   <span
                     className="place-card__price-text"
@@ -310,7 +317,7 @@ exports[`Should WelcomeScreen render correctly 1`] = `
                   </span>
                 </div>
                 <button
-                  className="place-card__bookmark-button place-card__bookmark-button--active button"
+                  className="place-card__bookmark-button button"
                   type="button"
                 >
                   <svg
@@ -325,7 +332,7 @@ exports[`Should WelcomeScreen render correctly 1`] = `
                   <span
                     className="visually-hidden"
                   >
-                    In bookmarks
+                    To bookmarks
                   </span>
                 </button>
               </div>
@@ -356,19 +363,26 @@ exports[`Should WelcomeScreen render correctly 1`] = `
                   href="#"
                   onClick={[Function]}
                 >
-                  Apartment 4
+                  Apartment 2
                 </a>
               </h2>
               <p
                 className="place-card__type"
               >
-                Private room
+                Apartment
               </p>
             </div>
           </article>
           <article
             className="cities__place-card place-card"
           >
+            <div
+              className="place-card__mark"
+            >
+              <span>
+                Premium
+              </span>
+            </div>
             <div
               className="cities__image-wrapper place-card__image-wrapper"
             >
@@ -379,7 +393,7 @@ exports[`Should WelcomeScreen render correctly 1`] = `
                   alt="Place image"
                   className="place-card__image"
                   height="200"
-                  src="img/apartment-02.jpg"
+                  src="img/apartment-01.jpg"
                   width="260"
                 />
               </a>
@@ -396,7 +410,7 @@ exports[`Should WelcomeScreen render correctly 1`] = `
                   <b
                     className="place-card__price-value"
                   >
-                    €132
+                    €120
                   </b>
                   <span
                     className="place-card__price-text"
@@ -481,7 +495,7 @@ exports[`Should WelcomeScreen render correctly 1`] = `
                   alt="Place image"
                   className="place-card__image"
                   height="200"
-                  src="img/apartment-03.jpg"
+                  src="img/apartment-01.jpg"
                   width="260"
                 />
               </a>
@@ -498,7 +512,7 @@ exports[`Should WelcomeScreen render correctly 1`] = `
                   <b
                     className="place-card__price-value"
                   >
-                    €180
+                    €120
                   </b>
                   <span
                     className="place-card__price-text"
@@ -553,7 +567,7 @@ exports[`Should WelcomeScreen render correctly 1`] = `
                   href="#"
                   onClick={[Function]}
                 >
-                  Apartment 2
+                  Apartment 4
                 </a>
               </h2>
               <p
@@ -567,6 +581,13 @@ exports[`Should WelcomeScreen render correctly 1`] = `
             className="cities__place-card place-card"
           >
             <div
+              className="place-card__mark"
+            >
+              <span>
+                Premium
+              </span>
+            </div>
+            <div
               className="cities__image-wrapper place-card__image-wrapper"
             >
               <a
@@ -576,7 +597,7 @@ exports[`Should WelcomeScreen render correctly 1`] = `
                   alt="Place image"
                   className="place-card__image"
                   height="200"
-                  src="img/room.jpg"
+                  src="img/apartment-01.jpg"
                   width="260"
                 />
               </a>
@@ -593,7 +614,7 @@ exports[`Should WelcomeScreen render correctly 1`] = `
                   <b
                     className="place-card__price-value"
                   >
-                    €80
+                    €120
                   </b>
                   <span
                     className="place-card__price-text"
@@ -602,7 +623,7 @@ exports[`Should WelcomeScreen render correctly 1`] = `
                   </span>
                 </div>
                 <button
-                  className="place-card__bookmark-button place-card__bookmark-button--active button"
+                  className="place-card__bookmark-button button"
                   type="button"
                 >
                   <svg
@@ -611,13 +632,13 @@ exports[`Should WelcomeScreen render correctly 1`] = `
                     width="18"
                   >
                     <use
-                      xlinkHref="#icon-bookmark-active"
+                      xlinkHref="#icon-bookmark"
                     />
                   </svg>
                   <span
                     className="visually-hidden"
                   >
-                    In bookmarks
+                    To bookmarks
                   </span>
                 </button>
               </div>
@@ -654,7 +675,7 @@ exports[`Should WelcomeScreen render correctly 1`] = `
               <p
                 className="place-card__type"
               >
-                Private room
+                Apartment
               </p>
             </div>
           </article>
