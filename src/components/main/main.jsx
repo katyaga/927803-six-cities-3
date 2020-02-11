@@ -2,9 +2,8 @@ import React from "react";
 import PropTypes from "prop-types";
 import {getRandomElement} from "../../utils";
 
-
 const Main = (props) => {
-  const {offersCount, offersNames} = props;
+  const {offersCount, offersNames, onTitleClick} = props;
 
   return (
     <main className="page__main page__main--index">
@@ -97,7 +96,7 @@ const Main = (props) => {
                     </div>
                   </div>
                   <h2 className="place-card__name">
-                    <a href="#">{getRandomElement(offersNames)}</a>
+                    <a href="#" onClick={onTitleClick}>{getRandomElement(offersNames)}</a>
                   </h2>
                   <p className="place-card__type">Apartment</p>
                 </div>
@@ -132,7 +131,7 @@ const Main = (props) => {
                     </div>
                   </div>
                   <h2 className="place-card__name">
-                    <a href="#">{getRandomElement(offersNames)}</a>
+                    <a href="#" onClick={onTitleClick}>{getRandomElement(offersNames)}</a>
                   </h2>
                   <p className="place-card__type">Private room</p>
                 </div>
@@ -165,7 +164,7 @@ const Main = (props) => {
                     </div>
                   </div>
                   <h2 className="place-card__name">
-                    <a href="#">{getRandomElement(offersNames)}</a>
+                    <a href="#" onClick={onTitleClick}>{getRandomElement(offersNames)}</a>
                   </h2>
                   <p className="place-card__type">Apartment</p>
                 </div>
@@ -201,7 +200,7 @@ const Main = (props) => {
                     </div>
                   </div>
                   <h2 className="place-card__name">
-                    <a href="#">{getRandomElement(offersNames)}</a>
+                    <a href="#" onClick={onTitleClick}>{getRandomElement(offersNames)}</a>
                   </h2>
                   <p className="place-card__type">Apartment</p>
                 </div>
@@ -236,7 +235,7 @@ const Main = (props) => {
                     </div>
                   </div>
                   <h2 className="place-card__name">
-                    <a href="#">{getRandomElement(offersNames)}</a>
+                    <a href="#" onClick={onTitleClick}>{getRandomElement(offersNames)}</a>
                   </h2>
                   <p className="place-card__type">Private room</p>
                 </div>
@@ -254,7 +253,8 @@ const Main = (props) => {
 
 Main.propTypes = {
   offersCount: PropTypes.number.isRequired,
-  offersNames: PropTypes.arrayOf(PropTypes.string).isRequired
+  offersNames: PropTypes.arrayOf(PropTypes.string).isRequired,
+  onTitleClick: PropTypes.func.isRequired,
 };
 
 export default Main;
