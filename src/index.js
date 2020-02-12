@@ -4,15 +4,20 @@ import App from "./components/app/app.jsx";
 
 const Settings = {
   OFFERS_COUNT: 312,
-  OFFERS_NAMES:
-    [`Beautiful &amp; luxurious apartment at great location`,
-      `Wood and stone place`,
-      `Canal View Prinsengrach`,
-      `Nice, cozy, warm big bed apartment`]
+  OFFERS_SHOWN_CARDS: 5,
+  OFFERS_NAMES: [
+    `Beautiful &amp; luxurious apartment at great location`,
+    `Wood and stone place`,
+    `Canal View Prinsengrach`,
+    `Nice, cozy, warm big bed apartment`
+  ]
 };
 
 ReactDOM.render(
-    <App offersCount = { Settings.OFFERS_COUNT } offersNames = { Settings.OFFERS_NAMES }
+    <App
+      offersCount = { Settings.OFFERS_COUNT }
+      offersShownCards = { Settings.OFFERS_SHOWN_CARDS }
+      offersNames = { Settings.OFFERS_NAMES }
     />,
     document.querySelector(`#root`)
 );
