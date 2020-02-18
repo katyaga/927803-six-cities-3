@@ -1,10 +1,6 @@
 import React from "react";
 import renderer from "react-test-renderer";
-import Main from "./main.jsx";
-
-const MockData = {
-  OFFERS_COUNT: 150,
-};
+import OfferList from "./offer-list";
 
 const MockOffers = [
   {
@@ -36,12 +32,12 @@ const MockOffers = [
   },
 ];
 
-it(`Should WelcomeScreen render correctly`, () => {
+it(`Should OfferList render correctly`, () => {
   const tree = renderer
-    .create(<Main
-      offersCount={MockData.OFFERS_COUNT}
+    .create(<OfferList
       offers={MockOffers}
-      onTitleClick={() => {}}
+      onCardTitleClick={() => {}}
+      onHover={() => {}}
     />)
     .toJSON();
 
