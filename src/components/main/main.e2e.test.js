@@ -9,14 +9,37 @@ Enzyme.configure({
 
 const MockData = {
   OFFERS_COUNT: 150,
-  OFFERS_SHOWN_CARDS: 5,
-  OFFERS_NAMES: [
-    `Apartment 1`,
-    `Apartment 2`,
-    `Apartment 3`,
-    `Apartment 4`
-  ]
 };
+
+const MockOffers = [
+  {
+    id: 1,
+    isPremium: true,
+    image: `img/apartment-01.jpg`,
+    price: 10,
+    title: `apartment1`,
+    type: `HOUSE`,
+    rating: 2,
+  },
+  {
+    id: 2,
+    isPremium: true,
+    image: `img/apartment-02.jpg`,
+    price: 20,
+    title: `apartment2`,
+    type: `ROOM`,
+    rating: 3,
+  },
+  {
+    id: 3,
+    isPremium: true,
+    image: `img/apartment-03.jpg`,
+    price: 30,
+    title: `apartment3`,
+    type: `HOTEL`,
+    rating: 4,
+  },
+];
 
 it(`Should welcome button be pressed`, () => {
   const onTitleClick = jest.fn();
@@ -24,8 +47,7 @@ it(`Should welcome button be pressed`, () => {
   const mainScreen = shallow(
       <Main
         offersCount={MockData.OFFERS_COUNT}
-        offersShownCards={MockData.OFFERS_SHOWN_CARDS}
-        offersNames={MockData.OFFERS_NAMES}
+        offers={MockOffers}
         onTitleClick={onTitleClick}
       />
   );

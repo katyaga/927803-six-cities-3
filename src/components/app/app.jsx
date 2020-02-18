@@ -1,20 +1,24 @@
 import React from "react";
+import PropTypes from "prop-types";
 import Main from "../main/main.jsx";
 
 const titleClickHandler = () => {};
 
 const App = (props) => {
-  // eslint-disable-next-line react/prop-types
-  const {offersCount, offersShownCards, offersNames} = props;
+  const {offersCount, offers} = props;
 
   return (
     <Main
       offersCount={offersCount}
-      offersShownCards={offersShownCards}
-      offersNames={offersNames}
+      offers={offers}
       onTitleClick={titleClickHandler}
     />
   );
+};
+
+App.propTypes = {
+  offersCount: PropTypes.number.isRequired,
+  offers: PropTypes.array.isRequired,
 };
 
 export default App;
