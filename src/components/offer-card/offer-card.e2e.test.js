@@ -8,13 +8,18 @@ Enzyme.configure({
 });
 
 const MockOffer = {
-  id: 1,
+  id: 10,
   isPremium: true,
-  image: `img/apartment-01.jpg`,
+  images: [
+    `img/apartment-01.jpg`,
+    `img/apartment-02.jpg`,
+    `img/apartment-03.jpg`
+  ],
   price: 10,
   title: `apartment1`,
-  type: `ROOM`,
+  type: `Private Room`,
   rating: 4,
+  isFavorites: true,
 };
 
 it(`Should onHover get active card`, () => {
@@ -34,5 +39,27 @@ it(`Should onHover get active card`, () => {
 
   offerCard.simulate(`mouseenter`);
 
-  expect(activeCard.id).toBe(1);
+  expect(activeCard.id).toBe(10);
+});
+
+it(`Should click on title get current card info`, () => {
+  let clickTitleCardId;
+
+  const onTitleClick = (card) => {
+    clickTitleCardId = card.id;
+  };
+
+  const offerCard = shallow(
+      <OfferCard
+        offer={MockOffer}
+        onHover={() => {}}
+        onCardTitleClick={() => onTitleClick(MockOffer)}
+      />
+  );
+
+  const title = offerCard.find(`.place-card__name`);
+
+  title.simulate(`click`);
+
+  expect(clickTitleCardId).toBe(10);
 });

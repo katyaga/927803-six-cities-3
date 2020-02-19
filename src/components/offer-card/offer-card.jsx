@@ -4,7 +4,7 @@ import {RealtyType} from "../../const.js";
 
 const OfferCard = (props) => {
   const {onHover, onCardTitleClick, offer} = props;
-  const {isPremium, image, price, title, type, rating} = offer;
+  const {id, isPremium, images, price, title, type, rating, isFavorites} = offer;
   const starRating = {
     width: `${rating * 20}%`,
   };
@@ -22,7 +22,7 @@ const OfferCard = (props) => {
       </div> : ``}
       <div className="cities__image-wrapper place-card__image-wrapper">
         <a href="#">
-          <img className="place-card__image" src={image} width="260" height="200"
+          <img className="place-card__image" src={images[0]} width="260" height="200"
             alt="Place image"/>
         </a>
       </div>
@@ -32,7 +32,7 @@ const OfferCard = (props) => {
             <b className="place-card__price-value">&euro;{price}</b>
             <span className="place-card__price-text">&#47;&nbsp;night</span>
           </div>
-          <button className="place-card__bookmark-button place-card__bookmark-button--active button"
+          <button className={`place-card__bookmark-button ${isFavorites ? `place-card__bookmark-button--active` : ``} button`}
             type="button">
             <svg className="place-card__bookmark-icon" width="18" height="19">
               <use xlinkHref="#icon-bookmark"></use>
@@ -46,7 +46,9 @@ const OfferCard = (props) => {
             <span className="visually-hidden">Rating</span>
           </div>
         </div>
-        <h2 className="place-card__name" onClick={onCardTitleClick}>
+        <h2 className="place-card__name"
+          onClick={() => onCardTitleClick(id)}
+        >
           <a href="#">{title}</a>
         </h2>
         <p className="place-card__type">{type}</p>
@@ -59,12 +61,14 @@ OfferCard.propTypes = {
   onHover: PropTypes.func,
   onCardTitleClick: PropTypes.func.isRequired,
   offer: PropTypes.shape({
+    id: PropTypes.number.isRequired,
     isPremium: PropTypes.bool.isRequired,
-    image: PropTypes.string.isRequired,
+    images: PropTypes.arrayOf(PropTypes.string).isRequired,
     price: PropTypes.number.isRequired,
     title: PropTypes.string.isRequired,
     rating: PropTypes.number.isRequired,
-    type: PropTypes.oneOf(Object.keys(RealtyType)).isRequired,
+    type: PropTypes.oneOf(Object.values(RealtyType)).isRequired,
+    isFavorites: PropTypes.bool.isRequired,
   }).isRequired,
 };
 

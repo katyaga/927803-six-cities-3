@@ -104,7 +104,7 @@ exports[`Should OfferList render correctly 1`] = `
       <p
         className="place-card__type"
       >
-        HOUSE
+        House
       </p>
     </div>
   </article>
@@ -129,7 +129,7 @@ exports[`Should OfferList render correctly 1`] = `
           alt="Place image"
           className="place-card__image"
           height="200"
-          src="img/apartment-02.jpg"
+          src="img/apartment-01.jpg"
           width="260"
         />
       </a>
@@ -156,7 +156,7 @@ exports[`Should OfferList render correctly 1`] = `
           </span>
         </div>
         <button
-          className="place-card__bookmark-button place-card__bookmark-button--active button"
+          className="place-card__bookmark-button  button"
           type="button"
         >
           <svg
@@ -208,7 +208,7 @@ exports[`Should OfferList render correctly 1`] = `
       <p
         className="place-card__type"
       >
-        ROOM
+        Private Room
       </p>
     </div>
   </article>
@@ -233,7 +233,7 @@ exports[`Should OfferList render correctly 1`] = `
           alt="Place image"
           className="place-card__image"
           height="200"
-          src="img/apartment-03.jpg"
+          src="img/apartment-01.jpg"
           width="260"
         />
       </a>
@@ -260,7 +260,7 @@ exports[`Should OfferList render correctly 1`] = `
           </span>
         </div>
         <button
-          className="place-card__bookmark-button place-card__bookmark-button--active button"
+          className="place-card__bookmark-button  button"
           type="button"
         >
           <svg
@@ -312,7 +312,7 @@ exports[`Should OfferList render correctly 1`] = `
       <p
         className="place-card__type"
       >
-        HOTEL
+        Hotel
       </p>
     </div>
   </article>

@@ -1,6 +1,6 @@
 import React from "react";
 import renderer from "react-test-renderer";
-import OfferCard from "./offer-card";
+import OfferInfo from "./offer-info";
 
 const MockOffer = {
   id: 1,
@@ -12,17 +12,28 @@ const MockOffer = {
   ],
   price: 10,
   title: `apartment1`,
-  type: `Private Room`,
-  rating: 4,
+  type: `Apartment`,
+  description: `Description`,
+  bedroomsCount: 10,
+  guestsCount: 3,
+  facilities: [
+    `Wifi`,
+    `Heating`,
+    `Kitchen`
+  ],
+  rating: 1,
+  host: {
+    avatar: `img/avatar-max.jpg`,
+    name: `Max`,
+    isSuper: true,
+  },
   isFavorites: true,
 };
 
-it(`Should OfferCard render correctly`, () => {
+it(`Should OfferInfo render correctly`, () => {
   const tree = renderer
-    .create(<OfferCard
+    .create(<OfferInfo
       offer={MockOffer}
-      onHover={() => {}}
-      onCardTitleClick={() => {}}
     />)
     .toJSON();
 
