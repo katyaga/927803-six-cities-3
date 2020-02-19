@@ -1,40 +1,112 @@
-import {OFFERS_TITLES, RealtyType} from "../const";
+import {OFFERS_TITLES, RealtyType, FACILITIES} from "../const";
 
 export const offers = [
   {
     id: 1,
     isPremium: true,
-    image: `img/apartment-01.jpg`,
+    images: [
+      `img/apartment-01.jpg`,
+      `img/apartment-02.jpg`,
+      `img/apartment-03.jpg`,
+      `img/studio-01.jpg`,
+      `img/room.jpg`,
+      `img/apartment-02.jpg`,
+      `img/apartment-03.jpg`
+    ],
     price: 80,
     title: OFFERS_TITLES[0],
     type: RealtyType.APARTMENT,
+    description: `Beautiful &amp; luxurious apartment at great location. Wood and stone place. Canal View Prinsengrach.`,
+    bedroomsCount: 2,
+    guestsCount: 4,
+    facilities: FACILITIES,
     rating: 4,
+    host: {
+      avatar: `img/avatar-angelina.jpg`,
+      name: `Mary`,
+      isSuper: true,
+    },
+    isFavorites: false,
   },
   {
     id: 2,
     isPremium: false,
-    image: `img/apartment-02.jpg`,
+    images: [
+      `img/apartment-02.jpg`,
+      `img/apartment-01.jpg`,
+      `img/apartment-03.jpg`,
+      `img/studio-01.jpg`,
+      `img/room.jpg`,
+      `img/apartment-02.jpg`,
+      `img/apartment-01.jpg`
+    ],
     price: 100,
     title: OFFERS_TITLES[1],
     type: RealtyType.HOTEL,
+    description: `Nice, cozy, warm big bed apartment. Wood and stone place. Canal View Prinsengrach.`,
+    bedroomsCount: 3,
+    guestsCount: 6,
+    facilities: FACILITIES,
     rating: 3,
+    host: {
+      avatar: `img/avatar-max.jpg`,
+      name: `Max`,
+      isSuper: true,
+    },
+    isFavorites: true,
   },
   {
     id: 3,
     isPremium: true,
-    image: `img/apartment-03.jpg`,
+    images: [
+      `img/apartment-03.jpg`,
+      `img/apartment-02.jpg`,
+      `img/apartment-01.jpg`,
+      `img/studio-01.jpg`,
+      `img/room.jpg`,
+      `img/apartment-01.jpg`,
+      `img/apartment-03.jpg`
+    ],
     price: 50,
     title: OFFERS_TITLES[2],
     type: RealtyType.HOUSE,
+    description: `Canal View Prinsengrach. Wood and stone place. Nice, cozy, warm big bed apartment.`,
+    bedroomsCount: 1,
+    guestsCount: 2,
+    facilities: FACILITIES,
     rating: 2,
+    host: {
+      avatar: `img/avatar-angelina.jpg`,
+      name: `Angelina`,
+      isSuper: false,
+    },
+    isFavorites: false,
   },
   {
     id: 4,
     isPremium: false,
-    image: `img/apartment-01.jpg`,
+    images: [
+      `img/apartment-01.jpg`,
+      `img/apartment-02.jpg`,
+      `img/apartment-03.jpg`,
+      `img/studio-01.jpg`,
+      `img/room.jpg`,
+      `img/apartment-02.jpg`,
+      `img/apartment-03.jpg`
+    ],
     price: 70,
     title: OFFERS_TITLES[3],
     type: RealtyType.ROOM,
+    description: `Wood and stone place. Canal View Prinsengrach. Nice, cozy, warm big bed apartment.`,
+    bedroomsCount: 2,
+    guestsCount: 4,
+    facilities: FACILITIES,
     rating: 5,
+    host: {
+      avatar: `img/avatar-max.jpg`,
+      name: `Tom`,
+      isSuper: false,
+    },
+    isFavorites: false,
   }
 ];

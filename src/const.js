@@ -11,3 +11,12 @@ export const RealtyType = {
   HOUSE: `House`,
   HOTEL: `Hotel`
 };
+
+export const FACILITIES = [
+  `Wifi`,
+  `Heating`,
+  `Kitchen`,
+  `Cable TV`,
+  `hair dryer`
+];
+

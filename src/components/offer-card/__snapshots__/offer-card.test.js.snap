@@ -101,7 +101,7 @@ exports[`Should OfferCard render correctly 1`] = `
     <p
       className="place-card__type"
     >
-      ROOM
+      Private Room
     </p>
   </div>
 </article>
