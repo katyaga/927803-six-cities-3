@@ -3,6 +3,7 @@ import {OFFERS_TITLES, RealtyType, FACILITIES} from "../const";
 export const offers = [
   {
     id: 1,
+    coordinates: [52.3909553943508, 4.85309666406198],
     isPremium: true,
     images: [
       `img/apartment-01.jpg`,
@@ -30,6 +31,7 @@ export const offers = [
   },
   {
     id: 2,
+    coordinates: [52.369553943508, 4.85309666406198],
     isPremium: false,
     images: [
       `img/apartment-02.jpg`,
@@ -57,6 +59,7 @@ export const offers = [
   },
   {
     id: 3,
+    coordinates: [52.3909553943508, 4.929309666406198],
     isPremium: true,
     images: [
       `img/apartment-03.jpg`,
@@ -84,6 +87,7 @@ export const offers = [
   },
   {
     id: 4,
+    coordinates: [52.3809553943508, 4.939309666406198],
     isPremium: false,
     images: [
       `img/apartment-01.jpg`,
