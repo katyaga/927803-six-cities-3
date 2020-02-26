@@ -1,10 +1,6 @@
 import React from "react";
 import renderer from "react-test-renderer";
-import Main from "./main.jsx";
-
-const MockData = {
-  OFFERS_COUNT: 150,
-};
+import Map from "./map";
 
 const MockOffers = [
   {
@@ -24,7 +20,7 @@ const MockOffers = [
   },
   {
     id: 2,
-    coordinates: [52.3809553943508, 4.85309666406198],
+    coordinates: [52.3709553943508, 4.85309666406198],
     isPremium: true,
     images: [
       `img/apartment-01.jpg`,
@@ -33,39 +29,21 @@ const MockOffers = [
     ],
     price: 20,
     title: `apartment2`,
-    type: `Apartment`,
-    rating: 3,
-    isFavorites: true,
-  },
-  {
-    id: 3,
-    coordinates: [52.3809553943508, 4.85309666406198],
-    isPremium: true,
-    images: [
-      `img/apartment-01.jpg`,
-      `img/apartment-02.jpg`,
-      `img/apartment-03.jpg`
-    ],
-    price: 30,
-    title: `apartment3`,
     type: `Private Room`,
-    rating: 4,
-    isFavorites: true,
+    rating: 3,
+    isFavorites: false,
   },
 ];
 
-it(`Should WelcomeScreen render correctly`, () => {
+it(`Should Map render correctly`, () => {
   const tree = renderer
-    .create(<Main
-      offersCount={MockData.OFFERS_COUNT}
+    .create(<Map
       offers={MockOffers}
-      onTitleClick={() => {}}
     />, {
       createNodeMock: () => {
         return document.createElement(`div`);
       }
-    })
-    .toJSON();
+    }).toJSON();
 
   expect(tree).toMatchSnapshot();
 });

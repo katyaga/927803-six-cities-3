@@ -9,6 +9,7 @@ const MockData = {
 const MockOffers = [
   {
     id: 1,
+    coordinates: [52.3709553943508, 4.85309666406198],
     isPremium: true,
     images: [
       `img/apartment-01.jpg`,
@@ -36,6 +37,7 @@ const MockOffers = [
   },
   {
     id: 2,
+    coordinates: [52.3709553943508, 4.85309666406198],
     isPremium: true,
     images: [
       `img/apartment-01.jpg`,
@@ -63,6 +65,7 @@ const MockOffers = [
   },
   {
     id: 3,
+    coordinates: [52.3709553943508, 4.85309666406198],
     isPremium: true,
     images: [
       `img/apartment-01.jpg`,
@@ -96,7 +99,11 @@ it(`Render App`, () => {
       offersCount={MockData.OFFERS_COUNT}
       offers={MockOffers}
       onTitleClick={() => {}}
-    />)
+    />, {
+      createNodeMock: () => {
+        return document.createElement(`div`);
+      }
+    })
     .toJSON();
 
   expect(tree).toMatchSnapshot();
