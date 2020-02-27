@@ -19,16 +19,17 @@ class OfferList extends PureComponent {
   }
 
   render() {
-    const {offers, onCardTitleClick} = this.props;
+    const {offers, onCardTitleClick, isNearPlaces} = this.props;
 
     return (
-      <div className="cities__places-list places__list tabs__content">
+      <div className={`${isNearPlaces ? `near-places__list tabs__content` : `cities__places-list tabs__content`} places__list`}>
         {offers.map((offer) => (
           <OfferCard
             key={offer.id}
             onHover={this.handleCardHover}
             onCardTitleClick={onCardTitleClick}
             offer={offer}
+            isNearPlace={isNearPlaces}
           />)
         )}
       </div>
@@ -39,6 +40,7 @@ class OfferList extends PureComponent {
 OfferList.propTypes = {
   onCardTitleClick: PropTypes.func.isRequired,
   offers: PropTypes.array.isRequired,
+  isNearPlaces: PropTypes.bool.isRequired,
 };
 
 export default OfferList;

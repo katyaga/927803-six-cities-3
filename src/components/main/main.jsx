@@ -68,7 +68,8 @@ const Main = (props) => {
             </form>
             <OfferList
               onCardTitleClick={onTitleClick}
-              offers={offers} />
+              offers={offers}
+              isNearPlaces={false} />
           </section>
           <div className="cities__right-section">
             <section className="cities__map map">

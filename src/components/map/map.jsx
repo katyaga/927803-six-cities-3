@@ -12,15 +12,20 @@ class Map extends (PureComponent) {
 
   componentDidMount() {
     const city = `Amsterdam`;
-    const _map = this._mapRef.current;
-
     const cityCoordinates = cities.find((x) => x.city === city).coordinates;
 
-    const {offers} = this.props;
+    const _map = this._mapRef.current;
+
+    const {offers, activeOffer} = this.props;
 
     const icon = leaflet.icon({
       iconUrl: `img/pin.svg`,
-      iconSize: [30, 30]
+      iconSize: [20, 30]
+    });
+
+    const activeIcon = leaflet.icon({
+      iconUrl: `img/pin-active.svg`,
+      iconSize: [20, 30]
     });
 
     const zoom = 12;
@@ -38,11 +43,17 @@ class Map extends (PureComponent) {
       })
       .addTo(map);
 
-    offers.map((offer) => {
+    const markers = offers.map((offer) => {
       leaflet
         .marker(offer.coordinates, {icon})
         .addTo(map);
     });
+
+    if (activeOffer) {
+      markers.push(leaflet
+        .marker(activeOffer.coordinates, {activeIcon})
+        .addTo(map));
+    }
   }
 
   render() {
@@ -55,6 +66,7 @@ class Map extends (PureComponent) {
 
 Map.propTypes = {
   offers: PropTypes.arrayOf(PropTypes.object).isRequired,
+  activeOffer: PropTypes.object,
 };
 
 export default Map;

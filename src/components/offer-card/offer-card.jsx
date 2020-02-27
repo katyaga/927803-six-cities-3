@@ -3,14 +3,14 @@ import PropTypes from "prop-types";
 import {RealtyType} from "../../const.js";
 
 const OfferCard = (props) => {
-  const {onHover, onCardTitleClick, offer} = props;
+  const {onHover, onCardTitleClick, offer, isNearPlace} = props;
   const {id, isPremium, images, price, title, type, rating, isFavorites} = offer;
   const starRating = {
     width: `${rating * 20}%`,
   };
 
   return (
-    <article className="cities__place-card place-card"
+    <article className={`${isNearPlace ? `near-places__card` : `cities__place-card`} place-card`}
       onMouseOver={(evt) => {
         evt.preventDefault();
         onHover(offer);
@@ -70,6 +70,7 @@ OfferCard.propTypes = {
     type: PropTypes.oneOf(Object.values(RealtyType)).isRequired,
     isFavorites: PropTypes.bool.isRequired,
   }).isRequired,
+  isNearPlace: PropTypes.bool.isRequired,
 };
 
 export default OfferCard;

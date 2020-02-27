@@ -16,6 +16,7 @@ const MockOffers = [
     type: `House`,
     rating: 2,
     isFavorites: true,
+    nearbyOffers: [2, 3],
   },
   {
     id: 2,
@@ -30,6 +31,7 @@ const MockOffers = [
     type: `Private Room`,
     rating: 3,
     isFavorites: false,
+    nearbyOffers: [1, 3],
   },
   {
     id: 3,
@@ -44,6 +46,7 @@ const MockOffers = [
     type: `Hotel`,
     rating: 4,
     isFavorites: false,
+    nearbyOffers: [1, 2],
   },
 ];
 
@@ -53,6 +56,7 @@ it(`Should OfferList render correctly`, () => {
       offers={MockOffers}
       onCardTitleClick={() => {}}
       onHover={() => {}}
+      isNearPlaces={false}
     />)
     .toJSON();
 

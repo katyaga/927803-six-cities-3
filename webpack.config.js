@@ -1,6 +1,13 @@
 const path = require(`path`);
+const MomentLocalesPlugin = require(`moment-locales-webpack-plugin`);
 
 module.exports = {
+  plugins: [
+// Оставляем только одну локаль.
+    new MomentLocalesPlugin({
+      localesToKeep: [`ru`],
+    }),
+  ],
   entry: `./src/index.js`,
   output: {
     filename: `bundle.js`,

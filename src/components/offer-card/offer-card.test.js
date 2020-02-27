@@ -23,6 +23,7 @@ it(`Should OfferCard render correctly`, () => {
       offer={MockOffer}
       onHover={() => {}}
       onCardTitleClick={() => {}}
+      isNearPlace={false}
     />)
     .toJSON();
 
