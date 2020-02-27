@@ -34,6 +34,7 @@ it(`Should onHover get active card`, () => {
         offer={MockOffer}
         onHover={onCardHover(MockOffer)}
         onCardTitleClick={() => {}}
+        isNearPlace={false}
       />
   );
 
@@ -54,6 +55,7 @@ it(`Should click on title get current card info`, () => {
         offer={MockOffer}
         onHover={() => {}}
         onCardTitleClick={() => onTitleClick(MockOffer)}
+        isNearPlace={false}
       />
   );
 

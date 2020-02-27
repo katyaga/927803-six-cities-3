@@ -1,4 +1,5 @@
 import {OFFERS_TITLES, RealtyType, FACILITIES} from "../const";
+import {generateRandomDate} from "../utils";
 
 export const offers = [
   {
@@ -28,6 +29,25 @@ export const offers = [
       isSuper: true,
     },
     isFavorites: false,
+    comments: [
+      {
+        id: 1,
+        authorAvatar: `img/avatar-angelina.jpg`,
+        authorName: `Sara`,
+        rating: 4,
+        date: generateRandomDate(new Date(), 0, 60),
+        text: `text1`,
+      },
+      {
+        id: 2,
+        authorAvatar: `img/avatar-max.jpg`,
+        authorName: `Bob`,
+        rating: 3,
+        date: generateRandomDate(new Date(), 0, 60),
+        text: `text2`,
+      },
+    ],
+    nearbyOffers: [2, 3, 4],
   },
   {
     id: 2,
@@ -56,6 +76,25 @@ export const offers = [
       isSuper: true,
     },
     isFavorites: true,
+    comments: [
+      {
+        id: 1,
+        authorAvatar: `img/avatar-angelina.jpg`,
+        authorName: `Angelina`,
+        rating: 5,
+        date: generateRandomDate(new Date(), 0, 60),
+        text: `text1`,
+      },
+      {
+        id: 2,
+        authorAvatar: `img/avatar-max.jpg`,
+        authorName: `Tom`,
+        rating: 5,
+        date: generateRandomDate(new Date(), 0, 60),
+        text: `text2`,
+      },
+    ],
+    nearbyOffers: [1, 3, 4],
   },
   {
     id: 3,
@@ -84,6 +123,25 @@ export const offers = [
       isSuper: false,
     },
     isFavorites: false,
+    comments: [
+      {
+        id: 1,
+        authorAvatar: `img/avatar-angelina.jpg`,
+        authorName: `Sara`,
+        rating: 2,
+        date: generateRandomDate(new Date(), 0, 60),
+        text: `text1`,
+      },
+      {
+        id: 2,
+        authorAvatar: `img/avatar-max.jpg`,
+        authorName: `Max`,
+        rating: 3,
+        date: generateRandomDate(new Date(), 0, 60),
+        text: `text2`,
+      },
+    ],
+    nearbyOffers: [1, 2, 4],
   },
   {
     id: 4,
@@ -112,5 +170,24 @@ export const offers = [
       isSuper: false,
     },
     isFavorites: false,
+    comments: [
+      {
+        id: 1,
+        authorAvatar: `img/avatar-angelina.jpg`,
+        authorName: `Mary`,
+        rating: 3,
+        date: generateRandomDate(new Date(), 0, 60),
+        text: `text1`,
+      },
+      {
+        id: 2,
+        authorAvatar: `img/avatar-max.jpg`,
+        authorName: `Bob`,
+        rating: 4,
+        date: generateRandomDate(new Date(), 0, 60),
+        text: `text2`,
+      },
+    ],
+    nearbyOffers: [1, 2, 3],
   }
 ];

@@ -22,7 +22,7 @@ class App extends PureComponent {
       const selectedCard = offers.find((offer) => offer.id === this.state.selectedTitleId);
 
       return (
-        <OfferInfo offer={selectedCard}/>
+        <OfferInfo onTitleClick={this._onCardTitleClick} offers={offers} offer={selectedCard}/>
       );
     } else {
       return (
@@ -45,7 +45,7 @@ class App extends PureComponent {
             {this._renderApp()}
           </Route>
           <Route exact path="/offer-info">
-            <OfferInfo offer={offers[0]}/>
+            <OfferInfo onTitleClick={this._onCardTitleClick} offers={offers} offer={offers[0]}/>
           </Route>
         </Switch>
       </BrowserRouter>

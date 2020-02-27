@@ -35,10 +35,27 @@ const MockOffers = [
   },
 ];
 
+const activeOffer = {
+  id: 3,
+  coordinates: [52.4, 4.8],
+  isPremium: true,
+  images: [
+    `img/apartment-01.jpg`,
+    `img/apartment-02.jpg`,
+    `img/apartment-03.jpg`
+  ],
+  price: 30,
+  title: `apartment3`,
+  type: `House`,
+  rating: 4,
+  isFavorites: true,
+};
+
 it(`Should Map render correctly`, () => {
   const tree = renderer
     .create(<Map
       offers={MockOffers}
+      activeOffer={activeOffer}
     />, {
       createNodeMock: () => {
         return document.createElement(`div`);
