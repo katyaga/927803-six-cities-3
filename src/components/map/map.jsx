@@ -3,20 +3,52 @@ import PropTypes from "prop-types";
 import leaflet from "leaflet";
 import {cities} from "../../mocks/cities";
 
+const zoom = 12;
+
 class Map extends (PureComponent) {
   constructor(props) {
     super(props);
 
     this._mapRef = createRef();
+    this._map = null;
   }
 
   componentDidMount() {
-    const city = `Amsterdam`;
-    const cityCoordinates = cities.find((x) => x.city === city).coordinates;
-
     const _map = this._mapRef.current;
 
-    const {offers, activeOffer} = this.props;
+    this._map = leaflet.map(_map, {
+      zoom,
+      zoomControl: false,
+      marker: true
+    });
+
+    leaflet
+      .tileLayer(`https://{s}.basemaps.cartocdn.com/rastertiles/voyager/{z}/{x}/{y}{r}.png`, {
+        attribution: `&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors &copy; <a href="https://carto.com/attributions">CARTO</a>`
+      })
+      .addTo(this._map);
+
+    this._fillMap();
+  }
+
+  componentDidUpdate() {
+    this._fillMap();
+  }
+
+  componentWillUnmount() {
+    this._map = null;
+  }
+
+  render() {
+    return (
+      <div id="map" ref={this._mapRef} style={{height: `100%`}}>
+      </div>
+    );
+  }
+
+  _fillMap() {
+    const {city, offers, activeOffer} = this.props;
+    const cityCoordinates = cities.find((x) => x.name === city).coordinates;
 
     const icon = leaflet.icon({
       iconUrl: `img/pin.svg`,
@@ -28,43 +60,24 @@ class Map extends (PureComponent) {
       iconSize: [20, 30]
     });
 
-    const zoom = 12;
-    const map = leaflet.map(_map, {
-      center: cityCoordinates,
-      zoom,
-      zoomControl: false,
-      marker: true
-    });
-    map.setView(cityCoordinates, zoom);
-
-    leaflet
-      .tileLayer(`https://{s}.basemaps.cartocdn.com/rastertiles/voyager/{z}/{x}/{y}{r}.png`, {
-        attribution: `&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors &copy; <a href="https://carto.com/attributions">CARTO</a>`
-      })
-      .addTo(map);
+    this._map.setView(cityCoordinates, zoom);
 
     const markers = offers.map((offer) => {
       leaflet
         .marker(offer.coordinates, {icon})
-        .addTo(map);
+        .addTo(this._map);
     });
 
     if (activeOffer) {
       markers.push(leaflet
         .marker(activeOffer.coordinates, {activeIcon})
-        .addTo(map));
+        .addTo(this._map));
     }
-  }
-
-  render() {
-    return (
-      <div id="map" ref={this._mapRef} style={{height: `100%`}}>
-      </div>
-    );
   }
 }
 
 Map.propTypes = {
+  city: PropTypes.string.isRequired,
   offers: PropTypes.arrayOf(PropTypes.object).isRequired,
   activeOffer: PropTypes.object,
 };

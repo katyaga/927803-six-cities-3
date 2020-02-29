@@ -54,9 +54,12 @@ const MockOffers = [
   },
 ];
 
-it(`Should WelcomeScreen render correctly`, () => {
+const city = `Brussels`;
+
+it(`Should Main render correctly`, () => {
   const tree = renderer
     .create(<Main
+      city={city}
       offersCount={MockData.OFFERS_COUNT}
       offers={MockOffers}
       onTitleClick={() => {}}

@@ -1,42 +1,40 @@
 import React, {PureComponent} from "react";
 import PropTypes from "prop-types";
 import {Switch, Route, BrowserRouter} from "react-router-dom";
+import {connect} from "react-redux";
+import {ActionCreator} from "../../reducer.js";
 import Main from "../main/main.jsx";
 import OfferInfo from "../offer-info/offer-info.jsx";
 
 class App extends PureComponent {
-  constructor(props) {
-    super(props);
-
-    this._onCardTitleClick = this._onCardTitleClick.bind(this);
-
-    this.state = {
-      selectedTitleId: null
-    };
-  }
-
   _renderApp() {
-    const {offersCount, offers} = this.props;
+    const {
+      city,
+      cityOffers,
+      selectedTitleId,
+      onCardTitleClick,
+    } = this.props;
 
-    if (this.state.selectedTitleId) {
-      const selectedCard = offers.find((offer) => offer.id === this.state.selectedTitleId);
+    if (selectedTitleId) {
+      const selectedCard = cityOffers.find((offer) => offer.id === selectedTitleId);
 
       return (
-        <OfferInfo onTitleClick={this._onCardTitleClick} offers={offers} offer={selectedCard}/>
+        <OfferInfo onTitleClick={onCardTitleClick} offers={cityOffers} offer={selectedCard}/>
       );
     } else {
       return (
         <Main
-          offersCount={offersCount}
-          offers={offers}
-          onTitleClick={this._onCardTitleClick}
+          city={city}
+          offersCount={cityOffers.length}
+          offers={cityOffers}
+          onTitleClick={onCardTitleClick}
         />
       );
     }
   }
 
   render() {
-    const {offers} = this.props;
+    const {cityOffers, selectedTitleId} = this.props;
 
     return (
       <BrowserRouter>
@@ -45,23 +43,36 @@ class App extends PureComponent {
             {this._renderApp()}
           </Route>
           <Route exact path="/offer-info">
-            <OfferInfo onTitleClick={this._onCardTitleClick} offers={offers} offer={offers[0]}/>
+            {selectedTitleId ?
+              <OfferInfo onTitleClick={() => {
+              }} offers={cityOffers} offer={cityOffers[0]}/> : ``
+            }
           </Route>
         </Switch>
       </BrowserRouter>
     );
   }
-
-  _onCardTitleClick(selectedTitleId) {
-    this.setState({
-      selectedTitleId
-    });
-  }
 }
 
 App.propTypes = {
-  offersCount: PropTypes.number.isRequired,
-  offers: PropTypes.array.isRequired,
+  // cities: PropTypes.arrayOf(PropTypes.string).isRequired,
+  cityOffers: PropTypes.array.isRequired,
+  city: PropTypes.string.isRequired,
+  selectedTitleId: PropTypes.number,
+  onCardTitleClick: PropTypes.func.isRequired,
 };
 
-export default App;
+const mapStateToProps = (state) => ({
+  city: state.city,
+  cityOffers: state.cityOffers,
+  selectedTitleId: state.selectedTitleId,
+});
+
+const mapDispatchToProps = (dispatch) => ({
+  onCardTitleClick(card) {
+    dispatch(ActionCreator.setSelectedTitleId(card));
+  },
+});
+
+export {App};
+export default connect(mapStateToProps, mapDispatchToProps)(App);

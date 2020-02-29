@@ -1,11 +1,15 @@
 import React from "react";
 import Enzyme, {shallow} from "enzyme";
 import Adapter from "enzyme-adapter-react-16";
+// import {Provider} from "react-redux";
+// import configureStore from "redux-mock-store";
 import OfferCard from "./offer-card";
 
 Enzyme.configure({
   adapter: new Adapter(),
 });
+
+// const mockStore = configureStore([]);
 
 const MockOffer = {
   id: 10,
@@ -23,6 +27,10 @@ const MockOffer = {
 };
 
 it(`Should onHover get active card`, () => {
+  // const store = mockStore({
+  //   selectedTitleId: null,
+  // });
+
   let activeCard;
 
   const onCardHover = (card) => {
@@ -44,6 +52,9 @@ it(`Should onHover get active card`, () => {
 });
 
 it(`Should click on title get current card info`, () => {
+  // const store = mockStore({
+  //   selectedTitleId: null,
+  // });
   let clickTitleCardId;
 
   const onTitleClick = (card) => {

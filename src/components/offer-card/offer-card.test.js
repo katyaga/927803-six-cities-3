@@ -1,6 +1,10 @@
 import React from "react";
 import renderer from "react-test-renderer";
+// import {Provider} from "react-redux";
+// import configureStore from "redux-mock-store";
 import OfferCard from "./offer-card";
+
+// const mockStore = configureStore([]);
 
 const MockOffer = {
   id: 1,
@@ -18,13 +22,18 @@ const MockOffer = {
 };
 
 it(`Should OfferCard render correctly`, () => {
+  // const store = mockStore({
+  //   selectedTitleId: null,
+  // });
+
   const tree = renderer
-    .create(<OfferCard
-      offer={MockOffer}
-      onHover={() => {}}
-      onCardTitleClick={() => {}}
-      isNearPlace={false}
-    />)
+    .create(
+        <OfferCard
+          offer={MockOffer}
+          onHover={() => {}}
+          onCardTitleClick={() => {}}
+          isNearPlace={false}
+        />)
     .toJSON();
 
   expect(tree).toMatchSnapshot();

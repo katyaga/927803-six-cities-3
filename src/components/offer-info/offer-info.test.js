@@ -1,10 +1,11 @@
 import React from "react";
 import renderer from "react-test-renderer";
-import OfferInfo from "./offer-info";
+import OfferInfo from "./offer-info.jsx";
 
 const MockOffers = [
   {
     id: 2,
+    city: `Amsterdam`,
     coordinates: [52.3, 4.8],
     isPremium: true,
     images: [
@@ -21,6 +22,7 @@ const MockOffers = [
   },
   {
     id: 3,
+    city: `Cologne`,
     coordinates: [52.3, 4.8],
     isPremium: true,
     images: [
@@ -39,6 +41,7 @@ const MockOffers = [
 
 const MockOffer = {
   id: 1,
+  city: `Brussels`,
   coordinates: [52.3, 4.8],
   isPremium: true,
   images: [
@@ -71,7 +74,6 @@ const MockOffer = {
       authorAvatar: `img/avatar-angelina.jpg`,
       authorName: `Angelina`,
       rating: 5,
-      //  date: generateRandomDate(new Date(), 0, 20),
       date: new Date(`2019-12-23 12:00:11`),
       text: `text1`,
     },

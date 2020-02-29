@@ -4,6 +4,7 @@ import {generateRandomDate} from "../utils";
 export const offers = [
   {
     id: 1,
+    city: `Amsterdam`,
     coordinates: [52.3909553943508, 4.85309666406198],
     isPremium: true,
     images: [
@@ -51,6 +52,7 @@ export const offers = [
   },
   {
     id: 2,
+    city: `Amsterdam`,
     coordinates: [52.369553943508, 4.85309666406198],
     isPremium: false,
     images: [
@@ -98,6 +100,7 @@ export const offers = [
   },
   {
     id: 3,
+    city: `Amsterdam`,
     coordinates: [52.3909553943508, 4.929309666406198],
     isPremium: true,
     images: [
@@ -145,7 +148,56 @@ export const offers = [
   },
   {
     id: 4,
+    city: `Amsterdam`,
     coordinates: [52.3809553943508, 4.939309666406198],
+    isPremium: false,
+    images: [
+      `img/apartment-01.jpg`,
+      `img/apartment-02.jpg`,
+      `img/apartment-03.jpg`,
+      `img/studio-01.jpg`,
+      `img/room.jpg`,
+      `img/apartment-02.jpg`,
+      `img/apartment-03.jpg`
+    ],
+    price: 70,
+    title: OFFERS_TITLES[3],
+    type: RealtyType.ROOM,
+    description: `Wood and stone place. Canal View Prinsengrach. Nice, cozy, warm big bed apartment.`,
+    bedroomsCount: 2,
+    guestsCount: 4,
+    facilities: FACILITIES,
+    rating: 5,
+    host: {
+      avatar: `img/avatar-max.jpg`,
+      name: `Tom`,
+      isSuper: false,
+    },
+    isFavorites: false,
+    comments: [
+      {
+        id: 1,
+        authorAvatar: `img/avatar-angelina.jpg`,
+        authorName: `Mary`,
+        rating: 3,
+        date: generateRandomDate(new Date(), 0, 60),
+        text: `text1`,
+      },
+      {
+        id: 2,
+        authorAvatar: `img/avatar-max.jpg`,
+        authorName: `Bob`,
+        rating: 4,
+        date: generateRandomDate(new Date(), 0, 60),
+        text: `text2`,
+      },
+    ],
+    nearbyOffers: [1, 2, 3],
+  },
+  {
+    id: 5,
+    city: `Paris`,
+    coordinates: [48.85667, 2.351551],
     isPremium: false,
     images: [
       `img/apartment-01.jpg`,

@@ -1,6 +1,8 @@
 import React from "react";
 import PropTypes from "prop-types";
 import {RealtyType} from "../../const.js";
+// import {ActionCreator} from "../../reducer";
+// import {connect} from "react-redux";
 
 const OfferCard = (props) => {
   const {onHover, onCardTitleClick, offer, isNearPlace} = props;
@@ -74,3 +76,10 @@ OfferCard.propTypes = {
 };
 
 export default OfferCard;
+// const mapDispatchToProps = (dispatch) => ({
+//   onCardTitleClick(card) {
+//     dispatch(ActionCreator.setSelectedTitleId(card));
+//   },
+// });
+//
+// export default connect(null, mapDispatchToProps)(OfferCard);
