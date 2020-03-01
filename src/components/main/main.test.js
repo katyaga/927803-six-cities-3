@@ -1,6 +1,10 @@
 import React from "react";
 import renderer from "react-test-renderer";
+import {Provider} from "react-redux";
+import configureStore from "redux-mock-store";
 import Main from "./main.jsx";
+
+const mockStore = configureStore([]);
 
 const MockData = {
   OFFERS_COUNT: 150,
@@ -57,17 +61,37 @@ const MockOffers = [
 const city = `Brussels`;
 
 it(`Should Main render correctly`, () => {
+  const store = mockStore({
+    cities: [
+      {
+        name: `Amsterdam`,
+        coordinates: [52.38333, 4.9],
+      },
+      {
+        name: `Cologne`,
+        coordinates: [50.930779, 6.938399],
+      },
+      {
+        name: `Brussels`,
+        coordinates: [50.851309, 4.351718],
+      },
+    ]
+  });
+
   const tree = renderer
-    .create(<Main
-      city={city}
-      offersCount={MockData.OFFERS_COUNT}
-      offers={MockOffers}
-      onTitleClick={() => {}}
-    />, {
-      createNodeMock: () => {
-        return document.createElement(`div`);
-      }
-    })
+    .create(
+        <Provider store={store}>
+          <Main
+            city={city}
+            offersCount={MockData.OFFERS_COUNT}
+            offers={MockOffers}
+            onTitleClick={() => {}}
+          />
+        </Provider>, {
+          createNodeMock: () => {
+            return document.createElement(`div`);
+          }
+        })
     .toJSON();
 
   expect(tree).toMatchSnapshot();
