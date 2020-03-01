@@ -12,15 +12,6 @@ export const getRandomRange = (min, max) => {
   return Math.floor(Math.random() * (max - min + 1)) + min;
 };
 
-export const getRandomElement = (arr) => {
-  const rand = getRandomRange(0, arr.length - 1);
-  return arr[rand];
-};
-
-export const getRandomBoolean = () => {
-  return Math.random() >= 0.5;
-};
-
 export const generateRandomDate = (targetDate, minDays, maxDays) => {
   let targetDateCopy = new Date(targetDate.valueOf());
   const diffValue = getRandomRange(minDays, maxDays);
@@ -30,3 +21,19 @@ export const generateRandomDate = (targetDate, minDays, maxDays) => {
   targetDateCopy.setMinutes(getRandomRange(0, 59));
   return targetDateCopy;
 };
+
+export const extend = (a, b) => {
+  return Object.assign({}, a, b);
+};
+
+export const getCityOffers = (city, offers) => {
+  if (offers.length > 0) {
+    return offers.filter((offer) => offer.city.toLowerCase() === city.toLowerCase());
+  }
+  return [];
+};
+
+// export const getCityList = (offers) => {
+//   const cities = new Set(offers.map((offer) => offer.city));
+//   return Array.from(cities).sort();
+// };

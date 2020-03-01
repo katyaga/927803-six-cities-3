@@ -19,7 +19,9 @@ const OfferInfo = (props) => {
 
   const nearbyOffers = [];
   (offer.nearbyOffers.slice(0, 3)).forEach((nearbyOffer) => {
-    nearbyOffers.push(offers.find((item) => item.id === nearbyOffer));
+    if (offers.length > 1) {
+      nearbyOffers.push(offers.find((item) => item.id === nearbyOffer));
+    }
   });
 
   return (
@@ -104,23 +106,25 @@ const OfferInfo = (props) => {
             </div>
             <Reviews
               comments={comments}
-            />)
+            />
           </div>
         </div>
         <section className="property__map map">
           <Map
             offers={nearbyOffers}
-            activeOffer={offer}
+            city={offer.city}
           />
         </section>
       </section>
       <div className="container">
         <section className="near-places places">
           <h2 className="near-places__title">Other places in the neighbourhood</h2>
+
           <OfferList
             onCardTitleClick={onTitleClick}
             offers={nearbyOffers}
             isNearPlaces={true} />
+
         </section>
       </div>
     </Fragment>
@@ -130,6 +134,7 @@ const OfferInfo = (props) => {
 OfferInfo.propTypes = {
   onTitleClick: PropTypes.func.isRequired,
   offer: PropTypes.shape({
+    city: PropTypes.string.isRequired,
     isPremium: PropTypes.bool.isRequired,
     coordinates: PropTypes.arrayOf(PropTypes.number).isRequired,
     images: PropTypes.arrayOf(PropTypes.string).isRequired,
