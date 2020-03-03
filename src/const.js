@@ -20,3 +20,10 @@ export const FACILITIES = [
   `hair dryer`
 ];
 
+export const SortType = {
+  DEFAULT: `Popular`,
+  PRICE_UP: `Price: low to high`,
+  PRICE_DOWN: `Price: high to low`,
+  RATING: `Top rated first`,
+};
+

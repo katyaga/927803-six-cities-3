@@ -6,6 +6,8 @@ import App from "./app.jsx";
 
 const mockStore = configureStore([]);
 
+const sortType = `PRICE_UP`;
+
 const city = `Brussels`;
 
 const MockOffers = [
@@ -62,7 +64,8 @@ it(`Render App`, () => {
         name: `Brussels`,
         coordinates: [50.851309, 4.351718],
       },
-    ]
+    ],
+    sortType: `PRICE_UP`,
   });
 
   const tree = renderer
@@ -72,6 +75,7 @@ it(`Render App`, () => {
             city={city}
             cityOffers={MockOffers}
             onTitleClick={() => {}}
+            sortType={sortType}
           />
         </Provider>, {
           createNodeMock: () => {

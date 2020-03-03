@@ -6,6 +6,8 @@ import Main from "./main.jsx";
 
 const mockStore = configureStore([]);
 
+const sortType = `PRICE_UP`;
+
 const MockData = {
   OFFERS_COUNT: 150,
 };
@@ -86,6 +88,9 @@ it(`Should Main render correctly`, () => {
             offersCount={MockData.OFFERS_COUNT}
             offers={MockOffers}
             onTitleClick={() => {}}
+            onCardHover={() => {}}
+            onSortTypeClick={() => {}}
+            sortType={sortType}
           />
         </Provider>, {
           createNodeMock: () => {

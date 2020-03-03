@@ -12,14 +12,24 @@ class App extends PureComponent {
       city,
       cityOffers,
       selectedTitleId,
+      hoveredCardId,
+      sortType,
       onCardTitleClick,
+      onCardHover,
+      onSortTypeClick,
     } = this.props;
 
     if (selectedTitleId) {
       const selectedCard = cityOffers.find((offer) => offer.id === selectedTitleId);
 
       return (
-        <OfferInfo onTitleClick={onCardTitleClick} offers={cityOffers} offer={selectedCard}/>
+        <OfferInfo
+          onTitleClick={onCardTitleClick}
+          offers={cityOffers}
+          offer={selectedCard}
+          onCardHover={onCardHover}
+          hoveredCardId={hoveredCardId}
+        />
       );
     } else {
       return (
@@ -27,7 +37,11 @@ class App extends PureComponent {
           city={city}
           offersCount={cityOffers.length}
           offers={cityOffers}
+          sortType={sortType}
           onTitleClick={onCardTitleClick}
+          onCardHover={onCardHover}
+          onSortTypeClick={onSortTypeClick}
+          hoveredCardId={hoveredCardId}
         />
       );
     }
@@ -44,8 +58,12 @@ class App extends PureComponent {
           </Route>
           <Route exact path="/offer-info">
             {selectedTitleId ?
-              <OfferInfo onTitleClick={() => {
-              }} offers={cityOffers} offer={cityOffers[0]}/> : ``
+              <OfferInfo
+                onTitleClick={() => {}}
+                offers={cityOffers}
+                offer={cityOffers[0]}
+                onCardHover={() => {}}
+                hoveredCardId={1}/> : ``
             }
           </Route>
         </Switch>
@@ -55,22 +73,34 @@ class App extends PureComponent {
 }
 
 App.propTypes = {
-  // cities: PropTypes.arrayOf(PropTypes.string).isRequired,
   cityOffers: PropTypes.array.isRequired,
   city: PropTypes.string.isRequired,
   selectedTitleId: PropTypes.number,
+  hoveredCardId: PropTypes.number,
+  sortType: PropTypes.string.isRequired,
   onCardTitleClick: PropTypes.func.isRequired,
+  onCardHover: PropTypes.func.isRequired,
+  onSortTypeClick: PropTypes.func.isRequired,
 };
 
 const mapStateToProps = (state) => ({
   city: state.city,
   cityOffers: state.cityOffers,
   selectedTitleId: state.selectedTitleId,
+  hoveredCardId: state.hoveredCardId,
+  sortType: state.sortType,
 });
 
 const mapDispatchToProps = (dispatch) => ({
   onCardTitleClick(card) {
     dispatch(ActionCreator.setSelectedTitleId(card));
+  },
+  onCardHover(card) {
+    dispatch(ActionCreator.setHoveredCardId(card));
+  },
+  onSortTypeClick(type) {
+    dispatch(ActionCreator.setSortType(type));
+    dispatch(ActionCreator.sortOffers());
   },
 });
 

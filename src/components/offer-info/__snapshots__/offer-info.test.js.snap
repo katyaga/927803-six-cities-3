@@ -595,7 +595,8 @@ Array [
       >
         <article
           className="near-places__card place-card"
-          onMouseOver={[Function]}
+          onMouseEnter={[Function]}
+          onMouseLeave={[Function]}
         >
           <div
             className="place-card__mark"
@@ -699,7 +700,8 @@ Array [
         </article>
         <article
           className="near-places__card place-card"
-          onMouseOver={[Function]}
+          onMouseEnter={[Function]}
+          onMouseLeave={[Function]}
         >
           <div
             className="place-card__mark"
