@@ -66,7 +66,6 @@ const reducer = (state = initialState, action) => {
       });
 
     case ActionType.SET_HOVERED_CARD_ID:
-      console.log(`hover`, state.hoveredCardId);
       return extend(state, {
         hoveredCardId: action.payload,
       });
