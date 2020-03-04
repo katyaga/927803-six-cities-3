@@ -105,6 +105,8 @@ it(`Should OfferInfo render correctly`, () => {
       offer={MockOffer}
       onTitleClick={() => {}}
       offers={MockOffers}
+      onCardHover={() => {}}
+      hoveredCardId={1}
     />, {
       createNodeMock: () => {
         return document.createElement(`div`);

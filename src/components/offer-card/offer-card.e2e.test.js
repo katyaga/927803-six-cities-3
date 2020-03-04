@@ -40,7 +40,9 @@ it(`Should onHover get active card`, () => {
   const offerCard = shallow(
       <OfferCard
         offer={MockOffer}
-        onHover={onCardHover(MockOffer)}
+        onHover={() => {
+          onCardHover(MockOffer);
+        }}
         onCardTitleClick={() => {}}
         isNearPlace={false}
       />

@@ -55,7 +55,7 @@ it(`Should OfferList render correctly`, () => {
     .create(<OfferList
       offers={MockOffers}
       onCardTitleClick={() => {}}
-      onHover={() => {}}
+      onCardHover={() => {}}
       isNearPlaces={false}
     />)
     .toJSON();

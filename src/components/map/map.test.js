@@ -59,6 +59,7 @@ it(`Should Map render correctly`, () => {
       city={city}
       offers={MockOffers}
       activeOffer={activeOffer}
+      hoveredCardId={1}
     />, {
       createNodeMock: () => {
         return document.createElement(`div`);

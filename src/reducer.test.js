@@ -1,7 +1,6 @@
 import {reducer, ActionType} from "./reducer.js";
 // import {cities as cityList} from "./mocks/cities";
 // import {offers as mockOffers} from "./mocks/offers";
-import {getCityOffers} from "./utils";
 
 const mockOffers = [
   {
@@ -31,21 +30,6 @@ const state = {
   city: mockCities[0].name,
   cityOffers: [mockOffers[1]],
   selectedTitleId: null,
-};
-
-const a = {
-  offers: mockOffers,
-  city: `Hamburg`,
-  cityOffers: []
-};
-
-const b = {
-  cityOffers: [
-    {
-      id: 1,
-      city: `Hamburg`
-    },
-  ],
 };
 
 it(`Reducer without additional parameters should return initial state`, () => {

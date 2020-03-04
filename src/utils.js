@@ -1,4 +1,5 @@
 import moment from 'moment';
+import orderBy from 'lodash/orderBy';
 
 export const formatMonthYear = (date) => {
   return moment(date).format(`MMMM DD, YYYY`);
@@ -33,7 +34,26 @@ export const getCityOffers = (city, offers) => {
   return [];
 };
 
-// export const getCityList = (offers) => {
-//   const cities = new Set(offers.map((offer) => offer.city));
-//   return Array.from(cities).sort();
-// };
+export const sortOffers = (sortType, currentOffers, offersFromServer) => {
+  let sortedOffers = currentOffers;
+
+  switch (sortType) {
+    case `DEFAULT`:
+      if (offersFromServer) {
+        sortedOffers = offersFromServer;
+      } else {
+        sortedOffers = currentOffers;
+      }
+      break;
+    case `PRICE_UP`:
+      sortedOffers = orderBy(currentOffers, `price`);
+      break;
+    case `PRICE_DOWN`:
+      sortedOffers = orderBy(currentOffers, [`price`], [`desc`]);
+      break;
+    case `RATING`:
+      return orderBy(currentOffers, [`rating`], [`desc`]);
+  }
+  return sortedOffers;
+};
+

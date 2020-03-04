@@ -147,7 +147,7 @@ exports[`Render App 1`] = `
               className="places__sorting-type"
               tabIndex="0"
             >
-              Popular
+              Price: low to high
               <svg
                 className="places__sorting-arrow"
                 height="4"
@@ -162,25 +162,29 @@ exports[`Render App 1`] = `
               className="places__options places__options--custom places__options--opened"
             >
               <li
-                className="places__option places__option--active"
+                className="places__option "
+                onClick={[Function]}
                 tabIndex="0"
               >
                 Popular
               </li>
               <li
-                className="places__option"
+                className="places__option "
+                onClick={[Function]}
                 tabIndex="0"
               >
                 Price: low to high
               </li>
               <li
-                className="places__option"
+                className="places__option "
+                onClick={[Function]}
                 tabIndex="0"
               >
                 Price: high to low
               </li>
               <li
-                className="places__option"
+                className="places__option "
+                onClick={[Function]}
                 tabIndex="0"
               >
                 Top rated first
@@ -192,7 +196,8 @@ exports[`Render App 1`] = `
           >
             <article
               className="cities__place-card place-card"
-              onMouseOver={[Function]}
+              onMouseEnter={[Function]}
+              onMouseLeave={[Function]}
             >
               <div
                 className="place-card__mark"
@@ -296,7 +301,8 @@ exports[`Render App 1`] = `
             </article>
             <article
               className="cities__place-card place-card"
-              onMouseOver={[Function]}
+              onMouseEnter={[Function]}
+              onMouseLeave={[Function]}
             >
               <div
                 className="place-card__mark"

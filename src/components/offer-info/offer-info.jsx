@@ -6,7 +6,7 @@ import Map from "../map/map.jsx";
 import OfferList from "../offer-list/offer-list.jsx";
 
 const OfferInfo = (props) => {
-  const {onTitleClick, offer, offers} = props;
+  const {onTitleClick, offer, offers, hoveredCardId, onCardHover} = props;
   const {isPremium, images, price, title, type, description, bedroomsCount,
     guestsCount, facilities, rating, host, isFavorites, comments} = offer;
   const {avatar, name, isSuper} = host;
@@ -112,7 +112,9 @@ const OfferInfo = (props) => {
         <section className="property__map map">
           <Map
             offers={nearbyOffers}
+            activeOffer={offer}
             city={offer.city}
+            hoveredCardId={hoveredCardId}
           />
         </section>
       </section>
@@ -123,7 +125,9 @@ const OfferInfo = (props) => {
           <OfferList
             onCardTitleClick={onTitleClick}
             offers={nearbyOffers}
-            isNearPlaces={true} />
+            isNearPlaces={true}
+            onCardHover={onCardHover}
+          />
 
         </section>
       </div>
@@ -156,6 +160,8 @@ OfferInfo.propTypes = {
     nearbyOffers: PropTypes.arrayOf(PropTypes.number),
   }).isRequired,
   offers: PropTypes.arrayOf(PropTypes.object).isRequired,
+  onCardHover: PropTypes.func.isRequired,
+  hoveredCardId: PropTypes.number,
 };
 
 export default OfferInfo;

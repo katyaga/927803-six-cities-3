@@ -32,6 +32,12 @@ class Map extends (PureComponent) {
   }
 
   componentDidUpdate() {
+    this._map.eachLayer((layer) => {
+      if (layer.options.icon) {
+        layer.remove();
+      }
+    });
+
     this._fillMap();
   }
 
@@ -47,7 +53,7 @@ class Map extends (PureComponent) {
   }
 
   _fillMap() {
-    const {city, offers, activeOffer} = this.props;
+    const {city, offers, activeOffer, hoveredCardId} = this.props;
     const cityCoordinates = cities.find((x) => x.name === city).coordinates;
 
     const icon = leaflet.icon({
@@ -62,16 +68,23 @@ class Map extends (PureComponent) {
 
     this._map.setView(cityCoordinates, zoom);
 
-    const markers = offers.map((offer) => {
+    let markerIcon = icon;
+
+    offers.map((offer) => {
+      if (hoveredCardId && offer.id === hoveredCardId) {
+        markerIcon = activeIcon;
+      }
       leaflet
-        .marker(offer.coordinates, {icon})
+        .marker(offer.coordinates, {icon: markerIcon})
         .addTo(this._map);
+
+      markerIcon = icon;
     });
 
     if (activeOffer) {
-      markers.push(leaflet
-        .marker(activeOffer.coordinates, {activeIcon})
-        .addTo(this._map));
+      leaflet
+        .marker(activeOffer.coordinates, {icon: activeIcon})
+        .addTo(this._map);
     }
   }
 }
@@ -80,6 +93,7 @@ Map.propTypes = {
   city: PropTypes.string.isRequired,
   offers: PropTypes.arrayOf(PropTypes.object).isRequired,
   activeOffer: PropTypes.object,
+  hoveredCardId: PropTypes.number,
 };
 
 export default Map;
