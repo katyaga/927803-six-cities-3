@@ -2,7 +2,7 @@ import React from "react";
 import PropTypes from "prop-types";
 import {SortType} from "../../const";
 
-const Sorting = (props) => {
+const Sorting = React.memo(function Sorting(props) {
   const {sortType, onSortTypeClick} = props;
 
   return (
@@ -16,7 +16,7 @@ const Sorting = (props) => {
       </span>
       <ul className="places__options places__options--custom places__options--opened">
         {Object.keys(SortType).map((type, i) =>
-          <li key={i} className={`places__option ${type === SortType.sortType ? `places__option--active` : ``}`}
+          <li key={i} className={`places__option ${type === sortType ? `places__option--active` : ``}`}
             tabIndex="0" onClick={() => onSortTypeClick(type)}>
             {SortType[type]}
           </li>
@@ -24,7 +24,7 @@ const Sorting = (props) => {
       </ul>
     </form>
   );
-};
+});
 
 Sorting.propTypes = {
   sortType: PropTypes.oneOf(Object.keys(SortType)).isRequired,

@@ -5,9 +5,6 @@ import {RealtyType} from "../../const.js";
 class OfferCard extends PureComponent {
   constructor(props) {
     super(props);
-    this.state = {
-      id: this.props.offer.id
-    };
   }
 
   render() {
@@ -20,7 +17,7 @@ class OfferCard extends PureComponent {
     return (
       <article className={`${isNearPlace ? `near-places__card` : `cities__place-card`} place-card`}
         onMouseEnter={() => {
-          onHover(this.state.id);
+          onHover(offer.id);
         }}
         onMouseLeave={() => {
           onHover(null);
@@ -64,7 +61,6 @@ class OfferCard extends PureComponent {
       </article>
     );
   }
-
 }
 
 OfferCard.propTypes = {

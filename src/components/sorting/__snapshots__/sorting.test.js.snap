@@ -37,7 +37,7 @@ exports[`Should Sorting render correctly 1`] = `
       Popular
     </li>
     <li
-      className="places__option "
+      className="places__option places__option--active"
       onClick={[Function]}
       tabIndex="0"
     >

@@ -5,6 +5,7 @@ import {connect} from "react-redux";
 import {ActionCreator} from "../../reducer.js";
 import Main from "../main/main.jsx";
 import OfferInfo from "../offer-info/offer-info.jsx";
+import Page from "../page/page.jsx";
 
 class App extends PureComponent {
   _renderApp() {
@@ -12,10 +13,7 @@ class App extends PureComponent {
       city,
       cityOffers,
       selectedTitleId,
-      hoveredCardId,
       sortType,
-      onCardTitleClick,
-      onCardHover,
       onSortTypeClick,
     } = this.props;
 
@@ -23,26 +21,24 @@ class App extends PureComponent {
       const selectedCard = cityOffers.find((offer) => offer.id === selectedTitleId);
 
       return (
-        <OfferInfo
-          onTitleClick={onCardTitleClick}
-          offers={cityOffers}
-          offer={selectedCard}
-          onCardHover={onCardHover}
-          hoveredCardId={hoveredCardId}
-        />
+        <Page>
+          <OfferInfo
+            offers={cityOffers}
+            offer={selectedCard}
+          />
+        </Page>
       );
     } else {
       return (
-        <Main
-          city={city}
-          offersCount={cityOffers.length}
-          offers={cityOffers}
-          sortType={sortType}
-          onTitleClick={onCardTitleClick}
-          onCardHover={onCardHover}
-          onSortTypeClick={onSortTypeClick}
-          hoveredCardId={hoveredCardId}
-        />
+        <Page>
+          <Main
+            city={city}
+            offersCount={cityOffers.length}
+            offers={cityOffers}
+            sortType={sortType}
+            onSortTypeClick={onSortTypeClick}
+          />
+        </Page>
       );
     }
   }
@@ -58,12 +54,12 @@ class App extends PureComponent {
           </Route>
           <Route exact path="/offer-info">
             {selectedTitleId ?
-              <OfferInfo
-                onTitleClick={() => {}}
-                offers={cityOffers}
-                offer={cityOffers[0]}
-                onCardHover={() => {}}
-                hoveredCardId={1}/> : ``
+              <Page>
+                <OfferInfo
+                  offers={cityOffers}
+                  offer={cityOffers[0]} />
+              </Page>
+              : ``
             }
           </Route>
         </Switch>
@@ -76,10 +72,7 @@ App.propTypes = {
   cityOffers: PropTypes.array.isRequired,
   city: PropTypes.string.isRequired,
   selectedTitleId: PropTypes.number,
-  hoveredCardId: PropTypes.number,
   sortType: PropTypes.string.isRequired,
-  onCardTitleClick: PropTypes.func.isRequired,
-  onCardHover: PropTypes.func.isRequired,
   onSortTypeClick: PropTypes.func.isRequired,
 };
 
@@ -87,20 +80,12 @@ const mapStateToProps = (state) => ({
   city: state.city,
   cityOffers: state.cityOffers,
   selectedTitleId: state.selectedTitleId,
-  hoveredCardId: state.hoveredCardId,
   sortType: state.sortType,
 });
 
 const mapDispatchToProps = (dispatch) => ({
-  onCardTitleClick(card) {
-    dispatch(ActionCreator.setSelectedTitleId(card));
-  },
-  onCardHover(card) {
-    dispatch(ActionCreator.setHoveredCardId(card));
-  },
   onSortTypeClick(type) {
     dispatch(ActionCreator.setSortType(type));
-    dispatch(ActionCreator.sortOffers());
   },
 });
 

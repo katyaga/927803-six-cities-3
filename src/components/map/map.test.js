@@ -1,6 +1,10 @@
 import React from "react";
 import renderer from "react-test-renderer";
+import {Provider} from "react-redux";
+import configureStore from "redux-mock-store";
 import Map from "./map";
+
+const mockStore = configureStore([]);
 
 const MockOffers = [
   {
@@ -54,17 +58,23 @@ const activeOffer = {
 const city = `Brussels`;
 
 it(`Should Map render correctly`, () => {
+  const store = mockStore({
+    hoveredCardId: 2
+  });
   const tree = renderer
-    .create(<Map
-      city={city}
-      offers={MockOffers}
-      activeOffer={activeOffer}
-      hoveredCardId={1}
-    />, {
-      createNodeMock: () => {
-        return document.createElement(`div`);
-      }
-    }).toJSON();
+    .create(
+        <Provider store={store}>
+          <Map
+            city={city}
+            offers={MockOffers}
+            activeOffer={activeOffer}
+            hoveredCardId={1}
+          />
+        </Provider>, {
+          createNodeMock: () => {
+            return document.createElement(`div`);
+          }
+        }).toJSON();
 
   expect(tree).toMatchSnapshot();
 });

@@ -1,6 +1,4 @@
 import {reducer, ActionType} from "./reducer.js";
-// import {cities as cityList} from "./mocks/cities";
-// import {offers as mockOffers} from "./mocks/offers";
 
 const mockOffers = [
   {

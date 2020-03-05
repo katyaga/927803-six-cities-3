@@ -6,7 +6,7 @@ import Map from "../map/map.jsx";
 import OfferList from "../offer-list/offer-list.jsx";
 
 const OfferInfo = (props) => {
-  const {onTitleClick, offer, offers, hoveredCardId, onCardHover} = props;
+  const {offer, offers} = props;
   const {isPremium, images, price, title, type, description, bedroomsCount,
     guestsCount, facilities, rating, host, isFavorites, comments} = offer;
   const {avatar, name, isSuper} = host;
@@ -114,7 +114,6 @@ const OfferInfo = (props) => {
             offers={nearbyOffers}
             activeOffer={offer}
             city={offer.city}
-            hoveredCardId={hoveredCardId}
           />
         </section>
       </section>
@@ -123,12 +122,8 @@ const OfferInfo = (props) => {
           <h2 className="near-places__title">Other places in the neighbourhood</h2>
 
           <OfferList
-            onCardTitleClick={onTitleClick}
             offers={nearbyOffers}
-            isNearPlaces={true}
-            onCardHover={onCardHover}
-          />
-
+            isNearPlaces={true} />
         </section>
       </div>
     </Fragment>
@@ -136,7 +131,6 @@ const OfferInfo = (props) => {
 };
 
 OfferInfo.propTypes = {
-  onTitleClick: PropTypes.func.isRequired,
   offer: PropTypes.shape({
     city: PropTypes.string.isRequired,
     isPremium: PropTypes.bool.isRequired,
@@ -160,8 +154,6 @@ OfferInfo.propTypes = {
     nearbyOffers: PropTypes.arrayOf(PropTypes.number),
   }).isRequired,
   offers: PropTypes.arrayOf(PropTypes.object).isRequired,
-  onCardHover: PropTypes.func.isRequired,
-  hoveredCardId: PropTypes.number,
 };
 
 export default OfferInfo;

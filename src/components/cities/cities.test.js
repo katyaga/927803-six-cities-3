@@ -24,15 +24,14 @@ const cities = [
 it(`Should Cities render correctly`, () => {
   const store = mockStore({
     cities,
+    handleCityClick: () => {},
   });
 
   const tree = renderer
     .create(
         <Provider store={store}>
           <Cities
-            cities={cities}
-            city={cities[0]}
-            handleCityClick={() => {}}
+            city={cities[0].name}
           />
         </Provider>)
     .toJSON();
