@@ -77,7 +77,8 @@ it(`Should Main render correctly`, () => {
         name: `Brussels`,
         coordinates: [50.851309, 4.351718],
       },
-    ]
+    ],
+    sortType: `PRICE_UP`,
   });
 
   const tree = renderer

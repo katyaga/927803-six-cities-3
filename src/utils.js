@@ -34,26 +34,17 @@ export const getCityOffers = (city, offers) => {
   return [];
 };
 
-export const sortOffers = (sortType, currentOffers, offersFromServer) => {
-  let sortedOffers = currentOffers;
-
+export const sortOffers = (sortType, offers) => {
   switch (sortType) {
     case `DEFAULT`:
-      if (offersFromServer) {
-        sortedOffers = offersFromServer;
-      } else {
-        sortedOffers = currentOffers;
-      }
-      break;
+      return offers;
     case `PRICE_UP`:
-      sortedOffers = orderBy(currentOffers, `price`);
-      break;
+      return orderBy(offers, `price`);
     case `PRICE_DOWN`:
-      sortedOffers = orderBy(currentOffers, [`price`], [`desc`]);
-      break;
+      return orderBy(offers, [`price`], [`desc`]);
     case `RATING`:
-      return orderBy(currentOffers, [`rating`], [`desc`]);
+      return orderBy(offers, [`rating`], [`desc`]);
   }
-  return sortedOffers;
+  return offers;
 };
 

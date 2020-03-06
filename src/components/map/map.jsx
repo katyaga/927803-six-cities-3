@@ -1,5 +1,6 @@
 import React, {PureComponent, createRef} from "react";
 import PropTypes from "prop-types";
+import {connect} from "react-redux";
 import leaflet from "leaflet";
 import {cities} from "../../mocks/cities";
 
@@ -96,4 +97,10 @@ Map.propTypes = {
   hoveredCardId: PropTypes.number,
 };
 
-export default Map;
+// export default Map;
+const mapStateToProps = (state) => ({
+  hoveredCardId: state.hoveredCardId,
+});
+
+export {Map};
+export default connect(mapStateToProps)(Map);
