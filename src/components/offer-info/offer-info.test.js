@@ -1,6 +1,10 @@
 import React from "react";
 import renderer from "react-test-renderer";
+import {Provider} from "react-redux";
+import configureStore from "redux-mock-store";
 import OfferInfo from "./offer-info.jsx";
+
+const mockStore = configureStore([]);
 
 const MockOffers = [
   {
@@ -100,18 +104,21 @@ const MockOffer = {
 };
 
 it(`Should OfferInfo render correctly`, () => {
+  const store = mockStore({
+    sortType: `PRICE_UP`,
+  });
   const tree = renderer
-    .create(<OfferInfo
-      offer={MockOffer}
-      onTitleClick={() => {}}
-      offers={MockOffers}
-      onCardHover={() => {}}
-      hoveredCardId={1}
-    />, {
-      createNodeMock: () => {
-        return document.createElement(`div`);
-      }
-    })
+    .create(
+        <Provider store={store}>
+          <OfferInfo
+            offer={MockOffer}
+            offers={MockOffers}
+          />
+        </Provider>, {
+          createNodeMock: () => {
+            return document.createElement(`div`);
+          }
+        })
     .toJSON();
 
   expect(tree).toMatchSnapshot();

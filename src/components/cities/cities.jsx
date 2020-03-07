@@ -2,6 +2,7 @@ import React from "react";
 import PropTypes from "prop-types";
 import {ActionCreator} from "../../reducer";
 import {connect} from "react-redux";
+import City from "../city/city.jsx";
 
 const Cities = (props) => {
   const {cities, city, handleCityClick} = props;
@@ -9,12 +10,11 @@ const Cities = (props) => {
   return (
     <ul className="locations__list tabs__list">
       {cities.map((item, i) => (
-        <li key={i} className="locations__item">
-          <a className={`locations__item-link tabs__item ${item.name.toLowerCase() === city.toLowerCase() ? `tabs__item--active` : ``}`}
-            onClick={() => handleCityClick(item.name)}>
-            <span>{item.name}</span>
-          </a>
-        </li>
+        <City
+          key={i}
+          activeCity={city}
+          city={item.name}
+          handleCityClick={handleCityClick} />
       ))}
     </ul>
   );
