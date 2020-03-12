@@ -105,7 +105,7 @@ exports[`Should OfferList render correctly 1`] = `
       <p
         className="place-card__type"
       >
-        House
+        house
       </p>
     </div>
   </article>
@@ -210,7 +210,7 @@ exports[`Should OfferList render correctly 1`] = `
       <p
         className="place-card__type"
       >
-        Private Room
+        room
       </p>
     </div>
   </article>
@@ -315,7 +315,7 @@ exports[`Should OfferList render correctly 1`] = `
       <p
         className="place-card__type"
       >
-        Hotel
+        hotel
       </p>
     </div>
   </article>

@@ -295,7 +295,7 @@ exports[`Render App 1`] = `
                 <p
                   className="place-card__type"
                 >
-                  Private Room
+                  room
                 </p>
               </div>
             </article>
@@ -400,7 +400,7 @@ exports[`Render App 1`] = `
                 <p
                   className="place-card__type"
                 >
-                  Hotel
+                  hotel
                 </p>
               </div>
             </article>

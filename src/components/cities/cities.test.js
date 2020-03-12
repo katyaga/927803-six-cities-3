@@ -3,6 +3,7 @@ import renderer from "react-test-renderer";
 import {Provider} from "react-redux";
 import configureStore from "redux-mock-store";
 import Cities from "./cities.jsx";
+import NameSpace from "../../reduser/name-space";
 
 const mockStore = configureStore([]);
 
@@ -23,7 +24,9 @@ const cities = [
 
 it(`Should Cities render correctly`, () => {
   const store = mockStore({
-    cities,
+    [NameSpace.OFFERS]: {
+      cities,
+    },
     handleCityClick: () => {},
   });
 

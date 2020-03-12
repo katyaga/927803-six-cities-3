@@ -16,7 +16,7 @@ const MockOffer = {
   ],
   price: 10,
   title: `apartment1`,
-  type: `Private Room`,
+  type: `room`,
   rating: 4,
   isFavorites: true,
 };

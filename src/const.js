@@ -1,10 +1,3 @@
-export const OFFERS_TITLES = [
-  `Beautiful &amp; luxurious apartment at great location`,
-  `Wood and stone place`,
-  `Canal View Prinsengrach`,
-  `Nice, cozy, warm big bed apartment`
-];
-
 export const RealtyType = {
   APARTMENT: `Apartment`,
   ROOM: `Private Room`,
@@ -12,13 +5,7 @@ export const RealtyType = {
   HOTEL: `Hotel`
 };
 
-export const FACILITIES = [
-  `Wifi`,
-  `Heating`,
-  `Kitchen`,
-  `Cable TV`,
-  `hair dryer`
-];
+export const REALTY_TYPES = Object.keys(RealtyType).map((key) => key.toLowerCase());
 
 export const SortType = {
   DEFAULT: `Popular`,
