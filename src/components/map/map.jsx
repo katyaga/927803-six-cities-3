@@ -2,9 +2,9 @@ import React, {PureComponent, createRef} from "react";
 import PropTypes from "prop-types";
 import {connect} from "react-redux";
 import leaflet from "leaflet";
-import {cities} from "../../mocks/cities";
+import {getCities, getHoveredCardId} from "../../reduser/offers/selector";
 
-const zoom = 12;
+const defaultZoom = 8;
 
 class Map extends (PureComponent) {
   constructor(props) {
@@ -18,7 +18,7 @@ class Map extends (PureComponent) {
     const _map = this._mapRef.current;
 
     this._map = leaflet.map(_map, {
-      zoom,
+      defaultZoom,
       zoomControl: false,
       marker: true
     });
@@ -54,8 +54,12 @@ class Map extends (PureComponent) {
   }
 
   _fillMap() {
-    const {city, offers, activeOffer, hoveredCardId} = this.props;
-    const cityCoordinates = cities.find((x) => x.name === city).coordinates;
+    const {city, cities, offers, activeOffer, hoveredCardId} = this.props;
+    const cityProperties = cities.find((x) => x.name === city);
+    const cityCoordinates = cityProperties.location.coordinates;
+    const cityZoom = cityProperties.location.zoom;
+
+    this._map.setView(cityCoordinates, cityZoom);
 
     const icon = leaflet.icon({
       iconUrl: `img/pin.svg`,
@@ -66,8 +70,6 @@ class Map extends (PureComponent) {
       iconUrl: `img/pin-active.svg`,
       iconSize: [20, 30]
     });
-
-    this._map.setView(cityCoordinates, zoom);
 
     let markerIcon = icon;
 
@@ -91,15 +93,16 @@ class Map extends (PureComponent) {
 }
 
 Map.propTypes = {
+  cities: PropTypes.array.isRequired,
   city: PropTypes.string.isRequired,
   offers: PropTypes.arrayOf(PropTypes.object).isRequired,
   activeOffer: PropTypes.object,
   hoveredCardId: PropTypes.number,
 };
 
-// export default Map;
 const mapStateToProps = (state) => ({
-  hoveredCardId: state.hoveredCardId,
+  cities: getCities(state),
+  hoveredCardId: getHoveredCardId(state),
 });
 
 export {Map};

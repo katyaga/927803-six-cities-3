@@ -1,8 +1,9 @@
 import React from "react";
 import PropTypes from "prop-types";
-import {ActionCreator} from "../../reducer";
+import {ActionCreator} from "../../reduser/offers/offers";
 import {connect} from "react-redux";
 import City from "../city/city.jsx";
+import {getCities} from "../../reduser/offers/selector";
 
 const Cities = (props) => {
   const {cities, city, handleCityClick} = props;
@@ -27,7 +28,7 @@ Cities.propTypes = {
 };
 
 const mapStateToProps = (state) => ({
-  cities: state.cities,
+  cities: getCities(state),
 });
 
 const mapDispatchToProps = (dispatch) => ({

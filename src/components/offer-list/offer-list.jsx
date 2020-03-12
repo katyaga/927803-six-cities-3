@@ -1,9 +1,10 @@
 import React, {PureComponent} from "react";
 import PropTypes from "prop-types";
 import OfferCard from "../offer-card/offer-card.jsx";
-import {ActionCreator} from "../../reducer";
+import {ActionCreator, Operation} from "../../reduser/offers/offers";
 import {connect} from "react-redux";
 import {sortOffers} from "../../utils";
+import {getSortType} from "../../reduser/offers/selector";
 
 class OfferList extends PureComponent {
   constructor(props) {
@@ -17,9 +18,9 @@ class OfferList extends PureComponent {
 
     return (
       <div className={`${isNearPlaces ? `near-places__list tabs__content` : `cities__places-list tabs__content`} places__list`}>
-        {sortedOffers.map((offer) => (
+        {sortedOffers.map((offer, i) => (
           <OfferCard
-            key={offer.id}
+            key={i}
             onHover={onCardHover}
             onCardTitleClick={onCardTitleClick}
             offer={offer}
@@ -41,12 +42,14 @@ OfferList.propTypes = {
 
 // export default OfferList;
 const mapStateToProps = (state) => ({
-  sortType: state.sortType,
+  sortType: getSortType(state),
 });
 
 const mapDispatchToProps = (dispatch) => ({
   onCardTitleClick(card) {
     dispatch(ActionCreator.setSelectedTitleId(card));
+    dispatch(Operation.setComments(card));
+    dispatch(Operation.setNearbyOffers(card));
   },
   onCardHover(card) {
     dispatch(ActionCreator.setHoveredCardId(card));

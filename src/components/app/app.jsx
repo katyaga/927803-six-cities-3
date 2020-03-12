@@ -2,10 +2,16 @@ import React, {PureComponent} from "react";
 import PropTypes from "prop-types";
 import {Switch, Route, BrowserRouter} from "react-router-dom";
 import {connect} from "react-redux";
-import {ActionCreator} from "../../reducer.js";
+import {ActionCreator} from "../../reduser/offers/offers.js";
 import Main from "../main/main.jsx";
 import OfferInfo from "../offer-info/offer-info.jsx";
 import Page from "../page/page.jsx";
+import {
+  getCity,
+  getCityOffers,
+  getSelectedTitleId,
+  getSortType
+} from "../../reduser/offers/selector";
 
 class App extends PureComponent {
   _renderApp() {
@@ -77,10 +83,10 @@ App.propTypes = {
 };
 
 const mapStateToProps = (state) => ({
-  city: state.city,
-  cityOffers: state.cityOffers,
-  selectedTitleId: state.selectedTitleId,
-  sortType: state.sortType,
+  city: getCity(state),
+  cityOffers: getCityOffers(state),
+  selectedTitleId: getSelectedTitleId(state),
+  sortType: getSortType(state),
 });
 
 const mapDispatchToProps = (dispatch) => ({

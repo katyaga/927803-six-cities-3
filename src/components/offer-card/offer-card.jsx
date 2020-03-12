@@ -1,6 +1,6 @@
 import React, {PureComponent} from "react";
 import PropTypes from "prop-types";
-import {RealtyType} from "../../const.js";
+import {REALTY_TYPES} from "../../const.js";
 
 class OfferCard extends PureComponent {
   constructor(props) {
@@ -73,7 +73,7 @@ OfferCard.propTypes = {
     price: PropTypes.number.isRequired,
     title: PropTypes.string.isRequired,
     rating: PropTypes.number.isRequired,
-    type: PropTypes.oneOf(Object.values(RealtyType)).isRequired,
+    type: PropTypes.oneOf(REALTY_TYPES).isRequired,
     isFavorites: PropTypes.bool.isRequired,
   }).isRequired,
   isNearPlace: PropTypes.bool.isRequired,

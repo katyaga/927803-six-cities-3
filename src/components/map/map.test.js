@@ -3,12 +3,20 @@ import renderer from "react-test-renderer";
 import {Provider} from "react-redux";
 import configureStore from "redux-mock-store";
 import Map from "./map";
+import NameSpace from "../../reduser/name-space";
 
 const mockStore = configureStore([]);
 
 const MockOffers = [
   {
     id: 1,
+    city: {
+      name: `Amsterdam`,
+      location: {
+        coordinates: [52.38333, 4.9],
+        zoom: 8,
+      }
+    },
     coordinates: [52.3809553943508, 4.85309666406198],
     isPremium: true,
     images: [
@@ -24,6 +32,13 @@ const MockOffers = [
   },
   {
     id: 2,
+    city: {
+      name: `Cologne`,
+      location: {
+        coordinates: [50.930779, 6.938399],
+        zoom: 8,
+      }
+    },
     coordinates: [52.3709553943508, 4.85309666406198],
     isPremium: true,
     images: [
@@ -41,6 +56,13 @@ const MockOffers = [
 
 const activeOffer = {
   id: 3,
+  city: {
+    name: `Brussels`,
+    location: {
+      coordinates: [50.930779, 6.938399],
+      zoom: 8,
+    }
+  },
   coordinates: [52.4, 4.8],
   isPremium: true,
   images: [
@@ -56,10 +78,36 @@ const activeOffer = {
 };
 
 const city = `Brussels`;
+const cities = [
+  {
+    name: `Amsterdam`,
+    location: {
+      coordinates: [52.38333, 4.9],
+      zoom: 8,
+    }
+  },
+  {
+    name: `Cologne`,
+    location: {
+      coordinates: [50.930779, 6.938399],
+      zoom: 8,
+    }
+  },
+  {
+    name: `Brussels`,
+    location: {
+      coordinates: [50.851309, 4.351718],
+      zoom: 8,
+    }
+  },
+];
 
 it(`Should Map render correctly`, () => {
   const store = mockStore({
-    hoveredCardId: 2
+    [NameSpace.OFFERS]: {
+      cities,
+      hoveredCardId: 2,
+    }
   });
   const tree = renderer
     .create(

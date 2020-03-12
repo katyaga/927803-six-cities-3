@@ -3,13 +3,20 @@ import renderer from "react-test-renderer";
 import {Provider} from "react-redux";
 import configureStore from "redux-mock-store";
 import OfferInfo from "./offer-info.jsx";
+import NameSpace from "../../reduser/name-space";
 
 const mockStore = configureStore([]);
 
 const MockOffers = [
   {
     id: 2,
-    city: `Amsterdam`,
+    city: {
+      location: {
+        coordinates: [52.3, 4.8],
+        zoom: 8,
+      },
+      name: `Amsterdam`,
+    },
     coordinates: [52.3, 4.8],
     isPremium: true,
     images: [
@@ -19,14 +26,19 @@ const MockOffers = [
     ],
     price: 20,
     title: `apartment2`,
-    type: `Private Room`,
+    type: `room`,
     rating: 3,
     isFavorites: false,
-    nearbyOffers: [1, 3],
   },
   {
     id: 3,
-    city: `Cologne`,
+    city: {
+      location: {
+        coordinates: [52.3, 4.8],
+        zoom: 8,
+      },
+      name: `Cologne`,
+    },
     coordinates: [52.3, 4.8],
     isPremium: true,
     images: [
@@ -36,16 +48,21 @@ const MockOffers = [
     ],
     price: 30,
     title: `apartment3`,
-    type: `Hotel`,
+    type: `hotel`,
     rating: 4,
     isFavorites: false,
-    nearbyOffers: [1, 2],
   },
 ];
 
 const MockOffer = {
   id: 1,
-  city: `Brussels`,
+  city: {
+    location: {
+      coordinates: [52.3, 4.8],
+      zoom: 8,
+    },
+    name: `Brussels`,
+  },
   coordinates: [52.3, 4.8],
   isPremium: true,
   images: [
@@ -55,7 +72,7 @@ const MockOffer = {
   ],
   price: 10,
   title: `apartment1`,
-  type: `Apartment`,
+  type: `apartment`,
   description: `Description`,
   bedroomsCount: 10,
   guestsCount: 3,
@@ -71,41 +88,68 @@ const MockOffer = {
     isSuper: true,
   },
   isFavorites: true,
-  comments: [
-    {
-      id: 1,
-      coordinates: [52.3, 4.8],
-      authorAvatar: `img/avatar-angelina.jpg`,
-      authorName: `Angelina`,
-      rating: 5,
-      date: new Date(`2019-12-23 12:00:11`),
-      text: `text1`,
-    },
-    {
-      id: 2,
-      coordinates: [52.3, 4.8],
-      authorAvatar: `img/avatar-max.jpg`,
-      authorName: `Tom`,
-      rating: 5,
-      date: new Date(`2020-02-23 12:00:11`),
-      text: `text2`,
-    },
-    {
-      id: 3,
-      coordinates: [52.3, 4.8],
-      authorAvatar: `img/avatar-max.jpg`,
-      authorName: `Bob`,
-      rating: 4,
-      date: new Date(`2020-01-23 12:00:11`),
-      text: `text3`,
-    },
-  ],
-  nearbyOffers: [2, 3],
 };
+
+const cities = [
+  {
+    name: `Amsterdam`,
+    location: {
+      coordinates: [52.38333, 4.9],
+      zoom: 8,
+    }
+  },
+  {
+    name: `Cologne`,
+    location: {
+      coordinates: [50.930779, 6.938399],
+      zoom: 8,
+    }
+  },
+  {
+    name: `Brussels`,
+    location: {
+      coordinates: [50.851309, 4.351718],
+      zoom: 8,
+    }
+  },
+];
 
 it(`Should OfferInfo render correctly`, () => {
   const store = mockStore({
-    sortType: `PRICE_UP`,
+    [NameSpace.OFFERS]: {
+      cities,
+      sortType: `PRICE_UP`,
+      nearbyOffers: [2, 3],
+      comments: [
+        {
+          id: 1,
+          coordinates: [52.3, 4.8],
+          authorAvatar: `img/avatar-angelina.jpg`,
+          authorName: `Angelina`,
+          rating: 5,
+          date: new Date(`2019-12-23 12:00:11`),
+          text: `text1`,
+        },
+        {
+          id: 2,
+          coordinates: [52.3, 4.8],
+          authorAvatar: `img/avatar-max.jpg`,
+          authorName: `Tom`,
+          rating: 5,
+          date: new Date(`2020-02-23 12:00:11`),
+          text: `text2`,
+        },
+        {
+          id: 3,
+          coordinates: [52.3, 4.8],
+          authorAvatar: `img/avatar-max.jpg`,
+          authorName: `Bob`,
+          rating: 4,
+          date: new Date(`2020-01-23 12:00:11`),
+          text: `text3`,
+        },
+      ],
+    },
   });
   const tree = renderer
     .create(
@@ -113,6 +157,7 @@ it(`Should OfferInfo render correctly`, () => {
           <OfferInfo
             offer={MockOffer}
             offers={MockOffers}
+            setOfferInfo={() => {}}
           />
         </Provider>, {
           createNodeMock: () => {

@@ -3,6 +3,7 @@ import renderer from "react-test-renderer";
 import {Provider} from "react-redux";
 import configureStore from "redux-mock-store";
 import OfferList from "./offer-list";
+import NameSpace from "../../reduser/name-space";
 
 const mockStore = configureStore([]);
 
@@ -17,10 +18,9 @@ const MockOffers = [
     ],
     price: 10,
     title: `apartment1`,
-    type: `House`,
+    type: `house`,
     rating: 2,
     isFavorites: true,
-    nearbyOffers: [2, 3],
   },
   {
     id: 2,
@@ -32,10 +32,9 @@ const MockOffers = [
     ],
     price: 20,
     title: `apartment2`,
-    type: `Private Room`,
+    type: `room`,
     rating: 3,
     isFavorites: false,
-    nearbyOffers: [1, 3],
   },
   {
     id: 3,
@@ -47,16 +46,17 @@ const MockOffers = [
     ],
     price: 30,
     title: `apartment3`,
-    type: `Hotel`,
+    type: `hotel`,
     rating: 4,
     isFavorites: false,
-    nearbyOffers: [1, 2],
   },
 ];
 
 it(`Should OfferList render correctly`, () => {
   const store = mockStore({
-    sortType: `PRICE_UP`
+    [NameSpace.OFFERS]: {
+      sortType: `PRICE_UP`
+    }
   });
   const tree = renderer
     .create(

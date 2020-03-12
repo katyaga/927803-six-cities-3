@@ -240,7 +240,7 @@ exports[`Should Main render correctly 1`] = `
               <p
                 className="place-card__type"
               >
-                House
+                house
               </p>
             </div>
           </article>
@@ -345,7 +345,7 @@ exports[`Should Main render correctly 1`] = `
               <p
                 className="place-card__type"
               >
-                Apartment
+                apartment
               </p>
             </div>
           </article>
@@ -450,7 +450,7 @@ exports[`Should Main render correctly 1`] = `
               <p
                 className="place-card__type"
               >
-                Private Room
+                room
               </p>
             </div>
           </article>

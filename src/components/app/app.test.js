@@ -3,17 +3,23 @@ import renderer from "react-test-renderer";
 import {Provider} from "react-redux";
 import configureStore from "redux-mock-store";
 import App from "./app.jsx";
+import NameSpace from "../../reduser/name-space";
 
 const mockStore = configureStore([]);
 
 const sortType = `PRICE_UP`;
-
 const city = `Brussels`;
 
 const MockOffers = [
   {
     id: 2,
-    city: `Amsterdam`,
+    city: {
+      location: {
+        coordinates: [52.3, 4.8],
+        zoom: 8,
+      },
+      name: `Amsterdam`,
+    },
     coordinates: [52.3, 4.8],
     isPremium: true,
     images: [
@@ -23,14 +29,19 @@ const MockOffers = [
     ],
     price: 20,
     title: `apartment2`,
-    type: `Private Room`,
+    type: `room`,
     rating: 3,
     isFavorites: false,
-    nearbyOffers: [1, 3],
   },
   {
     id: 3,
-    city: `Cologne`,
+    city: {
+      location: {
+        coordinates: [52.3, 4.8],
+        zoom: 8,
+      },
+      name: `Cologne`,
+    },
     coordinates: [52.3, 4.8],
     isPremium: true,
     images: [
@@ -40,32 +51,42 @@ const MockOffers = [
     ],
     price: 30,
     title: `apartment3`,
-    type: `Hotel`,
+    type: `hotel`,
     rating: 4,
     isFavorites: false,
-    nearbyOffers: [1, 2],
   },
 ];
 
 it(`Render App`, () => {
   const store = mockStore({
-    city: `Cologne`,
-    cityOffers: MockOffers,
-    cities: [
-      {
-        name: `Amsterdam`,
-        coordinates: [52.38333, 4.9],
-      },
-      {
-        name: `Cologne`,
-        coordinates: [50.930779, 6.938399],
-      },
-      {
-        name: `Brussels`,
-        coordinates: [50.851309, 4.351718],
-      },
-    ],
-    sortType: `PRICE_UP`,
+    [NameSpace.OFFERS]: {
+      city: `Cologne`,
+      cityOffers: MockOffers,
+      cities: [
+        {
+          name: `Amsterdam`,
+          location: {
+            coordinates: [52.38333, 4.9],
+            zoom: 8,
+          },
+        },
+        {
+          name: `Cologne`,
+          location: {
+            coordinates: [50.930779, 6.938399],
+            zoom: 8,
+          }
+        },
+        {
+          name: `Brussels`,
+          location: {
+            coordinates: [50.851309, 4.351718],
+            zoom: 8,
+          },
+        },
+      ],
+      sortType: `PRICE_UP`,
+    },
   });
 
   const tree = renderer
