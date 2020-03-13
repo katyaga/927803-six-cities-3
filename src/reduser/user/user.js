@@ -7,7 +7,7 @@ const AuthorizationStatus = {
 
 const initialState = {
   authorizationStatus: AuthorizationStatus.NO_AUTH,
-  user: null,
+  user: {},
 };
 
 const ActionType = {
@@ -63,8 +63,12 @@ const Operation = {
       password: authData.password,
     })
       .then((response) => {
-        dispatch(ActionCreator.requireAuthorization(AuthorizationStatus.AUTH));
         dispatch(ActionCreator.setUser(adapterUser(response.data)));
+        dispatch(ActionCreator.requireAuthorization(AuthorizationStatus.AUTH));
+
+      })
+      .catch((err) => {
+        throw err;
       });
   },
 };

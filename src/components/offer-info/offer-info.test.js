@@ -128,6 +128,7 @@ it(`Should OfferInfo render correctly`, () => {
   const store = mockStore({
     [NameSpace.OFFERS]: {
       cities,
+      selectedTitleId: 2,
       sortType: `PRICE_UP`,
       nearbyOffers: [2, 3],
       comments: [
