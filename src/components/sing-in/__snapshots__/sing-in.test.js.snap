@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`Render App 1`] = `
+exports[`Should SingIn render correctly 1`] = `
 <div
   className="page page--gray page--login"
 >
@@ -127,7 +127,7 @@ exports[`Render App 1`] = `
             href="#"
           >
             <span>
-              Cologne
+              Amsterdam
             </span>
           </a>
         </div>

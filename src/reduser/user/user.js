@@ -1,3 +1,5 @@
+import {adapterUser} from "../../utils";
+
 const AuthorizationStatus = {
   AUTH: `AUTH`,
   NO_AUTH: `NO_AUTH`,
@@ -5,10 +7,12 @@ const AuthorizationStatus = {
 
 const initialState = {
   authorizationStatus: AuthorizationStatus.NO_AUTH,
+  user: null,
 };
 
 const ActionType = {
   REQUIRED_AUTHORIZATION: `REQUIRED_AUTHORIZATION`,
+  SET_USER: `SET_USER`,
 };
 
 const ActionCreator = {
@@ -16,6 +20,12 @@ const ActionCreator = {
     return {
       type: ActionType.REQUIRED_AUTHORIZATION,
       payload: status,
+    };
+  },
+  setUser: (user) => {
+    return {
+      type: ActionType.SET_USER,
+      payload: user,
     };
   },
 };
@@ -26,6 +36,10 @@ const reducer = (state = initialState, action) => {
       return Object.assign({}, state, {
         authorizationStatus: action.payload,
       });
+    case ActionType.SET_USER:
+      return Object.assign({}, state, {
+        user: action.payload,
+      });
   }
 
   return state;
@@ -34,8 +48,9 @@ const reducer = (state = initialState, action) => {
 const Operation = {
   checkAuth: () => (dispatch, getState, api) => {
     return api.get(`/login`)
-      .then(() => {
+      .then((response) => {
         dispatch(ActionCreator.requireAuthorization(AuthorizationStatus.AUTH));
+        dispatch(ActionCreator.setUser(adapterUser(response.data)));
       })
       .catch((err) => {
         throw err;
@@ -44,11 +59,12 @@ const Operation = {
 
   login: (authData) => (dispatch, getState, api) => {
     return api.post(`/login`, {
-      email: authData.login,
+      email: authData.email,
       password: authData.password,
     })
-      .then(() => {
+      .then((response) => {
         dispatch(ActionCreator.requireAuthorization(AuthorizationStatus.AUTH));
+        dispatch(ActionCreator.setUser(adapterUser(response.data)));
       });
   },
 };

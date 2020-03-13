@@ -84,6 +84,16 @@ const MockOffers = [
 
 const city = `Brussels`;
 
+const user = {
+  avatarUrl: `img/1.png`,
+  email: `Oliver.conner@gmail.com`,
+  id: 10,
+  isSuper: true,
+  name: `Oliver.conner`,
+};
+
+const authorizationStatus = `AUTH`;
+
 it(`Should Main render correctly`, () => {
   const store = mockStore({
     [NameSpace.OFFERS]: {
@@ -112,6 +122,10 @@ it(`Should Main render correctly`, () => {
         },
       ],
       sortType: `PRICE_UP`,
+    },
+    [NameSpace.USER]: {
+      authorizationStatus,
+      user,
     },
   });
 

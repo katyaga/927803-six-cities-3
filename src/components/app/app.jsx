@@ -5,7 +5,8 @@ import {connect} from "react-redux";
 import {ActionCreator} from "../../reduser/offers/offers.js";
 import Main from "../main/main.jsx";
 import OfferInfo from "../offer-info/offer-info.jsx";
-import Page from "../page/page.jsx";
+import SingIn from "../sing-in/sing-in.jsx";
+import {Operation as UserOperation} from "../../reduser/user/user";
 import {
   getCity,
   getCityOffers,
@@ -16,6 +17,7 @@ import {
 class App extends PureComponent {
   _renderApp() {
     const {
+      login,
       city,
       cityOffers,
       selectedTitleId,
@@ -27,30 +29,31 @@ class App extends PureComponent {
       const selectedCard = cityOffers.find((offer) => offer.id === selectedTitleId);
 
       return (
-        <Page>
-          <OfferInfo
-            offers={cityOffers}
-            offer={selectedCard}
-          />
-        </Page>
+        <OfferInfo
+          offers={cityOffers}
+          offer={selectedCard}
+        />
       );
     } else {
       return (
-        <Page>
-          <Main
-            city={city}
-            offersCount={cityOffers.length}
-            offers={cityOffers}
-            sortType={sortType}
-            onSortTypeClick={onSortTypeClick}
-          />
-        </Page>
+        <SingIn
+          onSubmit={login}
+          city={city}/>
+        // <Page>
+        //   <Main
+        //     city={city}
+        //     offersCount={cityOffers.length}
+        //     offers={cityOffers}
+        //     sortType={sortType}
+        //     onSortTypeClick={onSortTypeClick}
+        //   />
+        // </Page>
       );
     }
   }
 
   render() {
-    const {cityOffers, selectedTitleId} = this.props;
+    const {cityOffers, selectedTitleId, city} = this.props;
 
     return (
       <BrowserRouter>
@@ -60,13 +63,16 @@ class App extends PureComponent {
           </Route>
           <Route exact path="/offer-info">
             {selectedTitleId ?
-              <Page>
-                <OfferInfo
-                  offers={cityOffers}
-                  offer={cityOffers[0]} />
-              </Page>
+              <OfferInfo
+                offers={cityOffers}
+                offer={cityOffers[0]} />
               : ``
             }
+          </Route>
+          <Route exact path="/login">
+            <SingIn
+              onSubmit={() => {}}
+              city={city}/>
           </Route>
         </Switch>
       </BrowserRouter>
@@ -75,6 +81,7 @@ class App extends PureComponent {
 }
 
 App.propTypes = {
+  login: PropTypes.func.isRequired,
   cityOffers: PropTypes.array.isRequired,
   city: PropTypes.string.isRequired,
   selectedTitleId: PropTypes.number,
@@ -92,6 +99,9 @@ const mapStateToProps = (state) => ({
 const mapDispatchToProps = (dispatch) => ({
   onSortTypeClick(type) {
     dispatch(ActionCreator.setSortType(type));
+  },
+  login(authData) {
+    dispatch(UserOperation.login(authData));
   },
 });
 

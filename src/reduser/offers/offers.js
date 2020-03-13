@@ -95,6 +95,16 @@ const Operation = {
         dispatch(ActionCreator.setComments(adapterComments(response.data)));
       });
   },
+  sendComment: (id, commentData) => (dispatch, getState, api) => {
+    return api.post(`/comments/${id}`, {
+      comment: commentData.login,
+      rating: commentData.password,
+    })
+      .then((response) => {
+        dispatch(ActionCreator.setComments(adapterComments(response.data)));
+      })
+      .catch();
+  },
   setNearbyOffers: (id) => (dispatch, getState, api) => {
     return api.get(`/hotels/${id}/nearby`)
       .then((response) => {

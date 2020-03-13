@@ -5,6 +5,7 @@ import Map from "../map/map.jsx";
 import Cities from "../cities/cities.jsx";
 import WithoutOffers from "../without-offers/without-offers.jsx";
 import Sorting from "../sorting/sorting.jsx";
+import Header from "../header/header.jsx";
 
 class Main extends PureComponent {
   constructor(props) {
@@ -15,39 +16,42 @@ class Main extends PureComponent {
     const {city, offersCount, offers, sortType, onSortTypeClick} = this.props;
 
     return (
-      <main className={`page__main page__main--index ${offersCount < 1 ? `page__main--index-empty` : ``}`}>
-        <h1 className="visually-hidden">city</h1>
-        <div className="tabs">
-          <section className="locations container">
-            <Cities city={city}/>
-          </section>
-        </div>
-        <div className="cities">
-          {offersCount === 0 ? <WithoutOffers/> :
+      <div className="page page--gray page--main">
+        <Header />
 
-            <div className="cities__places-container container">
-              <section className="cities__places places">
-                <h2 className="visually-hidden">Places</h2>
-                <b className="places__found">{offersCount} places to stay in {city}</b>
-                <Sorting
-                  sortType={sortType}
-                  onSortTypeClick={onSortTypeClick}/>
-                <OfferList
-                  offers={offers}
-                  isNearPlaces={false} />
-              </section>
-              <div className="cities__right-section">
-                <section className="cities__map map">
-                  <Map
+        <main className={`page__main page__main--index ${offersCount < 1 ? `page__main--index-empty` : ``}`}>
+          <h1 className="visually-hidden">city</h1>
+          <div className="tabs">
+            <section className="locations container">
+              <Cities city={city}/>
+            </section>
+          </div>
+          <div className="cities">
+            {offersCount === 0 ? <WithoutOffers/> :
+              <div className="cities__places-container container">
+                <section className="cities__places places">
+                  <h2 className="visually-hidden">Places</h2>
+                  <b className="places__found">{offersCount} places to stay in {city}</b>
+                  <Sorting
+                    sortType={sortType}
+                    onSortTypeClick={onSortTypeClick}/>
+                  <OfferList
                     offers={offers}
-                    city={city}
-                  />
+                    isNearPlaces={false} />
                 </section>
+                <div className="cities__right-section">
+                  <section className="cities__map map">
+                    <Map
+                      offers={offers}
+                      city={city}
+                    />
+                  </section>
+                </div>
               </div>
-            </div>
-          }
-        </div>
-      </main>
+            }
+          </div>
+        </main>
+      </div>
     );
   }
 }
