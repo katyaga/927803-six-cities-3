@@ -5,6 +5,7 @@ const Error = {
 };
 
 export const createAPI = (onUnauthorized) => {
+  axios.defaults.withCredentials = true;
   const api = axios.create({
     baseURL: `https://htmlacademy-react-3.appspot.com/six-cities`,
     timeout: 1000 * 5,

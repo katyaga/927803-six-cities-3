@@ -97,8 +97,8 @@ const Operation = {
   },
   sendComment: (id, commentData) => (dispatch, getState, api) => {
     return api.post(`/comments/${id}`, {
-      comment: commentData.login,
-      rating: commentData.password,
+      comment: commentData.comment,
+      rating: commentData.rating,
     })
       .then((response) => {
         dispatch(ActionCreator.setComments(adapterComments(response.data)));

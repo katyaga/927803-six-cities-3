@@ -6,7 +6,7 @@ import thunk from "redux-thunk";
 import App from "./components/app/app.jsx";
 import reducer from "./reduser/reducer.js";
 import {Operation as OffersOperation} from "./reduser/offers/offers.js";
-import {Operation as UserOperation, ActionCreator, AuthorizationStatus} from "./reduser/user/user.js";
+import {ActionCreator, AuthorizationStatus} from "./reduser/user/user.js";
 import {createAPI} from "./api.js";
 
 const onUnauthorized = () => {
@@ -14,7 +14,6 @@ const onUnauthorized = () => {
 };
 
 const api = createAPI(onUnauthorized);
-// console.log(api);
 
 const store = createStore(
     reducer,
@@ -25,7 +24,7 @@ const store = createStore(
 );
 
 store.dispatch(OffersOperation.loadOffers());
-store.dispatch(UserOperation.checkAuth());
+// store.dispatch(UserOperation.checkAuth());
 
 ReactDOM.render(
     <Provider store={store}>

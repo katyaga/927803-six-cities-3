@@ -13,10 +13,12 @@ import {
   getSelectedTitleId,
   getSortType
 } from "../../reduser/offers/selector";
+import {getAuthorizationStatus} from "../../reduser/user/selectors";
 
 class App extends PureComponent {
   _renderApp() {
     const {
+      authorizationStatus,
       login,
       city,
       cityOffers,
@@ -25,31 +27,58 @@ class App extends PureComponent {
       onSortTypeClick,
     } = this.props;
 
-    if (selectedTitleId) {
-      const selectedCard = cityOffers.find((offer) => offer.id === selectedTitleId);
-
-      return (
-        <OfferInfo
-          offers={cityOffers}
-          offer={selectedCard}
-        />
-      );
-    } else {
+    if (authorizationStatus === `NO_AUTH`) {
       return (
         <SingIn
           onSubmit={login}
           city={city}/>
-        // <Page>
-        //   <Main
-        //     city={city}
-        //     offersCount={cityOffers.length}
-        //     offers={cityOffers}
-        //     sortType={sortType}
-        //     onSortTypeClick={onSortTypeClick}
-        //   />
-        // </Page>
       );
+    } else {
+      if (selectedTitleId) {
+        const selectedCard = cityOffers.find((offer) => offer.id === selectedTitleId);
+
+        return (
+          <OfferInfo
+            offers={cityOffers}
+            offer={selectedCard}
+          />
+        );
+      } else {
+        return (
+          <Main
+            city={city}
+            offersCount={cityOffers.length}
+            offers={cityOffers}
+            sortType={sortType}
+            onSortTypeClick={onSortTypeClick}
+          />
+        );
+      }
     }
+
+    // if (selectedTitleId) {
+    //   const selectedCard = cityOffers.find((offer) => offer.id === selectedTitleId);
+    //
+    //   return (
+    //     <OfferInfo
+    //       offers={cityOffers}
+    //       offer={selectedCard}
+    //     />
+    //   );
+    // } else {
+    //   return (
+    //     // <SingIn
+    //     //   onSubmit={login}
+    //     //   city={city}/>
+    //     <Main
+    //       city={city}
+    //       offersCount={cityOffers.length}
+    //       offers={cityOffers}
+    //       sortType={sortType}
+    //       onSortTypeClick={onSortTypeClick}
+    //     />
+    //   );
+    // }
   }
 
   render() {
@@ -87,6 +116,7 @@ App.propTypes = {
   selectedTitleId: PropTypes.number,
   sortType: PropTypes.string.isRequired,
   onSortTypeClick: PropTypes.func.isRequired,
+  authorizationStatus: PropTypes.string.isRequired,
 };
 
 const mapStateToProps = (state) => ({
@@ -94,6 +124,7 @@ const mapStateToProps = (state) => ({
   cityOffers: getCityOffers(state),
   selectedTitleId: getSelectedTitleId(state),
   sortType: getSortType(state),
+  authorizationStatus: getAuthorizationStatus(state),
 });
 
 const mapDispatchToProps = (dispatch) => ({

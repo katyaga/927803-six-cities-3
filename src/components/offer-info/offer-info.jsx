@@ -7,7 +7,7 @@ import OfferList from "../offer-list/offer-list.jsx";
 import {getComments, getNearbyOffers} from "../../reduser/offers/selector";
 import {connect} from "react-redux";
 import {getAuthorizationStatus} from "../../reduser/user/selectors";
-// import ReviewsForm from "../reviews-form/reviews-form.jsx";
+import ReviewsForm from "../reviews-form/reviews-form.jsx";
 import Header from "../header/header.jsx";
 
 class OfferInfo extends PureComponent {
@@ -138,9 +138,9 @@ class OfferInfo extends PureComponent {
                     <Reviews
                       comments={comments}
                     />
-                    {/*{authorizationStatus === `NO_AUTH` ?*/}
-                    {/*  <ReviewsForm /> : ``}*/}
-                    {/*<ReviewsForm />*/}
+                    {authorizationStatus === `NO_AUTH` ?
+                      <ReviewsForm /> : ``}
+                    <ReviewsForm />
                   </section>
                 </div>
               </div>
