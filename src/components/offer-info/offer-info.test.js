@@ -114,6 +114,16 @@ const cities = [
   },
 ];
 
+const user = {
+  avatarUrl: `img/1.png`,
+  email: `Oliver.conner@gmail.com`,
+  id: 10,
+  isSuper: true,
+  name: `Oliver.conner`,
+};
+
+const authorizationStatus = `AUTH`;
+
 it(`Should OfferInfo render correctly`, () => {
   const store = mockStore({
     [NameSpace.OFFERS]: {
@@ -149,6 +159,10 @@ it(`Should OfferInfo render correctly`, () => {
           text: `text3`,
         },
       ],
+    },
+    [NameSpace.USER]: {
+      authorizationStatus,
+      user,
     },
   });
   const tree = renderer

@@ -29,7 +29,6 @@ export const extend = (a, b) => {
 };
 
 export const adapter = (offers) => {
-  // console.log(offers);
   return offers.map((offer) => {
     return (
       {
@@ -77,6 +76,18 @@ export const adapterComments = (comments) => {
       }
     );
   });
+};
+
+export const adapterUser = (user) => {
+  return (
+    {
+      id: user.id,
+      name: user.name,
+      avatarUrl: user.avatar_url,
+      isSuper: user.is_pro,
+      email: user.email,
+    }
+  );
 };
 
 export const getCityOffers = (city, offers) => {
