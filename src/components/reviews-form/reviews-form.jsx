@@ -10,16 +10,13 @@ class ReviewsForm extends PureComponent {
     this.props = props;
     this.rating = null;
     this.comment = ``;
+    this.isBlockButton = true;
     this.setHOCState = props.setState;
 
     this._onSubmit = this._onSubmit.bind(this);
     this._onInputCheck = this._onInputCheck.bind(this);
     this._onTextChange = this._onTextChange.bind(this);
     this._changeFormButton = this._changeFormButton.bind(this);
-  }
-
-  componentDidUpdate() {
-    this._changeFormButton();
   }
 
   _onSubmit(evt) {
@@ -31,6 +28,7 @@ class ReviewsForm extends PureComponent {
     this.setHOCState({
       rating: this.rating,
       comment: this.comment,
+      isBlockButton: this.isBlockButton,
     });
 
     onFormSubmit(selectedTitleId, {
@@ -41,24 +39,33 @@ class ReviewsForm extends PureComponent {
       this.setHOCState({
         rating: null,
         comment: ``,
+        isBlockButton: this.isBlockButton,
       });
-      this._resetForm();
+      // this._resetForm();
     }
     );
   }
 
-  _resetForm() {
-    this.render();
-  }
+  // _resetForm() {
+  //   this.render();
+  // }
 
   _onInputCheck(evt) {
     this.rating = Number.parseInt(evt.target.value, 10);
     this._changeFormButton();
+
+    // this.setHOCState({
+    //   rating: this.rating,
+    // });
   }
 
   _onTextChange(evt) {
     this.comment = evt.target.value;
     this._changeFormButton();
+
+    // this.setHOCState({
+    //   comment: this.comment,
+    // });
   }
 
   _changeFormButton() {
@@ -66,14 +73,22 @@ class ReviewsForm extends PureComponent {
     const isBlockButton = () => {
       return (!this.rating || this.comment.length < 50);
     };
-    button.disabled = isBlockButton();
+    this.isBlockButton = isBlockButton();
+    button.disabled = this.isBlockButton;
+  }
+
+  componentDidUpdate() {
+    console.log(`componentDidUpdate`);
+    const {isBlockButton} = this.props;
+    this.isBlockButton = isBlockButton;
   }
 
   render() {
-    const {rating, comment} = this.props;
+    const {rating, comment, isBlockButton} = this.props;
     console.log(rating, comment);
     this.rating = rating;
     this.comment = comment;
+    this.isBlockButton = isBlockButton;
 
     return (
       <form className="reviews__form form" action="#" method="post" onSubmit={this._onSubmit}>
@@ -121,7 +136,7 @@ class ReviewsForm extends PureComponent {
           <p className="reviews__help">
             To submit review please make sure to set <span className="reviews__star">rating</span> and describe your stay with at least <b className="reviews__text-amount">50 characters</b>.
           </p>
-          <button className="reviews__submit form__submit button" type="submit" disabled>Submit</button>
+          <button className="reviews__submit form__submit button" type="submit" disabled={this.isBlockButton}>Submit</button>
         </div>
       </form>
     );
