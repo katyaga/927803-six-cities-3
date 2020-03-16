@@ -9,6 +9,9 @@ import {connect} from "react-redux";
 import {getAuthorizationStatus} from "../../reduser/user/selectors";
 import ReviewsForm from "../reviews-form/reviews-form.jsx";
 import Header from "../header/header.jsx";
+import withForm from "../../hocs/withForm.js";
+
+const FeedbackForm = withForm(ReviewsForm);
 
 class OfferInfo extends PureComponent {
   constructor(props) {
@@ -32,8 +35,6 @@ class OfferInfo extends PureComponent {
       isFavorites
     } = offer;
     const {avatar, name, isSuper} = host;
-
-    // console.log();
 
     const MAX_IMAGES_COUNT = 6;
     const shownImages = images.slice(0, MAX_IMAGES_COUNT);
@@ -138,9 +139,9 @@ class OfferInfo extends PureComponent {
                     <Reviews
                       comments={comments}
                     />
-                    {authorizationStatus === `NO_AUTH` ?
-                      <ReviewsForm /> : ``}
-                    <ReviewsForm />
+                    {authorizationStatus === `AUTH` ?
+                      <FeedbackForm
+                        selectedTitleId={offer.id} /> : ``}
                   </section>
                 </div>
               </div>

@@ -95,13 +95,14 @@ const Operation = {
         dispatch(ActionCreator.setComments(adapterComments(response.data)));
       });
   },
-  sendComment: (id, commentData) => (dispatch, getState, api) => {
+  sendComment: (id, commentData, callback) => (dispatch, getState, api) => {
     return api.post(`/comments/${id}`, {
       comment: commentData.comment,
       rating: commentData.rating,
     })
       .then((response) => {
         dispatch(ActionCreator.setComments(adapterComments(response.data)));
+        callback();
       })
       .catch();
   },

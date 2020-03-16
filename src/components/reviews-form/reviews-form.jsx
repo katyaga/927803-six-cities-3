@@ -2,13 +2,15 @@ import React, {PureComponent} from "react";
 import PropTypes from "prop-types";
 import {Operation} from "../../reduser/offers/offers";
 import {connect} from "react-redux";
-import {getSelectedTitleId} from "../../reduser/offers/selector";
+// import {getSelectedTitleId} from "../../reduser/offers/selector";
 
 class ReviewsForm extends PureComponent {
   constructor(props) {
     super(props);
+    this.props = props;
     this.rating = null;
     this.comment = ``;
+    this.setHOCState = props.setState;
 
     this._onSubmit = this._onSubmit.bind(this);
     this._onInputCheck = this._onInputCheck.bind(this);
@@ -16,19 +18,41 @@ class ReviewsForm extends PureComponent {
     this._changeFormButton = this._changeFormButton.bind(this);
   }
 
+  componentDidUpdate() {
+    this._changeFormButton();
+  }
+
   _onSubmit(evt) {
     evt.preventDefault();
 
     const {onFormSubmit, selectedTitleId} = this.props;
+    console.log(this.rating, this.comment);
+
+    this.setHOCState({
+      rating: this.rating,
+      comment: this.comment,
+    });
 
     onFormSubmit(selectedTitleId, {
       rating: this.rating,
       comment: this.comment,
-    });
+    },
+    () => {
+      this.setHOCState({
+        rating: null,
+        comment: ``,
+      });
+      this._resetForm();
+    }
+    );
+  }
+
+  _resetForm() {
+    this.render();
   }
 
   _onInputCheck(evt) {
-    this.rating = evt.target.value;
+    this.rating = Number.parseInt(evt.target.value, 10);
     this._changeFormButton();
   }
 
@@ -39,13 +63,18 @@ class ReviewsForm extends PureComponent {
 
   _changeFormButton() {
     const button = document.querySelector(`.reviews__submit`);
-    const isBlockSaveButton = () => {
+    const isBlockButton = () => {
       return (!this.rating || this.comment.length < 50);
     };
-    button.disabled = isBlockSaveButton();
+    button.disabled = isBlockButton();
   }
 
   render() {
+    const {rating, comment} = this.props;
+    console.log(rating, comment);
+    this.rating = rating;
+    this.comment = comment;
+
     return (
       <form className="reviews__form form" action="#" method="post" onSubmit={this._onSubmit}>
         <label className="reviews__label form__label" htmlFor="review">Your review</label>
@@ -100,19 +129,19 @@ class ReviewsForm extends PureComponent {
 }
 
 ReviewsForm.propTypes = {
+  rating: PropTypes.number,
+  comment: PropTypes.string.isRequired,
   onFormSubmit: PropTypes.func.isRequired,
+  handleResetForm: PropTypes.func.isRequired,
+  handleChangeData: PropTypes.func.isRequired,
   selectedTitleId: PropTypes.number.isRequired,
 };
 
-const mapStateToProps = (state) => ({
-  selectedTitleId: getSelectedTitleId(state),
-});
-
 const mapDispatchToProps = (dispatch) => ({
-  onFormSubmit(id, comment) {
-    dispatch(Operation.sendComment(id, comment));
+  onFormSubmit(id, comment, callback) {
+    dispatch(Operation.sendComment(id, comment, callback));
   },
 });
 
 export {ReviewsForm};
-export default connect(mapStateToProps, mapDispatchToProps)(ReviewsForm);
+export default connect(null, mapDispatchToProps)(ReviewsForm);
