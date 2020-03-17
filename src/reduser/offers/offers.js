@@ -95,16 +95,14 @@ const Operation = {
         dispatch(ActionCreator.setComments(adapterComments(response.data)));
       });
   },
-  sendComment: (id, commentData, callback) => (dispatch, getState, api) => {
+  sendComment: (id, commentData) => (dispatch, getState, api) => {
     return api.post(`/comments/${id}`, {
       comment: commentData.comment,
       rating: commentData.rating,
+    }).then((response) => {
+      dispatch(ActionCreator.setComments(adapterComments(response.data)));
     })
-      .then((response) => {
-        dispatch(ActionCreator.setComments(adapterComments(response.data)));
-        callback();
-      })
-      .catch();
+    .catch();
   },
   setNearbyOffers: (id) => (dispatch, getState, api) => {
     return api.get(`/hotels/${id}/nearby`)

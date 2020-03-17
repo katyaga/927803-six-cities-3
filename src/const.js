@@ -14,3 +14,5 @@ export const SortType = {
   RATING: `Top rated first`,
 };
 
+export const RATING_TITLES = [`perfect`, `good`, `not bad`, `badly`, `terribly`];
+

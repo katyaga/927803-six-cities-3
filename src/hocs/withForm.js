@@ -10,42 +10,30 @@ const withForm = (Component) => {
         rating: null,
         comment: ``,
         isBlockButton: true,
+        isBlockForm: false,
       };
-      this.props = props;
 
-      this.handleResetForm = this.handleResetForm.bind(this);
-      // this.handleChangeData = this.handleChangeData.bind(this);
+      this.changeFormButton = this.changeFormButton.bind(this);
     }
 
-    // handleChangeData(rating, comment, isBlockButton) {
-    //   console.log(rating, comment);
-    //   this.setState({
-    //     rating: rating,
-    //     comment: comment,
-    //     isBlockButton: isBlockButton,
-    //   });
-    //   console.log(`handleChangeData`, this.state);
-    // }
-
-    handleResetForm() {
-      this.setState({
-        rating: null,
-        comment: ``,
-      }
-      );
+    changeFormButton() {
+      const isBlockButton = () => {
+        return (!this.state.rating || this.state.comment.length < 50);
+      };
+      this.setState({isBlockButton: isBlockButton()});
     }
 
     render() {
-      const {rating, comment, isBlockButton} = this.state;
+      const {rating, comment, isBlockButton, isBlockForm} = this.state;
 
       return <Component
         {...this.props}
         rating={rating}
         comment={comment}
-        setState={this.setState.bind(this)}
+        setHocState={this.setState.bind(this)}
         isBlockButton={isBlockButton}
-        handleResetForm={this.handleResetForm}
-        handleChangeData={this.handleChangeData}
+        isBlockForm={isBlockForm}
+        handleFormButton={this.changeFormButton}
       />;
     }
   }
