@@ -20,7 +20,7 @@ exports[`Should Header render correctly 1`] = `
             alt="6 cities logo"
             className="header__logo"
             height="41"
-            src="img/logo.svg"
+            src="/img/logo.svg"
             width="81"
           />
         </a>
@@ -36,11 +36,24 @@ exports[`Should Header render correctly 1`] = `
           >
             <a
               className="header__nav-link header__nav-link--profile"
-              href="#"
+              href="/favorites"
+              onClick={[Function]}
             >
               <div
                 className="header__avatar-wrapper user__avatar-wrapper"
-              />
+              >
+                <img
+                  alt="Users photo"
+                  height="100%"
+                  src="https://htmlacademy-react-3.appspot.com/six-citiesimg/1.png"
+                  style={
+                    Object {
+                      "borderRadius": "50%",
+                    }
+                  }
+                  width="100%"
+                />
+              </div>
               <span
                 className="header__user-name user__name"
               >

@@ -1,9 +1,11 @@
 import React from "react";
 import renderer from "react-test-renderer";
 import {Provider} from "react-redux";
+import {Router} from "react-router-dom";
 import configureStore from "redux-mock-store";
 import OfferInfo from "./offer-info.jsx";
 import NameSpace from "../../reduser/name-space";
+import history from "../../history.js";
 
 const mockStore = configureStore([]);
 
@@ -169,11 +171,15 @@ it(`Should OfferInfo render correctly`, () => {
   const tree = renderer
     .create(
         <Provider store={store}>
-          <OfferInfo
-            offer={MockOffer}
-            offers={MockOffers}
-            setOfferInfo={() => {}}
-          />
+          <Router
+            history={history}
+          >
+            <OfferInfo
+              offer={MockOffer}
+              offers={MockOffers}
+              setOfferInfo={() => {}}
+            />
+          </Router>
         </Provider>, {
           createNodeMock: () => {
             return document.createElement(`div`);

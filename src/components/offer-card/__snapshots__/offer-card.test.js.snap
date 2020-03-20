@@ -94,7 +94,8 @@ exports[`Should OfferCard render correctly 1`] = `
       onClick={[Function]}
     >
       <a
-        href="#"
+        href="/offer/1"
+        onClick={[Function]}
       >
         apartment1
       </a>

@@ -10,12 +10,22 @@ import {getAuthorizationStatus} from "../../reduser/user/selectors";
 import ReviewsForm from "../reviews-form/reviews-form.jsx";
 import Header from "../header/header.jsx";
 import withForm from "../../hocs/withForm.js";
+import {Operation} from "../../reduser/offers/offers";
 
 const FeedbackForm = withForm(ReviewsForm);
 
 class OfferInfo extends PureComponent {
   constructor(props) {
     super(props);
+
+    this.isFavorites = this.props.offer.isFavorites;
+    this._onBookmarkButtonClick = this._onBookmarkButtonClick.bind(this);
+  }
+
+  _onBookmarkButtonClick() {
+    const {onFavoritesClick, offer} = this.props;
+    this.isFavorites = !this.isFavorites;
+    onFavoritesClick(offer.id, this.isFavorites);
   }
 
   render() {
@@ -76,7 +86,9 @@ class OfferInfo extends PureComponent {
                     <h1 className="property__name">
                       {title}
                     </h1>
-                    <button className={`property__bookmark-button ${isFavorites ? `property__bookmark-button--active` : ``} button`} type="button">
+                    <button className={`property__bookmark-button ${isFavorites ? `property__bookmark-button--active` : ``} button`}
+                      onClick={this._onBookmarkButtonClick}
+                      type="button">
                       <svg className="property__bookmark-icon" width="31" height="33">
                         <use xlinkHref="#icon-bookmark"></use>
                       </svg>
@@ -121,7 +133,7 @@ class OfferInfo extends PureComponent {
                     <div className="property__host-user user">
                       <div
                         className={`property__avatar-wrapper ${isSuper ? `property__avatar-wrapper--pro` : ``} user__avatar-wrapper`}>
-                        <img className="property__avatar user__avatar" src={avatar} width="74"
+                        <img className="property__avatar user__avatar" src={`/${avatar}`} width="74"
                           height="74" alt="Host avatar"/>
                       </div>
                       <span className="property__user-name">
@@ -195,6 +207,7 @@ OfferInfo.propTypes = {
   offers: PropTypes.arrayOf(PropTypes.object).isRequired,
   comments: PropTypes.arrayOf(PropTypes.object),
   nearbyOffers: PropTypes.arrayOf(PropTypes.number),
+  onFavoritesClick: PropTypes.func.isRequired,
 };
 
 const mapStateToProps = (state) => ({
@@ -203,6 +216,13 @@ const mapStateToProps = (state) => ({
   comments: getComments(state),
 });
 
+const mapDispatchToProps = (dispatch) => ({
+  onFavoritesClick(id, isFavorites) {
+    isFavorites = isFavorites ? 1 : 0;
+    return dispatch(Operation.changeFavoritesOffer(id, isFavorites));
+  },
+});
+
 export {OfferInfo};
-export default connect(mapStateToProps)(OfferInfo);
+export default connect(mapStateToProps, mapDispatchToProps)(OfferInfo);
 

@@ -1,11 +1,14 @@
-import {extend, getCityOffers, adapter, getCityList} from "../../utils.js";
-import {adapterComments} from "../../utils";
+import {extend, getCityOffers, getCityList} from "../../utils.js";
+import {adapterComments, adapterOffer, adapterOffers, replaceOffer} from "../../utils";
+import {AppRoute, Error} from "../../const";
+import history from "../../history.js";
 
 const initialState = {
   cities: [],
   offers: [],
   city: ``,
   cityOffers: [],
+  favoritesOffers: [],
   selectedTitleId: null,
   comments: [],
   nearbyOffers: [],
@@ -63,6 +66,12 @@ const ActionCreator = {
       payload: offers,
     };
   },
+  changeFavoritesOffer: (offer) => {
+    return {
+      type: ActionType.REPLACE_OFFER,
+      payload: offer,
+    };
+  },
 };
 
 const ActionType = {
@@ -76,13 +85,15 @@ const ActionType = {
   SET_SORT_TYPE: `SET_SORT_TYPE`,
   SET_COMMENTS: `SET_COMMENTS`,
   SET_NEARBY_OFFERS: `SET_NEARBY_OFFERS`,
+  SET_FAVORITES_OFFERS: `SET_FAVORITES_OFFERS`,
+  REPLACE_OFFER: `REPLACE_OFFER`,
 };
 
 const Operation = {
   loadOffers: () => (dispatch, getState, api) => {
     return api.get(`/hotels`)
       .then((response) => {
-        const offers = adapter(response.data);
+        const offers = adapterOffers(response.data);
         dispatch(ActionCreator.loadOffers(offers));
         dispatch(ActionCreator.setCities(getCityList(offers)));
         dispatch(ActionCreator.setCity(offers[0].city.name));
@@ -108,6 +119,19 @@ const Operation = {
     return api.get(`/hotels/${id}/nearby`)
       .then((response) => {
         dispatch(ActionCreator.setNearbyOffers(response.data.map((offer) => offer.id)));
+      });
+  },
+  changeFavoritesOffer: (id, isFavorite) => (dispatch, getState, api) => {
+    return api.post(`/favorite/${id}/${isFavorite}`)
+      .then((response) => {
+        dispatch(ActionCreator.changeFavoritesOffer(adapterOffer(response.data)));
+      })
+      .catch((error) => {
+        if (error.response.status === Error.UNAUTHORIZED) {
+          return history.push(AppRoute.LOGIN);
+        } else {
+          throw error;
+        }
       });
   },
 };
@@ -162,6 +186,11 @@ const reducer = (state = initialState, action) => {
     case ActionType.SET_NEARBY_OFFERS:
       return extend(state, {
         nearbyOffers: action.payload,
+      });
+
+    case ActionType.REPLACE_OFFER:
+      return extend(state, {
+        cityOffers: replaceOffer(action.payload, state.cityOffers),
       });
   }
 

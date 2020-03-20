@@ -1,7 +1,8 @@
 import React, {PureComponent} from "react";
 import PropTypes from "prop-types";
-import {Switch, Route, BrowserRouter} from "react-router-dom";
+import {Switch, Route, Router} from "react-router-dom";
 import {connect} from "react-redux";
+import PrivateRoute from "../private-route/private-route.jsx";
 import {ActionCreator} from "../../reduser/offers/offers.js";
 import Main from "../main/main.jsx";
 import OfferInfo from "../offer-info/offer-info.jsx";
@@ -14,97 +15,50 @@ import {
   getSortType
 } from "../../reduser/offers/selector";
 import {getAuthorizationStatus} from "../../reduser/user/selectors";
+import history from "../../history.js";
+import {AppRoute} from "../../const.js";
+import Favorites from "../favorites/favorites.jsx";
 
 class App extends PureComponent {
-  _renderApp() {
-    const {
-      authorizationStatus,
-      login,
-      city,
-      cityOffers,
-      selectedTitleId,
-      sortType,
-      onSortTypeClick,
-    } = this.props;
-
-    if (authorizationStatus === `NO_AUTH`) {
-      return (
-        <SingIn
-          onSubmit={login}
-          city={city}/>
-      );
-    } else {
-      if (selectedTitleId) {
-        const selectedCard = cityOffers.find((offer) => offer.id === selectedTitleId);
-
-        return (
-          <OfferInfo
-            offers={cityOffers}
-            offer={selectedCard}
-          />
-        );
-      } else {
-        return (
-          <Main
-            city={city}
-            offersCount={cityOffers.length}
-            offers={cityOffers}
-            sortType={sortType}
-            onSortTypeClick={onSortTypeClick}
-          />
-        );
-      }
-    }
-
-    // if (selectedTitleId) {
-    //   const selectedCard = cityOffers.find((offer) => offer.id === selectedTitleId);
-    //
-    //   return (
-    //     <OfferInfo
-    //       offers={cityOffers}
-    //       offer={selectedCard}
-    //     />
-    //   );
-    // } else {
-    //   return (
-    //     // <SingIn
-    //     //   onSubmit={login}
-    //     //   city={city}/>
-    //     <Main
-    //       city={city}
-    //       offersCount={cityOffers.length}
-    //       offers={cityOffers}
-    //       sortType={sortType}
-    //       onSortTypeClick={onSortTypeClick}
-    //     />
-    //   );
-    // }
-  }
-
   render() {
-    const {cityOffers, selectedTitleId, city} = this.props;
+    const {cityOffers, selectedTitleId, city, login, sortType, onSortTypeClick} = this.props;
+    const selectedCard = cityOffers.find((offer) => offer.id === selectedTitleId);
 
     return (
-      <BrowserRouter>
+      <Router
+        history={history}
+      >
         <Switch>
-          <Route exact path="/">
-            {this._renderApp()}
+          <Route exact path={AppRoute.ROOT}>
+            <Main
+              city={city}
+              offersCount={cityOffers.length}
+              offers={cityOffers}
+              sortType={sortType}
+              onSortTypeClick={onSortTypeClick}
+            />
           </Route>
-          <Route exact path="/offer-info">
-            {selectedTitleId ?
-              <OfferInfo
-                offers={cityOffers}
-                offer={cityOffers[0]} />
-              : ``
-            }
-          </Route>
-          <Route exact path="/login">
+          <Route exact path={AppRoute.LOGIN}>
             <SingIn
-              onSubmit={() => {}}
+              onSubmit={login}
               city={city}/>
           </Route>
+          <Route exact path={AppRoute.getOffer(selectedTitleId)}>
+            <OfferInfo
+              offers={cityOffers}
+              offer={selectedCard} />
+          </Route>
+          <PrivateRoute
+            exact
+            path={AppRoute.FAVORITES}
+            render={() => {
+              return (
+                <Favorites/>
+              );
+            }}
+          />
         </Switch>
-      </BrowserRouter>
+      </Router>
     );
   }
 }

@@ -1,6 +1,8 @@
 import React, {PureComponent} from "react";
 import PropTypes from "prop-types";
+import {Link} from "react-router-dom";
 import {REALTY_TYPES} from "../../const.js";
+import {AppRoute} from "../../const";
 
 class OfferCard extends PureComponent {
   constructor(props) {
@@ -54,7 +56,7 @@ class OfferCard extends PureComponent {
           <h2 className="place-card__name"
             onClick={() => onCardTitleClick(id)}
           >
-            <a href="#">{title}</a>
+            <Link to={AppRoute.getOffer(id)}>{title}</Link>
           </h2>
           <p className="place-card__type">{type}</p>
         </div>

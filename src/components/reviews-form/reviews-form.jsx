@@ -33,13 +33,11 @@ class ReviewsForm extends PureComponent {
       rating: this.rating,
       comment: this.comment,
     }).then(() => {
-      setTimeout(() => {
-        this.setHOCState({
-          rating: null,
-          comment: ``,
-          isBlockForm: false
-        });
-      }, 2000);
+      this.setHOCState({
+        rating: null,
+        comment: ``,
+        isBlockForm: false
+      });
 
     }).catch(() => {
     });
