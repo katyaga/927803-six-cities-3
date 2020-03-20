@@ -28,38 +28,42 @@ export const extend = (a, b) => {
   return Object.assign({}, a, b);
 };
 
-export const adapter = (offers) => {
+export const adapterOffer = (offer) => {
+  return (
+    {
+      id: offer.id,
+      city: {
+        location: {
+          coordinates: [offer.city.location.latitude, offer.city.location.longitude],
+          zoom: offer.city.location.zoom,
+        },
+        name: offer.city.name,
+      },
+      coordinates: [offer.location.latitude, offer.location.longitude],
+      isPremium: offer.is_premium,
+      images: offer.images,
+      previewImage: offer.preview_image,
+      price: offer.price,
+      title: offer.title,
+      type: offer.type,
+      description: offer.description,
+      bedroomsCount: offer.bedrooms,
+      guestsCount: offer.max_adults,
+      facilities: offer.goods,
+      rating: offer.rating,
+      host: {
+        avatar: offer.host.avatar_url,
+        name: offer.host.name,
+        isSuper: offer.host.is_pro,
+      },
+      isFavorites: offer.is_favorite,
+    }
+  );
+};
+
+export const adapterOffers = (offers) => {
   return offers.map((offer) => {
-    return (
-      {
-        id: offer.id,
-        city: {
-          location: {
-            coordinates: [offer.city.location.latitude, offer.city.location.longitude],
-            zoom: offer.city.location.zoom,
-          },
-          name: offer.city.name,
-        },
-        coordinates: [offer.location.latitude, offer.location.longitude],
-        isPremium: offer.is_premium,
-        images: offer.images,
-        previewImage: offer.preview_image,
-        price: offer.price,
-        title: offer.title,
-        type: offer.type,
-        description: offer.description,
-        bedroomsCount: offer.bedrooms,
-        guestsCount: offer.max_adults,
-        facilities: offer.goods,
-        rating: offer.rating,
-        host: {
-          avatar: offer.host.avatar_url,
-          name: offer.host.name,
-          isSuper: offer.host.is_pro,
-        },
-        isFavorites: offer.is_favorite,
-      }
-    );
+    return adapterOffer(offer);
   });
 };
 
@@ -115,5 +119,15 @@ export const getCityList = (offers) => {
   const cities = offers.map((offer) => offer.city);
   const uniqCities = uniqBy(cities, `name`);
   return Array.from(uniqCities).sort();
+};
+
+export const replaceOffer = (offer, offers) => {
+  const index = offers.findIndex((it) => it.id === offer.id);
+
+  if (index === -1) {
+    return false;
+  }
+
+  return [].concat(offers.slice(0, index), offer, offers.slice(index + 1));
 };
 

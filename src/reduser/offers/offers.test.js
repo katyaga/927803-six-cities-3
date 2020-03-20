@@ -1,7 +1,7 @@
 import MockAdapter from "axios-mock-adapter";
 import {createAPI} from "../../api.js";
 import {reducer, ActionType, Operation} from "./offers.js";
-import {adapter} from "../../utils";
+import {adapterOffers} from "../../utils";
 
 const api = createAPI(() => {});
 
@@ -88,7 +88,7 @@ const offersFromServer = [
     "type": `apartment`
   }];
 
-const adaptedOffersFromServer = adapter(offersFromServer);
+const adaptedOffersFromServer = adapterOffers(offersFromServer);
 
 it(`Reducer without additional parameters should return initial state`, () => {
   expect(reducer(void 0, {})).toEqual({
@@ -96,6 +96,7 @@ it(`Reducer without additional parameters should return initial state`, () => {
     offers: [],
     city: ``,
     cityOffers: [],
+    favoritesOffers: [],
     selectedTitleId: null,
     comments: [],
     nearbyOffers: [],

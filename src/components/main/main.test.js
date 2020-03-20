@@ -2,8 +2,10 @@ import React from "react";
 import renderer from "react-test-renderer";
 import {Provider} from "react-redux";
 import configureStore from "redux-mock-store";
+import {Router} from "react-router-dom";
 import Main from "./main.jsx";
 import NameSpace from "../../reduser/name-space";
+import history from "../../history.js";
 
 const mockStore = configureStore([]);
 
@@ -132,15 +134,19 @@ it(`Should Main render correctly`, () => {
   const tree = renderer
     .create(
         <Provider store={store}>
-          <Main
-            city={city}
-            offersCount={MockData.OFFERS_COUNT}
-            offers={MockOffers}
-            onTitleClick={() => {}}
-            onCardHover={() => {}}
-            onSortTypeClick={() => {}}
-            sortType={sortType}
-          />
+          <Router
+            history={history}
+          >
+            <Main
+              city={city}
+              offersCount={MockData.OFFERS_COUNT}
+              offers={MockOffers}
+              onTitleClick={() => {}}
+              onCardHover={() => {}}
+              onSortTypeClick={() => {}}
+              sortType={sortType}
+            />
+          </Router>
         </Provider>, {
           createNodeMock: () => {
             return document.createElement(`div`);

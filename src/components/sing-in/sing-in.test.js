@@ -2,9 +2,10 @@ import React from "react";
 import renderer from "react-test-renderer";
 import configureStore from "redux-mock-store";
 import {Provider} from "react-redux";
+import {Router} from "react-router-dom";
 import SingIn from "./sing-in.jsx";
 import NameSpace from "../../reduser/name-space";
-// import NameSpace from "../../reduser/name-space";
+import history from "../../history.js";
 
 const mockStore = configureStore([]);
 
@@ -31,10 +32,14 @@ it(`Should SingIn render correctly`, () => {
   const tree = renderer
     .create(
         <Provider store={store}>
-          <SingIn
-            onSubmit={() => {}}
-            city={city}
-          />
+          <Router
+            history={history}
+          >
+            <SingIn
+              onSubmit={() => {}}
+              city={city}
+            />
+          </Router>
         </Provider>
     )
     .toJSON();

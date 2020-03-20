@@ -1,8 +1,5 @@
 import axios from "axios";
-
-const Error = {
-  UNAUTHORIZED: 401
-};
+import {Error} from "./const";
 
 export const createAPI = (onUnauthorized) => {
   axios.defaults.withCredentials = true;

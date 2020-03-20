@@ -62,12 +62,12 @@ class Map extends (PureComponent) {
     this._map.setView(cityCoordinates, cityZoom);
 
     const icon = leaflet.icon({
-      iconUrl: `img/pin.svg`,
+      iconUrl: `/img/pin.svg`,
       iconSize: [20, 30]
     });
 
     const activeIcon = leaflet.icon({
-      iconUrl: `img/pin-active.svg`,
+      iconUrl: `/img/pin-active.svg`,
       iconSize: [20, 30]
     });
 

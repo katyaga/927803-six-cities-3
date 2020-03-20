@@ -97,7 +97,8 @@ exports[`Should OfferList render correctly 1`] = `
         onClick={[Function]}
       >
         <a
-          href="#"
+          href="/offer/1"
+          onClick={[Function]}
         >
           apartment1
         </a>
@@ -202,7 +203,8 @@ exports[`Should OfferList render correctly 1`] = `
         onClick={[Function]}
       >
         <a
-          href="#"
+          href="/offer/2"
+          onClick={[Function]}
         >
           apartment2
         </a>
@@ -307,7 +309,8 @@ exports[`Should OfferList render correctly 1`] = `
         onClick={[Function]}
       >
         <a
-          href="#"
+          href="/offer/3"
+          onClick={[Function]}
         >
           apartment3
         </a>
