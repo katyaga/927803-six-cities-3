@@ -1,4 +1,6 @@
-import {adapterUser} from "../../utils";
+import {adapterUser, getUrlParam} from "../../utils";
+import history from "../../history.js";
+import {AppRoute} from "../../const";
 
 const AuthorizationStatus = {
   AUTH: `AUTH`,
@@ -65,7 +67,8 @@ const Operation = {
       .then((response) => {
         dispatch(ActionCreator.setUser(adapterUser(response.data)));
         dispatch(ActionCreator.requireAuthorization(AuthorizationStatus.AUTH));
-
+        getUrlParam(`next`);
+        history.push(getUrlParam(`next`) || AppRoute.ROOT);
       })
       .catch((err) => {
         throw err;

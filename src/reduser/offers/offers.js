@@ -128,7 +128,7 @@ const Operation = {
       })
       .catch((error) => {
         if (error.response.status === Error.UNAUTHORIZED) {
-          return history.push(AppRoute.LOGIN);
+          return history.push(AppRoute.LOGIN + `?next=${window.location.pathname}`);
         } else {
           throw error;
         }
