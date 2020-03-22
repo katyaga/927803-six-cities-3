@@ -131,3 +131,8 @@ export const replaceOffer = (offer, offers) => {
   return [].concat(offers.slice(0, index), offer, offers.slice(index + 1));
 };
 
+export const getUrlParam = (param) => {
+  const urlParams = new URLSearchParams(window.location.search);
+  return urlParams.get(param);
+};
+
