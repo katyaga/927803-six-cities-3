@@ -96,6 +96,7 @@ it(`Render App`, () => {
         },
       ],
       sortType: `PRICE_UP`,
+      favoritesOffers: [],
     },
     [NameSpace.USER]: {
       authorizationStatus,

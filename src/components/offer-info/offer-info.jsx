@@ -1,6 +1,6 @@
 import React, {PureComponent, Fragment} from "react";
 import PropTypes from "prop-types";
-import {REALTY_TYPES} from "../../const";
+import {OffersType, REALTY_TYPES} from "../../const";
 import Reviews from "../reviews/reviews.jsx";
 import Map from "../map/map.jsx";
 import OfferList from "../offer-list/offer-list.jsx";
@@ -171,7 +171,7 @@ class OfferInfo extends PureComponent {
 
                 <OfferList
                   offers={nearbyOffersList}
-                  isNearPlaces={true} />
+                  type={OffersType.NEAR_PLACES} />
               </section>
             </div>
           </main>
@@ -219,7 +219,8 @@ const mapStateToProps = (state) => ({
 const mapDispatchToProps = (dispatch) => ({
   onFavoritesClick(id, isFavorites) {
     isFavorites = isFavorites ? 1 : 0;
-    return dispatch(Operation.changeFavoritesOffer(id, isFavorites));
+    dispatch(Operation.changeFavoritesOffer(id, isFavorites));
+    dispatch(Operation.loadFavoritesOffers());
   },
 });
 

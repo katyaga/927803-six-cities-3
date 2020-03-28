@@ -5,6 +5,13 @@ import {ActionCreator, Operation} from "../../reduser/offers/offers";
 import {connect} from "react-redux";
 import {sortOffers} from "../../utils";
 import {getSortType} from "../../reduser/offers/selector";
+import {OffersType} from "../../const";
+
+const classNames = {
+  Default: `cities__places-list tabs__content places__list`,
+  NearPlaces: `near-places__list tabs__content places__list`,
+  Favorites: `favorites__places`,
+};
 
 class OfferList extends PureComponent {
   constructor(props) {
@@ -12,19 +19,19 @@ class OfferList extends PureComponent {
   }
 
   render() {
-    const {sortType, offers, onCardTitleClick, isNearPlaces, onCardHover} = this.props;
+    const {sortType, offers, onCardTitleClick, type, onCardHover} = this.props;
 
     const sortedOffers = sortOffers(sortType, offers);
 
     return (
-      <div className={`${isNearPlaces ? `near-places__list tabs__content` : `cities__places-list tabs__content`} places__list`}>
+      <div className={classNames[type]}>
         {sortedOffers.map((offer, i) => (
           <OfferCard
             key={i}
             onHover={onCardHover}
             onCardTitleClick={onCardTitleClick}
             offer={offer}
-            isNearPlace={isNearPlaces}
+            offersType={type}
           />)
         )}
       </div>
@@ -35,12 +42,11 @@ class OfferList extends PureComponent {
 OfferList.propTypes = {
   onCardTitleClick: PropTypes.func.isRequired,
   offers: PropTypes.array.isRequired,
-  isNearPlaces: PropTypes.bool.isRequired,
+  type: PropTypes.oneOf(Object.values(OffersType)).isRequired,
   onCardHover: PropTypes.func.isRequired,
   sortType: PropTypes.string.isRequired,
 };
 
-// export default OfferList;
 const mapStateToProps = (state) => ({
   sortType: getSortType(state),
 });

@@ -66,6 +66,12 @@ const ActionCreator = {
       payload: offers,
     };
   },
+  loadFavoritesOffers: (offers) => {
+    return {
+      type: ActionType.LOAD_FAVORITES_OFFERS,
+      payload: offers,
+    };
+  },
   changeFavoritesOffer: (offer) => {
     return {
       type: ActionType.REPLACE_OFFER,
@@ -76,6 +82,7 @@ const ActionCreator = {
 
 const ActionType = {
   LOAD_OFFERS: `LOAD_OFFERS`,
+  LOAD_FAVORITES_OFFERS: `LOAD_FAVORITES_OFFERS`,
   SET_CITIES: `SET_CITIES`,
   SET_CITY: `SET_CITY`,
   SET_OFFERS: `SET_OFFERS`,
@@ -120,6 +127,13 @@ const Operation = {
       .then((response) => {
         dispatch(ActionCreator.setNearbyOffers(response.data.map((offer) => offer.id)));
       });
+  },
+  loadFavoritesOffers: () => (dispatch, getState, api) => {
+    return api.get(`/favorite`)
+        .then((response) => {
+          const offers = adapterOffers(response.data);
+          dispatch(ActionCreator.loadFavoritesOffers(offers));
+        });
   },
   changeFavoritesOffer: (id, isFavorite) => (dispatch, getState, api) => {
     return api.post(`/favorite/${id}/${isFavorite}`)
@@ -191,6 +205,11 @@ const reducer = (state = initialState, action) => {
     case ActionType.REPLACE_OFFER:
       return extend(state, {
         cityOffers: replaceOffer(action.payload, state.cityOffers),
+      });
+
+    case ActionType.LOAD_FAVORITES_OFFERS:
+      return extend(state, {
+        favoritesOffers: action.payload,
       });
   }
 

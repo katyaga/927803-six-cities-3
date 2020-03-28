@@ -2,6 +2,7 @@ import React from "react";
 import Enzyme, {shallow} from "enzyme";
 import Adapter from "enzyme-adapter-react-16";
 import OfferCard from "./offer-card";
+import {OffersType} from "../../const";
 
 Enzyme.configure({
   adapter: new Adapter(),
@@ -36,7 +37,7 @@ it(`Should onHover get active card`, () => {
           onCardHover(MockOffer);
         }}
         onCardTitleClick={() => {}}
-        isNearPlace={false}
+        offersType={OffersType.NEAR_PLACES}
       />
   );
 
@@ -57,7 +58,7 @@ it(`Should click on title get current card info`, () => {
         offer={MockOffer}
         onHover={() => {}}
         onCardTitleClick={() => onTitleClick(MockOffer)}
-        isNearPlace={false}
+        offersType={OffersType.DEFAULT}
       />
   );
 

@@ -3,7 +3,7 @@ const MomentLocalesPlugin = require(`moment-locales-webpack-plugin`);
 
 module.exports = {
   plugins: [
-// Оставляем только одну локаль.
+    // Оставляем только одну локаль.
     new MomentLocalesPlugin({
       localesToKeep: [`ru`],
     }),
@@ -11,7 +11,8 @@ module.exports = {
   entry: `./src/index.js`,
   output: {
     filename: `bundle.js`,
-    path: path.join(__dirname, `public`)
+    path: path.join(__dirname, `public`),
+    publicPath: `/`
   },
   devServer: {
     contentBase: path.join(__dirname, `public`),

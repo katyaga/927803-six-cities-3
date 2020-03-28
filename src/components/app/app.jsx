@@ -12,7 +12,8 @@ import {
   getCity,
   getCityOffers,
   getSelectedTitleId,
-  getSortType
+  getSortType,
+  getFavoritesOffers
 } from "../../reduser/offers/selector";
 import {getAuthorizationStatus} from "../../reduser/user/selectors";
 import history from "../../history.js";
@@ -21,7 +22,7 @@ import Favorites from "../favorites/favorites.jsx";
 
 class App extends PureComponent {
   render() {
-    const {cityOffers, selectedTitleId, city, login, sortType, onSortTypeClick} = this.props;
+    const {cityOffers, selectedTitleId, city, login, sortType, onSortTypeClick, favoritesOffers} = this.props;
     const selectedCard = cityOffers.find((offer) => offer.id === selectedTitleId);
 
     return (
@@ -53,7 +54,7 @@ class App extends PureComponent {
             path={AppRoute.FAVORITES}
             render={() => {
               return (
-                <Favorites/>
+                <Favorites offers={favoritesOffers}/>
               );
             }}
           />
@@ -66,6 +67,7 @@ class App extends PureComponent {
 App.propTypes = {
   login: PropTypes.func.isRequired,
   cityOffers: PropTypes.array.isRequired,
+  favoritesOffers: PropTypes.array.isRequired,
   city: PropTypes.string.isRequired,
   selectedTitleId: PropTypes.number,
   sortType: PropTypes.string.isRequired,
@@ -76,6 +78,7 @@ App.propTypes = {
 const mapStateToProps = (state) => ({
   city: getCity(state),
   cityOffers: getCityOffers(state),
+  favoritesOffers: getFavoritesOffers(state),
   selectedTitleId: getSelectedTitleId(state),
   sortType: getSortType(state),
   authorizationStatus: getAuthorizationStatus(state),
