@@ -3,6 +3,7 @@ import renderer from "react-test-renderer";
 import {Router} from "react-router-dom";
 import OfferCard from "./offer-card";
 import history from "../../history.js";
+import {OffersType} from "../../const";
 
 const MockOffer = {
   id: 1,
@@ -29,7 +30,7 @@ it(`Should OfferCard render correctly`, () => {
             offer={MockOffer}
             onHover={() => {}}
             onCardTitleClick={() => {}}
-            isNearPlace={false}
+            offersType={OffersType.NEAR_PLACES}
           />
         </Router>)
     .toJSON();

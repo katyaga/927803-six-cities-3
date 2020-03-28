@@ -27,3 +27,9 @@ export const Error = {
   UNAUTHORIZED: 401
 };
 
+export const OffersType = {
+  DEFAULT: `Default`,
+  NEAR_PLACES: `NearPlaces`,
+  FAVORITES: `Favorites`,
+};
+

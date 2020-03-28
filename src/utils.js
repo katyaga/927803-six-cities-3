@@ -116,6 +116,9 @@ export const sortOffers = (sortType, offers) => {
 };
 
 export const getCityList = (offers) => {
+  if (offers.length < 1) {
+    return [];
+  }
   const cities = offers.map((offer) => offer.city);
   const uniqCities = uniqBy(cities, `name`);
   return Array.from(uniqCities).sort();
@@ -129,5 +132,24 @@ export const replaceOffer = (offer, offers) => {
   }
 
   return [].concat(offers.slice(0, index), offer, offers.slice(index + 1));
+};
+
+export const getUrlParam = (param) => {
+  const urlParams = new URLSearchParams(window.location.search);
+  return urlParams.get(param);
+};
+
+export const getFavoriteOffers = (offers) => {
+  if (offers.length < 1) {
+    return offers;
+  }
+  const cities = getCityList(offers);
+  return cities.map((city) => {
+    const cityOffers = getCityOffers(city.name, offers);
+    return {
+      city: city.name,
+      offers: cityOffers
+    };
+  });
 };
 

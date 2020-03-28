@@ -2,7 +2,25 @@ import React, {PureComponent} from "react";
 import PropTypes from "prop-types";
 import {Link} from "react-router-dom";
 import {REALTY_TYPES} from "../../const.js";
-import {AppRoute} from "../../const";
+import {AppRoute, OffersType} from "../../const";
+
+const classNames = {
+  Default: {
+    card: `cities__place-card place-card`,
+    wrap: `cities__image-wrapper place-card__image-wrapper`,
+    info: `place-card__info`,
+  },
+  NearPlaces: {
+    card: `near-places__card place-card`,
+    wrap: `near-places__image-wrapper place-card__image-wrapper`,
+    info: `place-card__info`,
+  },
+  Favorites: {
+    card: `favorites__card place-card`,
+    wrap: `favorites__image-wrapper place-card__image-wrapper`,
+    info: `favorites__card-info place-card__info`,
+  },
+};
 
 class OfferCard extends PureComponent {
   constructor(props) {
@@ -10,14 +28,14 @@ class OfferCard extends PureComponent {
   }
 
   render() {
-    const {onHover, onCardTitleClick, offer, isNearPlace} = this.props;
+    const {onHover, onCardTitleClick, offer, offersType} = this.props;
     const {id, isPremium, images, price, title, type, rating, isFavorites} = offer;
     const starRating = {
       width: `${rating * 20}%`,
     };
 
     return (
-      <article className={`${isNearPlace ? `near-places__card` : `cities__place-card`} place-card`}
+      <article className={classNames[offersType].card}
         onMouseEnter={() => {
           onHover(offer.id);
         }}
@@ -27,13 +45,13 @@ class OfferCard extends PureComponent {
         {isPremium ? <div className="place-card__mark">
           <span>Premium</span>
         </div> : ``}
-        <div className="cities__image-wrapper place-card__image-wrapper">
+        <div className={classNames[offersType].wrap}>
           <a href="#">
             <img className="place-card__image" src={images[0]} width="260" height="200"
               alt="Place image"/>
           </a>
         </div>
-        <div className="place-card__info">
+        <div className={classNames[offersType].info}>
           <div className="place-card__price-wrapper">
             <div className="place-card__price">
               <b className="place-card__price-value">&euro;{price}</b>
@@ -78,7 +96,7 @@ OfferCard.propTypes = {
     type: PropTypes.oneOf(REALTY_TYPES).isRequired,
     isFavorites: PropTypes.bool.isRequired,
   }).isRequired,
-  isNearPlace: PropTypes.bool.isRequired,
+  offersType: PropTypes.oneOf(Object.values(OffersType)).isRequired,
 };
 
 export default OfferCard;

@@ -13,6 +13,10 @@ export const getCityOffers = (state) => {
   return state[NameSpace.OFFERS].cityOffers;
 };
 
+export const getFavoritesOffers = (state) => {
+  return state[NameSpace.OFFERS].favoritesOffers;
+};
+
 export const getSelectedTitleId = (state) => {
   return state[NameSpace.OFFERS].selectedTitleId;
 };

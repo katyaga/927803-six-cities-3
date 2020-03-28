@@ -696,7 +696,7 @@ exports[`Should OfferInfo render correctly 1`] = `
               </span>
             </div>
             <div
-              className="cities__image-wrapper place-card__image-wrapper"
+              className="near-places__image-wrapper place-card__image-wrapper"
             >
               <a
                 href="#"
@@ -802,7 +802,7 @@ exports[`Should OfferInfo render correctly 1`] = `
               </span>
             </div>
             <div
-              className="cities__image-wrapper place-card__image-wrapper"
+              className="near-places__image-wrapper place-card__image-wrapper"
             >
               <a
                 href="#"

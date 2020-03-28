@@ -6,6 +6,7 @@ import Cities from "../cities/cities.jsx";
 import WithoutOffers from "../without-offers/without-offers.jsx";
 import Sorting from "../sorting/sorting.jsx";
 import Header from "../header/header.jsx";
+import {OffersType} from "../../const";
 
 class Main extends PureComponent {
   constructor(props) {
@@ -37,7 +38,7 @@ class Main extends PureComponent {
                     onSortTypeClick={onSortTypeClick}/>
                   <OfferList
                     offers={offers}
-                    isNearPlaces={false} />
+                    type={OffersType.DEFAULT} />
                 </section>
                 <div className="cities__right-section">
                   <section className="cities__map map">

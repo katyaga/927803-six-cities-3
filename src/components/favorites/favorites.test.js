@@ -2,17 +2,33 @@ import React from "react";
 import renderer from "react-test-renderer";
 import {Provider} from "react-redux";
 import configureStore from "redux-mock-store";
-import {Router} from "react-router-dom";
-import OfferList from "./offer-list";
+import Favorites from "./favorites.jsx";
 import NameSpace from "../../reduser/name-space";
-import history from "../../history.js";
-import {OffersType} from "../../const";
+import {Router} from "react-router-dom";
+import history from "../../history";
 
 const mockStore = configureStore([]);
+
+const user = {
+  avatarUrl: `img/1.png`,
+  email: `Oliver.conner@gmail.com`,
+  id: 10,
+  isSuper: true,
+  name: `Oliver.conner`,
+};
+
+const authorizationStatus = `AUTH`;
 
 const MockOffers = [
   {
     id: 1,
+    city: {
+      location: {
+        coordinates: [52.3, 4.8],
+        zoom: 8,
+      },
+      name: `Amsterdam`,
+    },
     isPremium: true,
     images: [
       `img/apartment-01.jpg`,
@@ -27,6 +43,13 @@ const MockOffers = [
   },
   {
     id: 2,
+    city: {
+      location: {
+        coordinates: [52.3, 4.8],
+        zoom: 8,
+      },
+      name: `Amsterdam`,
+    },
     isPremium: true,
     images: [
       `img/apartment-01.jpg`,
@@ -41,6 +64,13 @@ const MockOffers = [
   },
   {
     id: 3,
+    city: {
+      location: {
+        coordinates: [52.3, 4.8],
+        zoom: 8,
+      },
+      name: `Cologne`,
+    },
     isPremium: true,
     images: [
       `img/apartment-01.jpg`,
@@ -52,14 +82,19 @@ const MockOffers = [
     type: `hotel`,
     rating: 4,
     isFavorites: false,
-  },
+  }
 ];
 
 it(`Should OfferList render correctly`, () => {
   const store = mockStore({
     [NameSpace.OFFERS]: {
-      sortType: `PRICE_UP`
-    }
+      favoritesOffers: MockOffers,
+      sortType: `PRICE_UP`,
+    },
+    [NameSpace.USER]: {
+      authorizationStatus,
+      user,
+    },
   });
   const tree = renderer
     .create(
@@ -67,9 +102,8 @@ it(`Should OfferList render correctly`, () => {
           <Router
             history={history}
           >
-            <OfferList
+            <Favorites
               offers={MockOffers}
-              type={OffersType.NEAR_PLACES}
             />
           </Router>
         </Provider>)
