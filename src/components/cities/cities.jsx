@@ -6,7 +6,7 @@ import City from "../city/city.jsx";
 import {getCities} from "../../reduser/offers/selector";
 
 const Cities = (props) => {
-  const {cities, city, handleCityClick} = props;
+  const {cities, city, onCityClick} = props;
 
   return (
     <ul className="locations__list tabs__list">
@@ -15,7 +15,7 @@ const Cities = (props) => {
           key={i}
           activeCity={city}
           city={item.name}
-          handleCityClick={handleCityClick} />
+          onCityClick={onCityClick} />
       ))}
     </ul>
   );
@@ -24,7 +24,7 @@ const Cities = (props) => {
 Cities.propTypes = {
   cities: PropTypes.arrayOf(PropTypes.object).isRequired,
   city: PropTypes.string.isRequired,
-  handleCityClick: PropTypes.func,
+  onCityClick: PropTypes.func,
 };
 
 const mapStateToProps = (state) => ({
@@ -32,7 +32,7 @@ const mapStateToProps = (state) => ({
 });
 
 const mapDispatchToProps = (dispatch) => ({
-  handleCityClick(city) {
+  onCityClick(city) {
     dispatch(ActionCreator.setCity(city));
     dispatch(ActionCreator.setOffers());
   },

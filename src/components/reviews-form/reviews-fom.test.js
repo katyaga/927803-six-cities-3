@@ -27,8 +27,6 @@ it(`Should ReviewsForm render correctly`, () => {
             comment={Mocks.comment}
             isBlockButton={Mocks.isBlockButton}
             isBlockForm={Mocks.isBlockForm}
-            // onFormSubmit={() => {}}
-            handleFormButton={() => {}}
             setHocState={() => {}}
             selectedTitleId={Mocks.selectedTitleId}
           />

@@ -13,7 +13,7 @@ it(`Should Review render correctly`, () => {
       key={2}
       activeCity={MockData.activeCity}
       city={MockData.city}
-      handleCityClick={() => {}}
+      onCityClick={() => {}}
     />)
     .toJSON();
 

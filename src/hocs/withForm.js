@@ -14,13 +14,18 @@ const withForm = (Component) => {
       };
 
       this.changeFormButton = this.changeFormButton.bind(this);
+      this.changeFormData = this.changeFormData.bind(this);
     }
 
     changeFormButton() {
-      const isBlockButton = () => {
-        return (!this.state.rating || this.state.comment.length < 50);
-      };
-      this.setState({isBlockButton: isBlockButton()});
+      const buttonBlocked = !this.state.rating || this.state.comment.length < 50;
+      this.setState({isBlockButton: buttonBlocked});
+    }
+
+    changeFormData(data) {
+      this.setState(data, () => {
+        this.changeFormButton(); // when state already set
+      });
     }
 
     render() {
@@ -30,7 +35,7 @@ const withForm = (Component) => {
         {...this.props}
         rating={rating}
         comment={comment}
-        setHocState={this.setState.bind(this)}
+        setHocState={this.changeFormData}
         isBlockButton={isBlockButton}
         isBlockForm={isBlockForm}
         handleFormButton={this.changeFormButton}

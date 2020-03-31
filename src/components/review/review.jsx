@@ -2,11 +2,15 @@ import React from "react";
 import PropTypes from "prop-types";
 import {formatMonthYear, formatDate} from "../../utils";
 
+const maxStarRating = 5;
+
 const Review = (props) => {
   const {comment} = props;
   const {authorAvatar, authorName, rating, text, date} = comment;
+
+  const starRatingInPercent = 100 / maxStarRating;
   const starRating = {
-    width: `${rating * 20}%`,
+    width: `${rating * starRatingInPercent}%`,
   };
 
   return (

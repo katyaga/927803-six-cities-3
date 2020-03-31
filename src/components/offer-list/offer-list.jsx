@@ -19,7 +19,7 @@ class OfferList extends PureComponent {
   }
 
   render() {
-    const {sortType, offers, onCardTitleClick, type, onCardHover} = this.props;
+    const {sortType, offers, onCardTitleClick, type, onCardHover, onFavoritesClick} = this.props;
 
     const sortedOffers = sortOffers(sortType, offers);
 
@@ -30,6 +30,7 @@ class OfferList extends PureComponent {
             key={i}
             onHover={onCardHover}
             onCardTitleClick={onCardTitleClick}
+            onFavoritesClick={onFavoritesClick}
             offer={offer}
             offersType={type}
           />)
@@ -44,6 +45,7 @@ OfferList.propTypes = {
   offers: PropTypes.array.isRequired,
   type: PropTypes.oneOf(Object.values(OffersType)).isRequired,
   onCardHover: PropTypes.func.isRequired,
+  onFavoritesClick: PropTypes.func.isRequired,
   sortType: PropTypes.string.isRequired,
 };
 
@@ -59,6 +61,11 @@ const mapDispatchToProps = (dispatch) => ({
   },
   onCardHover(card) {
     dispatch(ActionCreator.setHoveredCardId(card));
+  },
+  onFavoritesClick(id, isFavorites) {
+    isFavorites = isFavorites ? 1 : 0;
+    dispatch(Operation.changeFavoritesOffer(id, isFavorites));
+    dispatch(Operation.loadFavoritesOffers());
   },
 });
 

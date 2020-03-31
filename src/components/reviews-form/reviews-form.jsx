@@ -10,7 +10,6 @@ class ReviewsForm extends PureComponent {
 
     this.rating = this.props.rating;
     this.comment = this.props.comment;
-    this._changeFormButton = this.props.handleFormButton;
     this.setHOCState = this.props.setHocState;
 
     this._onSubmit = this._onSubmit.bind(this);
@@ -38,9 +37,7 @@ class ReviewsForm extends PureComponent {
         comment: ``,
         isBlockForm: false
       });
-
-    }).catch(() => {
-    });
+    }).catch(() => {});
   }
 
   _onInputCheck(evt) {
@@ -49,7 +46,6 @@ class ReviewsForm extends PureComponent {
     this.setHOCState({
       rating: this.rating,
     });
-    this._changeFormButton();
   }
 
   _onTextChange(evt) {
@@ -58,7 +54,6 @@ class ReviewsForm extends PureComponent {
     this.setHOCState({
       comment: this.comment,
     });
-    this._changeFormButton();
   }
 
   render() {
@@ -88,9 +83,11 @@ class ReviewsForm extends PureComponent {
           ))}
 
         </div>
+
         <textarea className="reviews__textarea form__textarea" id="review" name="review" value={comment} disabled={isBlockForm}
           placeholder="Tell how was your stay, what you like and what can be improved" onChange={this._onTextChange} maxLength={300}>
         </textarea>
+
         <div className="reviews__button-wrapper">
           <p className="reviews__help">
             To submit review please make sure to set <span className="reviews__star">rating</span>
@@ -109,7 +106,6 @@ ReviewsForm.propTypes = {
   isBlockButton: PropTypes.bool.isRequired,
   isBlockForm: PropTypes.bool.isRequired,
   onFormSubmit: PropTypes.func.isRequired,
-  handleFormButton: PropTypes.func.isRequired,
   setHocState: PropTypes.func.isRequired,
   selectedTitleId: PropTypes.number.isRequired,
 };

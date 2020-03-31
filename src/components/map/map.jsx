@@ -5,6 +5,7 @@ import leaflet from "leaflet";
 import {getCities, getHoveredCardId} from "../../reduser/offers/selector";
 
 const defaultZoom = 8;
+const pinSize = [20, 30];
 
 class Map extends (PureComponent) {
   constructor(props) {
@@ -55,7 +56,7 @@ class Map extends (PureComponent) {
 
   _fillMap() {
     const {city, cities, offers, activeOffer, hoveredCardId} = this.props;
-    const cityProperties = cities.find((x) => x.name === city);
+    const cityProperties = cities.find((currentCity) => currentCity.name === city);
     const cityCoordinates = cityProperties.location.coordinates;
     const cityZoom = cityProperties.location.zoom;
 
@@ -63,12 +64,12 @@ class Map extends (PureComponent) {
 
     const icon = leaflet.icon({
       iconUrl: `/img/pin.svg`,
-      iconSize: [20, 30]
+      iconSize: pinSize,
     });
 
     const activeIcon = leaflet.icon({
       iconUrl: `/img/pin-active.svg`,
-      iconSize: [20, 30]
+      iconSize: pinSize
     });
 
     let markerIcon = icon;

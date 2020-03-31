@@ -25,6 +25,15 @@ const classNames = {
 class OfferCard extends PureComponent {
   constructor(props) {
     super(props);
+
+    this.isFavorites = this.props.offer.isFavorites;
+    this._onBookmarkButtonClick = this._onBookmarkButtonClick.bind(this);
+  }
+
+  _onBookmarkButtonClick() {
+    const {onFavoritesClick, offer} = this.props;
+    this.isFavorites = !this.isFavorites;
+    onFavoritesClick(offer.id, this.isFavorites);
   }
 
   render() {
@@ -58,7 +67,7 @@ class OfferCard extends PureComponent {
               <span className="place-card__price-text">&#47;&nbsp;night</span>
             </div>
             <button className={`place-card__bookmark-button ${isFavorites ? `place-card__bookmark-button--active` : ``} button`}
-              type="button">
+              type="button" onClick={this._onBookmarkButtonClick}>
               <svg className="place-card__bookmark-icon" width="18" height="19">
                 <use xlinkHref="#icon-bookmark"></use>
               </svg>
@@ -86,6 +95,7 @@ class OfferCard extends PureComponent {
 OfferCard.propTypes = {
   onHover: PropTypes.func.isRequired,
   onCardTitleClick: PropTypes.func.isRequired,
+  onFavoritesClick: PropTypes.func.isRequired,
   offer: PropTypes.shape({
     id: PropTypes.number.isRequired,
     isPremium: PropTypes.bool.isRequired,
