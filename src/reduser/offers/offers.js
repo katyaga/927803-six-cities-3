@@ -1,4 +1,4 @@
-import {extend, getCityOffers, getCityList} from "../../utils.js";
+import {extend, getCityList} from "../../utils.js";
 import {adapterComments, adapterOffer, adapterOffers, replaceOffer} from "../../utils";
 import {AppRoute, Error} from "../../const";
 import history from "../../history.js";
@@ -7,7 +7,6 @@ const initialState = {
   cities: [],
   offers: [],
   city: ``,
-  cityOffers: [],
   favoritesOffers: [],
   selectedTitleId: null,
   comments: [],
@@ -20,12 +19,6 @@ const ActionCreator = {
   loadOffers: (offers) => {
     return {
       type: ActionType.LOAD_OFFERS,
-      payload: offers,
-    };
-  },
-  loadCityOffers: (offers) => {
-    return {
-      type: ActionType.LOAD_CITY_OFFERS,
       payload: offers,
     };
   },
@@ -104,7 +97,6 @@ const Operation = {
         dispatch(ActionCreator.loadOffers(offers));
         dispatch(ActionCreator.setCities(getCityList(offers)));
         dispatch(ActionCreator.setCity(offers[0].city.name));
-        dispatch(ActionCreator.loadCityOffers(getCityOffers(offers[0].city.name, offers)));
       });
   },
   setComments: (id) => (dispatch, getState, api) => {
@@ -157,11 +149,6 @@ const reducer = (state = initialState, action) => {
         offers: action.payload,
       });
 
-    case ActionType.LOAD_CITY_OFFERS:
-      return extend(state, {
-        cityOffers: action.payload,
-      });
-
     case ActionType.SET_CITY:
       return extend(state, {
         city: action.payload,
@@ -172,13 +159,10 @@ const reducer = (state = initialState, action) => {
         cities: action.payload,
       });
 
-    case ActionType.SET_OFFERS:
-      return extend(state, {
-        cityOffers: getCityOffers(state.city, state.offers),
-      });
-
     case ActionType.SET_SELECTED_TITLE_ID:
       return extend(state, {
+        comments: initialState.comments,
+        nearbyOffers: initialState.nearbyOffers,
         selectedTitleId: action.payload,
       });
 
@@ -204,7 +188,7 @@ const reducer = (state = initialState, action) => {
 
     case ActionType.REPLACE_OFFER:
       return extend(state, {
-        cityOffers: replaceOffer(action.payload, state.cityOffers),
+        offers: replaceOffer(action.payload, state.offers),
       });
 
     case ActionType.LOAD_FAVORITES_OFFERS:

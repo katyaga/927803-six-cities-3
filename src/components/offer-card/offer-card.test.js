@@ -30,6 +30,7 @@ it(`Should OfferCard render correctly`, () => {
             offer={MockOffer}
             onHover={() => {}}
             onCardTitleClick={() => {}}
+            onFavoritesClick={() => {}}
             offersType={OffersType.NEAR_PLACES}
           />
         </Router>)

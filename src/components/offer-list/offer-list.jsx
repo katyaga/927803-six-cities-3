@@ -1,4 +1,4 @@
-import React, {PureComponent} from "react";
+import React from "react";
 import PropTypes from "prop-types";
 import OfferCard from "../offer-card/offer-card.jsx";
 import {ActionCreator, Operation} from "../../reduser/offers/offers";
@@ -13,32 +13,25 @@ const classNames = {
   Favorites: `favorites__places`,
 };
 
-class OfferList extends PureComponent {
-  constructor(props) {
-    super(props);
-  }
+const OfferList = React.memo(function OfferList(props) {
+  const {sortType, offers, onCardTitleClick, type, onCardHover, onFavoritesClick} = props;
+  const sortedOffers = sortOffers(sortType, offers);
 
-  render() {
-    const {sortType, offers, onCardTitleClick, type, onCardHover, onFavoritesClick} = this.props;
-
-    const sortedOffers = sortOffers(sortType, offers);
-
-    return (
-      <div className={classNames[type]}>
-        {sortedOffers.map((offer, i) => (
-          <OfferCard
-            key={i}
-            onHover={onCardHover}
-            onCardTitleClick={onCardTitleClick}
-            onFavoritesClick={onFavoritesClick}
-            offer={offer}
-            offersType={type}
-          />)
-        )}
-      </div>
-    );
-  }
-}
+  return (
+    <div className={classNames[type]}>
+      {sortedOffers.map((offer, i) => (
+        <OfferCard
+          key={i}
+          onHover={onCardHover}
+          onCardTitleClick={onCardTitleClick}
+          onFavoritesClick={onFavoritesClick}
+          offer={offer}
+          offersType={type}
+        />)
+      )}
+    </div>
+  );
+});
 
 OfferList.propTypes = {
   onCardTitleClick: PropTypes.func.isRequired,

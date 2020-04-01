@@ -5,6 +5,7 @@ import {Router} from "react-router-dom";
 import configureStore from "redux-mock-store";
 import PrivateRoute from "./private-route";
 import history from "../../history.js";
+import NameSpace from "../../reduser/name-space";
 
 const mockStore = configureStore([]);
 
@@ -14,7 +15,9 @@ const authorizationStatus = `AUTH`;
 
 it(`Should PrivateRoute render correctly`, () => {
   const store = mockStore({
-    authorizationStatus,
+    [NameSpace.USER]: {
+      authorizationStatus,
+    }
   });
 
   const tree = renderer

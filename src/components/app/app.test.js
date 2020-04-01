@@ -71,7 +71,7 @@ it(`Render App`, () => {
   const store = mockStore({
     [NameSpace.OFFERS]: {
       city: `Cologne`,
-      cityOffers: MockOffers,
+      offers: MockOffers,
       cities: [
         {
           name: `Amsterdam`,

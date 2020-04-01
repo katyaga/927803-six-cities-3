@@ -37,6 +37,7 @@ it(`Should onHover get active card`, () => {
           onCardHover(MockOffer);
         }}
         onCardTitleClick={() => {}}
+        onFavoritesClick={() => {}}
         offersType={OffersType.NEAR_PLACES}
       />
   );
@@ -58,6 +59,7 @@ it(`Should click on title get current card info`, () => {
         offer={MockOffer}
         onHover={() => {}}
         onCardTitleClick={() => onTitleClick(MockOffer)}
+        onFavoritesClick={() => {}}
         offersType={OffersType.DEFAULT}
       />
   );

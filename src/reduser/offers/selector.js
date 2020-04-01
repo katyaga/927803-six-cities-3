@@ -1,5 +1,5 @@
-// import {createSelector} from "reselect";
 import NameSpace from "../name-space.js";
+import {getCityOffersList} from "../../utils";
 
 export const getCities = (state) => {
   return state[NameSpace.OFFERS].cities;
@@ -10,7 +10,7 @@ export const getCity = (state) => {
 };
 
 export const getCityOffers = (state) => {
-  return state[NameSpace.OFFERS].cityOffers;
+  return getCityOffersList(state[NameSpace.OFFERS].city, state[NameSpace.OFFERS].offers);
 };
 
 export const getFavoritesOffers = (state) => {

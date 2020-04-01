@@ -1,4 +1,4 @@
-import React, {PureComponent} from "react";
+import React from "react";
 import PropTypes from "prop-types";
 import {Switch, Route, Router, Redirect} from "react-router-dom";
 import {connect} from "react-redux";
@@ -20,54 +20,52 @@ import history from "../../history.js";
 import {AppRoute} from "../../const.js";
 import Favorites from "../favorites/favorites.jsx";
 
-class App extends PureComponent {
-  render() {
-    const {cityOffers, selectedTitleId, city, login, sortType, onSortTypeClick, favoritesOffers, authorizationStatus} = this.props;
-    const selectedCard = cityOffers.find((offer) => offer.id === selectedTitleId);
+const App = React.memo(function App(props) {
 
-    return (
-      <Router
-        history={history}
-      >
-        <Switch>
-          <Route exact path={AppRoute.ROOT}>
-            <Main
-              city={city}
-              offersCount={cityOffers.length}
-              offers={cityOffers}
-              sortType={sortType}
-              onSortTypeClick={onSortTypeClick}
-            />
-          </Route>
-          <Route exact path={AppRoute.LOGIN} render={() => {
-            return (
-              authorizationStatus !== AuthorizationStatus.AUTH ?
-                <SingIn
-                  onSubmit={login}
-                  city={city}/> :
-                <Redirect to={AppRoute.ROOT}/>);
-          }}
-          >
-          </Route>
-          <Route exact path={AppRoute.getOffer(selectedTitleId)}>
-            <OfferInfo
-              offers={cityOffers}
-              offer={selectedCard} />
-          </Route>
-          <PrivateRoute
-            exact
-            path={AppRoute.FAVORITES}
-            render={() => {
-              return (
-                <Favorites offers={favoritesOffers}/>
-              );
-            }}
+  const {cityOffers, city, login, sortType, onSortTypeClick, favoritesOffers, authorizationStatus} = props;
+
+  return (
+    <Router
+      history={history}
+    >
+      <Switch>
+        <Route exact path={AppRoute.ROOT}>
+          <Main
+            city={city}
+            offersCount={cityOffers.length}
+            offers={cityOffers}
+            sortType={sortType}
+            onSortTypeClick={onSortTypeClick}
           />
-        </Switch>
-      </Router>
-    );
-  }
-}
+        </Route>
+        <Route exact path={AppRoute.LOGIN} render={() => {
+          return (
+            authorizationStatus !== AuthorizationStatus.AUTH ?
+              <SingIn
+                onSubmit={login}
+                city={city}/> :
+              <Redirect to={AppRoute.ROOT}/>);
+        }}
+        >
+        </Route>
+        <Route exact path={`${AppRoute.OFFER}/:id`}>
+          <OfferInfo
+            offers={cityOffers}
+          />
+        </Route>
+        <PrivateRoute
+          exact
+          path={AppRoute.FAVORITES}
+          render={() => {
+            return (
+              <Favorites offers={favoritesOffers}/>
+            );
+          }}
+        />
+      </Switch>
+    </Router>
+  );
+});
 
 App.propTypes = {
   login: PropTypes.func.isRequired,

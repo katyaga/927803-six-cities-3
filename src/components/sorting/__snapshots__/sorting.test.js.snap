@@ -13,7 +13,7 @@ exports[`Should Sorting render correctly 1`] = `
   </span>
   <span
     className="places__sorting-type"
-    tabIndex="0"
+    onClick={[Function]}
   >
     Price: low to high
     <svg
@@ -27,7 +27,7 @@ exports[`Should Sorting render correctly 1`] = `
     </svg>
   </span>
   <ul
-    className="places__options places__options--custom places__options--opened"
+    className="places__options places__options--custom"
   >
     <li
       className="places__option "

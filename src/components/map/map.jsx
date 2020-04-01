@@ -15,6 +15,46 @@ class Map extends (PureComponent) {
     this._map = null;
   }
 
+  _fillMap() {
+    const {city, cities, offers, activeOffer, hoveredCardId} = this.props;
+    const cityProperties = cities.find((currentCity) => currentCity.name === city);
+    const cityCoordinates = cityProperties.location.coordinates;
+    const cityZoom = cityProperties.location.zoom;
+
+    this._map.setView(cityCoordinates, cityZoom);
+
+    const icon = leaflet.icon({
+      iconUrl: `/img/pin.svg`,
+      iconSize: pinSize,
+    });
+
+    const activeIcon = leaflet.icon({
+      iconUrl: `/img/pin-active.svg`,
+      iconSize: pinSize
+    });
+
+    if (offers.length > 0) {
+      let markerIcon = icon;
+
+      offers.map((offer) => {
+        if (hoveredCardId && offer.id === hoveredCardId) {
+          markerIcon = activeIcon;
+        }
+        leaflet
+          .marker(offer.coordinates, {icon: markerIcon})
+          .addTo(this._map);
+
+        markerIcon = icon;
+      });
+    }
+
+    if (activeOffer) {
+      leaflet
+        .marker(activeOffer.coordinates, {icon: activeIcon})
+        .addTo(this._map);
+    }
+  }
+
   componentDidMount() {
     const _map = this._mapRef.current;
 
@@ -52,44 +92,6 @@ class Map extends (PureComponent) {
       <div id="map" ref={this._mapRef} style={{height: `100%`}}>
       </div>
     );
-  }
-
-  _fillMap() {
-    const {city, cities, offers, activeOffer, hoveredCardId} = this.props;
-    const cityProperties = cities.find((currentCity) => currentCity.name === city);
-    const cityCoordinates = cityProperties.location.coordinates;
-    const cityZoom = cityProperties.location.zoom;
-
-    this._map.setView(cityCoordinates, cityZoom);
-
-    const icon = leaflet.icon({
-      iconUrl: `/img/pin.svg`,
-      iconSize: pinSize,
-    });
-
-    const activeIcon = leaflet.icon({
-      iconUrl: `/img/pin-active.svg`,
-      iconSize: pinSize
-    });
-
-    let markerIcon = icon;
-
-    offers.map((offer) => {
-      if (hoveredCardId && offer.id === hoveredCardId) {
-        markerIcon = activeIcon;
-      }
-      leaflet
-        .marker(offer.coordinates, {icon: markerIcon})
-        .addTo(this._map);
-
-      markerIcon = icon;
-    });
-
-    if (activeOffer) {
-      leaflet
-        .marker(activeOffer.coordinates, {icon: activeIcon})
-        .addTo(this._map);
-    }
   }
 }
 

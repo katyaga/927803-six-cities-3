@@ -4,32 +4,58 @@ import {OffersType, REALTY_TYPES} from "../../const";
 import Reviews from "../reviews/reviews.jsx";
 import Map from "../map/map.jsx";
 import OfferList from "../offer-list/offer-list.jsx";
-import {getComments, getNearbyOffers} from "../../reduser/offers/selector";
+import {getComments, getNearbyOffers, getSelectedTitleId} from "../../reduser/offers/selector";
 import {connect} from "react-redux";
 import {getAuthorizationStatus} from "../../reduser/user/selectors";
 import ReviewsForm from "../reviews-form/reviews-form.jsx";
 import Header from "../header/header.jsx";
 import withForm from "../../hocs/withForm.js";
 import {Operation} from "../../reduser/offers/offers";
+import intersectionBy from 'lodash/intersectionBy';
 
 const FeedbackForm = withForm(ReviewsForm);
+
+const getNearbyList = (offers, nearbyOffers) => {
+  return intersectionBy(offers, nearbyOffers, (item) => {
+    if (typeof item === `object`) {
+      return item.id;
+    } else {
+      return item;
+    }
+  });
+};
 
 class OfferInfo extends PureComponent {
   constructor(props) {
     super(props);
 
-    this.isFavorites = this.props.offer.isFavorites;
     this._onBookmarkButtonClick = this._onBookmarkButtonClick.bind(this);
   }
 
   _onBookmarkButtonClick() {
-    const {onFavoritesClick, offer} = this.props;
+    const {onFavoritesClick, offerId} = this.props;
     this.isFavorites = !this.isFavorites;
-    onFavoritesClick(offer.id, this.isFavorites);
+    onFavoritesClick(offerId, this.isFavorites);
+  }
+
+  componentDidUpdate(prevProps) {
+    if (prevProps.offerId !== this.props.offerId) {
+      window.scrollTo({
+        top: 0,
+      });
+    }
   }
 
   render() {
-    const {authorizationStatus, offer, offers, comments, nearbyOffers} = this.props;
+    const {authorizationStatus, offerId, offers, comments, nearbyOffers} = this.props;
+    const offer = offers.find((currentOffer) => currentOffer.id === offerId);
+    this.isFavorites = offer.isFavorites;
+    const nearbyOffersList = getNearbyList(offers, nearbyOffers);
+
+    if (!offerId) {
+      return null;
+    }
+
     const {
       isPremium,
       images,
@@ -51,15 +77,6 @@ class OfferInfo extends PureComponent {
     const starRating = {
       width: `${rating * 20}%`,
     };
-
-    const nearbyOffersList = [];
-    if (nearbyOffers.length > 0) {
-      (nearbyOffers.slice(0, 3)).forEach((nearbyOffer) => {
-        if (offers.length > 1) {
-          nearbyOffersList.push(offers.find((item) => item.id === nearbyOffer));
-        }
-      });
-    }
 
     return (
       <Fragment>
@@ -148,12 +165,14 @@ class OfferInfo extends PureComponent {
                   </div>
                   <section className="property__reviews reviews">
                     <h2 className="reviews__title">Reviews &middot; <span className="reviews__amount">{comments.length}</span></h2>
-                    <Reviews
-                      comments={comments}
-                    />
+                    {comments.length < 1 ? `` :
+                      <Reviews
+                        comments={comments}
+                      />
+                    }
                     {authorizationStatus === `AUTH` ?
                       <FeedbackForm
-                        selectedTitleId={offer.id} /> : ``}
+                        selectedTitleId={offerId} /> : ``}
                   </section>
                 </div>
               </div>
@@ -168,10 +187,11 @@ class OfferInfo extends PureComponent {
             <div className="container">
               <section className="near-places places">
                 <h2 className="near-places__title">Other places in the neighbourhood</h2>
-
-                <OfferList
-                  offers={nearbyOffersList}
-                  type={OffersType.NEAR_PLACES} />
+                {nearbyOffersList.length < 1 ? `` :
+                  <OfferList
+                    offers={nearbyOffersList}
+                    type={OffersType.NEAR_PLACES} />
+                }
               </section>
             </div>
           </main>
@@ -183,28 +203,29 @@ class OfferInfo extends PureComponent {
 
 OfferInfo.propTypes = {
   authorizationStatus: PropTypes.string.isRequired,
-  offer: PropTypes.shape({
-    id: PropTypes.number.isRequired,
-    city: PropTypes.object.isRequired,
-    isPremium: PropTypes.bool.isRequired,
-    coordinates: PropTypes.arrayOf(PropTypes.number).isRequired,
-    images: PropTypes.arrayOf(PropTypes.string).isRequired,
-    price: PropTypes.number.isRequired,
-    title: PropTypes.string.isRequired,
-    rating: PropTypes.number.isRequired,
-    type: PropTypes.oneOf(REALTY_TYPES).isRequired,
-    description: PropTypes.string.isRequired,
-    bedroomsCount: PropTypes.number.isRequired,
-    guestsCount: PropTypes.number.isRequired,
-    facilities: PropTypes.array.isRequired,
-    host: PropTypes.shape({
-      avatar: PropTypes.string.isRequired,
-      name: PropTypes.string.isRequired,
-      isSuper: PropTypes.bool.isRequired,
-    }),
-    isFavorites: PropTypes.bool.isRequired,
-  }).isRequired,
-  offers: PropTypes.arrayOf(PropTypes.object).isRequired,
+  offerId: PropTypes.number.isRequired,
+  offers: PropTypes.arrayOf(
+      PropTypes.shape({
+        id: PropTypes.number.isRequired,
+        city: PropTypes.object.isRequired,
+        isPremium: PropTypes.bool.isRequired,
+        coordinates: PropTypes.arrayOf(PropTypes.number).isRequired,
+        images: PropTypes.arrayOf(PropTypes.string).isRequired,
+        price: PropTypes.number.isRequired,
+        title: PropTypes.string.isRequired,
+        rating: PropTypes.number.isRequired,
+        type: PropTypes.oneOf(REALTY_TYPES).isRequired,
+        description: PropTypes.string.isRequired,
+        bedroomsCount: PropTypes.number.isRequired,
+        guestsCount: PropTypes.number.isRequired,
+        facilities: PropTypes.array.isRequired,
+        host: PropTypes.shape({
+          avatar: PropTypes.string.isRequired,
+          name: PropTypes.string.isRequired,
+          isSuper: PropTypes.bool.isRequired,
+        }),
+        isFavorites: PropTypes.bool.isRequired,
+      })).isRequired,
   comments: PropTypes.arrayOf(PropTypes.object),
   nearbyOffers: PropTypes.arrayOf(PropTypes.number),
   onFavoritesClick: PropTypes.func.isRequired,
@@ -214,13 +235,14 @@ const mapStateToProps = (state) => ({
   authorizationStatus: getAuthorizationStatus(state),
   nearbyOffers: getNearbyOffers(state),
   comments: getComments(state),
+  offerId: getSelectedTitleId(state),
 });
 
 const mapDispatchToProps = (dispatch) => ({
   onFavoritesClick(id, isFavorites) {
     isFavorites = isFavorites ? 1 : 0;
-    dispatch(Operation.changeFavoritesOffer(id, isFavorites));
     dispatch(Operation.loadFavoritesOffers());
+    dispatch(Operation.changeFavoritesOffer(id, isFavorites));
   },
 });
 

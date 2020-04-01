@@ -26,7 +26,6 @@ class OfferCard extends PureComponent {
   constructor(props) {
     super(props);
 
-    this.isFavorites = this.props.offer.isFavorites;
     this._onBookmarkButtonClick = this._onBookmarkButtonClick.bind(this);
   }
 
@@ -38,6 +37,7 @@ class OfferCard extends PureComponent {
 
   render() {
     const {onHover, onCardTitleClick, offer, offersType} = this.props;
+    this.isFavorites = offer.isFavorites;
     const {id, isPremium, images, price, title, type, rating, isFavorites} = offer;
     const starRating = {
       width: `${rating * 20}%`,
@@ -83,7 +83,7 @@ class OfferCard extends PureComponent {
           <h2 className="place-card__name"
             onClick={() => onCardTitleClick(id)}
           >
-            <Link to={AppRoute.getOffer(id)}>{title}</Link>
+            <Link to={`${AppRoute.OFFER}/${id}`}>{title}</Link>
           </h2>
           <p className="place-card__type">{type}</p>
         </div>

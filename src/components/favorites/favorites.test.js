@@ -60,32 +60,11 @@ const MockOffers = [
     title: `apartment2`,
     type: `room`,
     rating: 3,
-    isFavorites: false,
+    isFavorites: true,
   },
-  {
-    id: 3,
-    city: {
-      location: {
-        coordinates: [52.3, 4.8],
-        zoom: 8,
-      },
-      name: `Cologne`,
-    },
-    isPremium: true,
-    images: [
-      `img/apartment-01.jpg`,
-      `img/apartment-02.jpg`,
-      `img/apartment-03.jpg`
-    ],
-    price: 30,
-    title: `apartment3`,
-    type: `hotel`,
-    rating: 4,
-    isFavorites: false,
-  }
 ];
 
-it(`Should OfferList render correctly`, () => {
+it(`Should Favorites render correctly`, () => {
   const store = mockStore({
     [NameSpace.OFFERS]: {
       favoritesOffers: MockOffers,

@@ -19,7 +19,8 @@ export const RATING_TITLES = [`perfect`, `good`, `not bad`, `badly`, `terribly`]
 export const AppRoute = {
   LOGIN: `/login`,
   FAVORITES: `/favorites`,
-  getOffer: (id) => `/offer/${id}`,
+  OFFER: `/offer`,
+  // getOffer: (id) => `/offer/${id}`,
   ROOT: `/`,
 };
 

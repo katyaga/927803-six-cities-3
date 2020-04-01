@@ -95,7 +95,6 @@ it(`Reducer without additional parameters should return initial state`, () => {
     cities: [],
     offers: [],
     city: ``,
-    cityOffers: [],
     favoritesOffers: [],
     selectedTitleId: null,
     comments: [],
@@ -128,7 +127,7 @@ describe(`Operation work correctly`, () => {
 
     return offersLoader(dispatch, () => {}, api)
       .then(() => {
-        expect(dispatch).toHaveBeenCalledTimes(4);
+        expect(dispatch).toHaveBeenCalledTimes(3);
 
         expect(dispatch).toHaveBeenNthCalledWith(1, {
           type: ActionType.LOAD_OFFERS,
@@ -149,11 +148,6 @@ describe(`Operation work correctly`, () => {
         expect(dispatch).toHaveBeenNthCalledWith(3, {
           type: ActionType.SET_CITY,
           payload: `Amsterdam`,
-        });
-
-        expect(dispatch).toHaveBeenNthCalledWith(4, {
-          type: ActionType.LOAD_CITY_OFFERS,
-          payload: adaptedOffersFromServer,
         });
       });
   });

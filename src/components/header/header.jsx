@@ -5,7 +5,7 @@ import {Link} from "react-router-dom";
 import {AppRoute} from "../../const.js";
 import {getAuthorizationStatus, getUser} from "../../reduser/user/selectors";
 
-const Header = (props) => {
+const Header = React.memo(function Header(props) {
   const {authorizationStatus, user} = props;
 
   return (
@@ -50,7 +50,7 @@ const Header = (props) => {
       </div>
     </header>
   );
-};
+});
 
 Header.propTypes = {
   authorizationStatus: PropTypes.string.isRequired,

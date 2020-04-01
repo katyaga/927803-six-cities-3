@@ -58,6 +58,7 @@ const MockOffers = [
 it(`Should OfferList render correctly`, () => {
   const store = mockStore({
     [NameSpace.OFFERS]: {
+      offers: MockOffers,
       sortType: `PRICE_UP`
     }
   });

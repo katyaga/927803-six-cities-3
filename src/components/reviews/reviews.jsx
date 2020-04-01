@@ -5,7 +5,7 @@ import orderBy from 'lodash/orderBy';
 
 const maxReviewsCount = 10;
 
-const Reviews = (props) => {
+const Reviews = React.memo(function Reviews(props) {
   const {comments} = props;
   return (
     <ul className="reviews__list">
@@ -17,7 +17,7 @@ const Reviews = (props) => {
       )}
     </ul>
   );
-};
+});
 
 Reviews.propTypes = {
   comments: PropTypes.arrayOf(PropTypes.object),

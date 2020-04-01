@@ -9,7 +9,7 @@ import FavoritesEmpty from "../favorites-empty/favorites-empty.jsx";
 import {getFavoriteOffers} from "../../utils";
 import {Link} from "react-router-dom";
 
-const Favorites = (props) => {
+const Favorites = React.memo(function Favorites(props) {
   const {offers} = props;
   let sortedOffers;
   if (offers.length > 0) {
@@ -54,7 +54,7 @@ const Favorites = (props) => {
       </footer>
     </div>
   );
-};
+});
 
 Favorites.propTypes = {
   offers: PropTypes.array.isRequired,

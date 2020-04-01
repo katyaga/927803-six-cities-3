@@ -4,7 +4,7 @@ import {formatMonthYear, formatDate} from "../../utils";
 
 const maxStarRating = 5;
 
-const Review = (props) => {
+const Review = React.memo(function Review(props) {
   const {comment} = props;
   const {authorAvatar, authorName, rating, text, date} = comment;
 
@@ -36,7 +36,7 @@ const Review = (props) => {
       </div>
     </li>
   );
-};
+});
 
 Review.propTypes = {
   comment: PropTypes.shape({

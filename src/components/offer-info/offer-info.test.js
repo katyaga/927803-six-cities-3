@@ -29,7 +29,20 @@ const MockOffers = [
     price: 20,
     title: `apartment2`,
     type: `room`,
+    description: `Description2`,
+    bedroomsCount: 2,
+    guestsCount: 5,
+    facilities: [
+      `Wifi`,
+      `Heating`,
+      `Kitchen`
+    ],
     rating: 3,
+    host: {
+      avatar: `img/avatar-max.jpg`,
+      name: `Den`,
+      isSuper: true,
+    },
     isFavorites: false,
   },
   {
@@ -51,46 +64,23 @@ const MockOffers = [
     price: 30,
     title: `apartment3`,
     type: `hotel`,
+    description: `Description3`,
+    bedroomsCount: 1,
+    guestsCount: 2,
+    facilities: [
+      `Wifi`,
+      `Heating`,
+      `Kitchen`
+    ],
     rating: 4,
+    host: {
+      avatar: `img/avatar-max.jpg`,
+      name: `Anna`,
+      isSuper: true,
+    },
     isFavorites: false,
   },
 ];
-
-const MockOffer = {
-  id: 1,
-  city: {
-    location: {
-      coordinates: [52.3, 4.8],
-      zoom: 8,
-    },
-    name: `Brussels`,
-  },
-  coordinates: [52.3, 4.8],
-  isPremium: true,
-  images: [
-    `img/apartment-01.jpg`,
-    `img/apartment-02.jpg`,
-    `img/apartment-03.jpg`
-  ],
-  price: 10,
-  title: `apartment1`,
-  type: `apartment`,
-  description: `Description`,
-  bedroomsCount: 10,
-  guestsCount: 3,
-  facilities: [
-    `Wifi`,
-    `Heating`,
-    `Kitchen`
-  ],
-  rating: 1,
-  host: {
-    avatar: `img/avatar-max.jpg`,
-    name: `Max`,
-    isSuper: true,
-  },
-  isFavorites: true,
-};
 
 const cities = [
   {
@@ -129,6 +119,7 @@ const authorizationStatus = `AUTH`;
 it(`Should OfferInfo render correctly`, () => {
   const store = mockStore({
     [NameSpace.OFFERS]: {
+      offers: MockOffers,
       cities,
       selectedTitleId: 2,
       sortType: `PRICE_UP`,
@@ -175,9 +166,7 @@ it(`Should OfferInfo render correctly`, () => {
             history={history}
           >
             <OfferInfo
-              offer={MockOffer}
               offers={MockOffers}
-              setOfferInfo={() => {}}
             />
           </Router>
         </Provider>, {

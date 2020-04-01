@@ -80,7 +80,7 @@ export const adapterUser = (user) => {
   );
 };
 
-export const getCityOffers = (city, offers) => {
+export const getCityOffersList = (city, offers) => {
   if (offers.length > 0) {
     return offers.filter((offer) => offer.city.name.toLowerCase() === city.toLowerCase());
   }
@@ -114,7 +114,7 @@ export const replaceOffer = (offer, offers) => {
   const index = offers.findIndex((currentOffer) => currentOffer.id === offer.id);
 
   if (index === -1) {
-    return false;
+    return offers;
   }
 
   return [].concat(offers.slice(0, index), offer, offers.slice(index + 1));
@@ -131,7 +131,7 @@ export const getFavoriteOffers = (offers) => {
   }
   const cities = getCityList(offers);
   return cities.map((city) => {
-    const cityOffers = getCityOffers(city.name, offers);
+    const cityOffers = getCityOffersList(city.name, offers);
     return {
       city: city.name,
       offers: cityOffers

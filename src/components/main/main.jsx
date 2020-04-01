@@ -1,4 +1,4 @@
-import React, {PureComponent} from "react";
+import React from "react";
 import PropTypes from "prop-types";
 import OfferList from "../offer-list/offer-list.jsx";
 import Map from "../map/map.jsx";
@@ -8,54 +8,48 @@ import Sorting from "../sorting/sorting.jsx";
 import Header from "../header/header.jsx";
 import {OffersType} from "../../const";
 
-class Main extends PureComponent {
-  constructor(props) {
-    super(props);
-  }
+const Main = React.memo(function Main(props) {
+  const {city, offersCount, offers, sortType, onSortTypeClick} = props;
 
-  render() {
-    const {city, offersCount, offers, sortType, onSortTypeClick} = this.props;
+  return (
+    <div className="page page--gray page--main">
+      <Header />
 
-    return (
-      <div className="page page--gray page--main">
-        <Header />
-
-        <main className={`page__main page__main--index ${offersCount < 1 ? `page__main--index-empty` : ``}`}>
-          <h1 className="visually-hidden">city</h1>
-          <div className="tabs">
-            <section className="locations container">
-              <Cities city={city}/>
-            </section>
-          </div>
-          <div className="cities">
-            {offersCount === 0 ? <WithoutOffers/> :
-              <div className="cities__places-container container">
-                <section className="cities__places places">
-                  <h2 className="visually-hidden">Places</h2>
-                  <b className="places__found">{offersCount} places to stay in {city}</b>
-                  <Sorting
-                    sortType={sortType}
-                    onSortTypeClick={onSortTypeClick}/>
-                  <OfferList
+      <main className={`page__main page__main--index ${offersCount < 1 ? `page__main--index-empty` : ``}`}>
+        <h1 className="visually-hidden">city</h1>
+        <div className="tabs">
+          <section className="locations container">
+            <Cities city={city}/>
+          </section>
+        </div>
+        <div className="cities">
+          {offersCount === 0 ? <WithoutOffers/> :
+            <div className="cities__places-container container">
+              <section className="cities__places places">
+                <h2 className="visually-hidden">Places</h2>
+                <b className="places__found">{offersCount} places to stay in {city}</b>
+                <Sorting
+                  sortType={sortType}
+                  onSortTypeClick={onSortTypeClick}/>
+                <OfferList
+                  offers={offers}
+                  type={OffersType.DEFAULT} />
+              </section>
+              <div className="cities__right-section">
+                <section className="cities__map map">
+                  <Map
                     offers={offers}
-                    type={OffersType.DEFAULT} />
+                    city={city}
+                  />
                 </section>
-                <div className="cities__right-section">
-                  <section className="cities__map map">
-                    <Map
-                      offers={offers}
-                      city={city}
-                    />
-                  </section>
-                </div>
               </div>
-            }
-          </div>
-        </main>
-      </div>
-    );
-  }
-}
+            </div>
+          }
+        </div>
+      </main>
+    </div>
+  );
+});
 
 Main.propTypes = {
   city: PropTypes.string.isRequired,
