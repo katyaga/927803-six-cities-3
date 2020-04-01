@@ -241,8 +241,8 @@ const mapStateToProps = (state) => ({
 const mapDispatchToProps = (dispatch) => ({
   onFavoritesClick(id, isFavorites) {
     isFavorites = isFavorites ? 1 : 0;
-    dispatch(Operation.loadFavoritesOffers());
     dispatch(Operation.changeFavoritesOffer(id, isFavorites));
+    dispatch(Operation.loadFavoritesOffers());
   },
 });
 
