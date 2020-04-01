@@ -15,6 +15,38 @@ class Map extends (PureComponent) {
     this._map = null;
   }
 
+  componentDidMount() {
+    const _map = this._mapRef.current;
+
+    this._map = leaflet.map(_map, {
+      defaultZoom,
+      zoomControl: false,
+      marker: true
+    });
+
+    leaflet
+      .tileLayer(`https://{s}.basemaps.cartocdn.com/rastertiles/voyager/{z}/{x}/{y}{r}.png`, {
+        attribution: `&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors &copy; <a href="https://carto.com/attributions">CARTO</a>`
+      })
+      .addTo(this._map);
+
+    this._fillMap();
+  }
+
+  componentDidUpdate() {
+    this._map.eachLayer((layer) => {
+      if (layer.options.icon) {
+        layer.remove();
+      }
+    });
+
+    this._fillMap();
+  }
+
+  componentWillUnmount() {
+    this._map = null;
+  }
+
   _fillMap() {
     const {city, cities, offers, activeOffer, hoveredCardId} = this.props;
     const cityProperties = cities.find((currentCity) => currentCity.name === city);
@@ -53,38 +85,6 @@ class Map extends (PureComponent) {
         .marker(activeOffer.coordinates, {icon: activeIcon})
         .addTo(this._map);
     }
-  }
-
-  componentDidMount() {
-    const _map = this._mapRef.current;
-
-    this._map = leaflet.map(_map, {
-      defaultZoom,
-      zoomControl: false,
-      marker: true
-    });
-
-    leaflet
-      .tileLayer(`https://{s}.basemaps.cartocdn.com/rastertiles/voyager/{z}/{x}/{y}{r}.png`, {
-        attribution: `&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors &copy; <a href="https://carto.com/attributions">CARTO</a>`
-      })
-      .addTo(this._map);
-
-    this._fillMap();
-  }
-
-  componentDidUpdate() {
-    this._map.eachLayer((layer) => {
-      if (layer.options.icon) {
-        layer.remove();
-      }
-    });
-
-    this._fillMap();
-  }
-
-  componentWillUnmount() {
-    this._map = null;
   }
 
   render() {

@@ -38,7 +38,6 @@ const withForm = (Component) => {
         setHocState={this.changeFormData}
         isBlockButton={isBlockButton}
         isBlockForm={isBlockForm}
-        handleFormButton={this.changeFormButton}
       />;
     }
   }
