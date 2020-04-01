@@ -38,7 +38,6 @@ class OfferCard extends PureComponent {
   render() {
     const {onHover, onCardTitleClick, offer, offersType} = this.props;
     this.isFavorites = offer.isFavorites;
-    console.log(this.isFavorites);
     const {id, isPremium, images, price, title, type, rating, isFavorites} = offer;
     const starRating = {
       width: `${rating * 20}%`,
